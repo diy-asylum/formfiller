@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,8 +37,15 @@ class i589FillerTest {
     void assertVersionIsCurrent() throws IOException, InterruptedException {
         // This code is functionally useless if it is out of sync with the current form
         String savedPdfSha = DigestUtils.sha256Hex(getCurrentFormFromResources());
-        String downloadedPdfSha = DigestUtils.sha256Hex(getCurrentFormFromWebsite());
-        assertEquals(savedPdfSha, downloadedPdfSha, "The website checksum matches what we support");
+        byte[] downloadedPdf = getCurrentFormFromWebsite();
+        String downloadedPdfSha = DigestUtils.sha256Hex(downloadedPdf);
+        assertEquals(savedPdfSha, downloadedPdfSha, "The website checksum does not match!");
+        Optional<String> extractedRevisionDate = I589Filler.fromi589PdfBytes(downloadedPdf).extractRevisionDate();
+        assertTrue(extractedRevisionDate.isPresent(), "Could not find the revision date");
+        assertEquals(
+                I589Filler.SUPPORTED_FORM_REVISION,
+                extractedRevisionDate.get()
+        );
     }
 
 }
