@@ -1,4 +1,6 @@
 # formfiler
+[![Build Status](https://travis-ci.org/diy-asylum/formfiller.svg?branch=master)](https://travis-ci.org/diy-asylum/formfiller)
+
 Mostly a spike repo for experimenting with filling in Asylum forms
 
 
