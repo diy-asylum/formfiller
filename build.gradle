@@ -24,6 +24,10 @@ dependencies {
     testCompile 'commons-codec:commons-codec:1.11'
 }
 
+jacoco {
+    toolVersion = "0.8.2"
+}
+
 jacocoTestReport {
     reports {
         xml.enabled true
