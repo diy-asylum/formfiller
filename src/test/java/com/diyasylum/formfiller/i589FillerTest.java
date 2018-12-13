@@ -9,7 +9,7 @@ class i589FillerTest {
     @Test
     void assertVersionIsCurrent() {
         // This code is functionally useless if it is out of sync with the current form
-        
+        assertEquals(1, 2);
     }
 
 }
