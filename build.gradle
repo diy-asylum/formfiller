@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id "com.diffplug.gradle.spotless" version "3.16.0"
 }
 
 group 'com.diyasylum'
@@ -41,6 +42,12 @@ jacocoTestCoverageVerification {
                 minimum = 0.8
             }
         }
+    }
+}
+
+spotless {
+    java {
+        googleJavaFormat()
     }
 }
 
