@@ -1,5 +1,7 @@
 package com.diyasylum.formfiller.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 
@@ -11,21 +13,21 @@ public class I589Field {
   private final FieldType fieldType;
 
   public static I589Field fromPdField(PDField field) {
-    return new I589FieldBuilder()
-        .setDescription(field.getAlternateFieldName())
-        .setAbsolutePath(field.getFullyQualifiedName())
-        .setRelativePath(field.getPartialName())
-        .setFieldType(FieldType.fromString(field.getFieldType()))
-        .setValue(null)
-        .createI589Field();
+    return new I589Field(
+        field.getAlternateFieldName(),
+        field.getFullyQualifiedName(),
+        field.getPartialName(),
+        FieldType.fromString(field.getFieldType()),
+        field.getValueAsString());
   }
 
-  I589Field(
-      String description,
-      String absolutePath,
-      String relativePath,
-      FieldType fieldType,
-      String value) {
+  @JsonCreator
+  public I589Field(
+      @JsonProperty("description") String description,
+      @JsonProperty("absolutePath") String absolutePath,
+      @JsonProperty("relativePath") String relativePath,
+      @JsonProperty("fieldType") FieldType fieldType,
+      @JsonProperty("value") String value) {
     this.description = description;
     this.absolutePath = absolutePath;
     this.relativePath = relativePath;
