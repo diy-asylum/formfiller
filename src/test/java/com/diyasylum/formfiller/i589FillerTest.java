@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.diyasylum.formfiller.models.FieldType;
 import com.diyasylum.formfiller.models.I589Field;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -26,13 +25,6 @@ import org.apache.pdfbox.pdmodel.interactive.form.*;
 import org.junit.jupiter.api.Test;
 
 class i589FillerTest {
-
-  private byte[] getCurrentFormFromResources() throws IOException {
-    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-    InputStream is = classloader.getResourceAsStream("i-589.pdf");
-    assertNotNull(is);
-    return is.readAllBytes();
-  }
 
   private byte[] getCurrentFormFromWebsite() throws IOException, InterruptedException {
     HttpClient client = HttpClient.newHttpClient();
@@ -82,7 +74,7 @@ class i589FillerTest {
   @Test
   void assertVersionIsCurrent() throws IOException, InterruptedException {
     // This code is functionally useless if it is out of sync with the current form
-    String savedPdfSha = DigestUtils.sha256Hex(getCurrentFormFromResources());
+    String savedPdfSha = DigestUtils.sha256Hex(TestUtils.getCurrentFormFromResources());
     byte[] downloadedPdf = getCurrentFormFromWebsite();
     String downloadedPdfSha = DigestUtils.sha256Hex(downloadedPdf);
     assertEquals(savedPdfSha, downloadedPdfSha, "The website checksum does not match!");
@@ -104,7 +96,7 @@ class i589FillerTest {
 
   @Test
   void testFillingInDocument() throws IOException {
-    I589Filler filler = I589Filler.fromi589PdfBytes(getCurrentFormFromResources());
+    I589Filler filler = I589Filler.fromi589PdfBytes(TestUtils.getCurrentFormFromResources());
     List<I589Field> filledIn =
         Arrays.asList(
             new I589Field(
@@ -138,18 +130,18 @@ class i589FillerTest {
     // Pass in nothing to get the original doc to prove it was unModified
     PDDocument unFilled = PDDocument.load(filler.fillInForm(Collections.emptyList()));
     assertEquals(
-            "",
-            unFilled
-                    .getDocumentCatalog()
-                    .getAcroForm()
-                    .getField("form1[0].#subform[4].TextField13[53]")
-                    .getValueAsString());
+        "",
+        unFilled
+            .getDocumentCatalog()
+            .getAcroForm()
+            .getField("form1[0].#subform[4].TextField13[53]")
+            .getValueAsString());
     assertEquals(
-            "",
-            unFilled
-                    .getDocumentCatalog()
-                    .getAcroForm()
-                    .getField("form1[0].#subform[4].TextField13[54]")
-                    .getValueAsString());
+        "",
+        unFilled
+            .getDocumentCatalog()
+            .getAcroForm()
+            .getField("form1[0].#subform[4].TextField13[54]")
+            .getValueAsString());
   }
 }
