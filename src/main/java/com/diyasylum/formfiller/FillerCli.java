@@ -31,12 +31,6 @@ public class FillerCli implements Runnable {
               Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
       ObjectMapper objectMapper = new ObjectMapper();
       String json = Files.readString(fieldsJson.toPath());
-
-      System.out.println(
-          objectMapper
-              .writerWithDefaultPrettyPrinter()
-              .writeValueAsString(i589Filler.extractFields()));
-
       I589Field[] inputFields = objectMapper.readValue(json, I589Field[].class);
       byte[] result = i589Filler.fillInForm(Arrays.asList(inputFields));
       Files.write(Paths.get(outputPath), result);
