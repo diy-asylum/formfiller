@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id "com.diffplug.gradle.spotless" version "3.16.0"
+    id "com.github.johnrengelman.shadow" version "4.0.3"
 }
 
 group 'com.diyasylum'
@@ -51,6 +52,12 @@ jacocoTestCoverageVerification {
 spotless {
     java {
         googleJavaFormat()
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.diyasylum.formfiller.FillerCli'
     }
 }
 
