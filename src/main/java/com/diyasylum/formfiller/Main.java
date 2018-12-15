@@ -1,42 +1,45 @@
 package com.diyasylum.formfiller;
 
-import com.diyasylum.formfiller.models.FieldType;
 import com.diyasylum.formfiller.models.I589Field;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.FileOutputStream;
+import picocli.CommandLine;
+import picocli.CommandLine.Parameters;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
-public class Main {
-  public static void main(String[] args) throws IOException {
-    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-    I589Filler i589Filler =
-        I589Filler.fromi589PdfBytes(
-            Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
-    ObjectMapper objectMapper = new ObjectMapper();
-    System.out.println(
-        objectMapper
-            .writerWithDefaultPrettyPrinter()
-            .writeValueAsString(i589Filler.extractFields()));
+@CommandLine.Command(name = "Fill In i589", mixinStandardHelpOptions = true)
+public class Main implements Runnable {
+  @Parameters(index= "0", paramLabel = "fieldsJson", description = "Json telling me what fields to fill in with what")
+  private File fieldsJson;
 
-    List<I589Field> filledIn =
-        Arrays.asList(
-            new I589Field(
-                "",
-                "form1[0].#subform[4].TextField13[53]",
-                "TextField13[53]",
-                FieldType.TEXT,
-                "BATMAN"),
-            new I589Field(
-                "",
-                "form1[0].#subform[4].TextField13[54]",
-                "TextField13[54]",
-                FieldType.TEXT,
-                "BATMAN"));
-    try (FileOutputStream fos = new FileOutputStream("/users/Bachmann/Desktop/yes.pdf")) {
-      fos.write(i589Filler.fillInForm(filledIn));
+  @Parameters(index= "1", paramLabel = "outputPath", description = "Where to save the result")
+  private String outputPath;
+
+  public void run() {
+    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    try {
+      I589Filler i589Filler =
+              I589Filler.fromi589PdfBytes(
+                      Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
+      ObjectMapper objectMapper = new ObjectMapper();
+      String json = Files.readString(fieldsJson.toPath());
+
+      System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(i589Filler.extractFields()));
+
+      I589Field[] inputFields = objectMapper.readValue(json, I589Field[].class);
+      byte[] result = i589Filler.fillInForm(Arrays.asList(inputFields));
+      Files.write(Paths.get(outputPath), result);
+    } catch (IOException e) {
+      System.out.println("Failed to fill in form");
+      e.printStackTrace();
     }
+  }
+
+  public static void main(String[] args) {
+    CommandLine.run(new Main(), args);
   }
 }
