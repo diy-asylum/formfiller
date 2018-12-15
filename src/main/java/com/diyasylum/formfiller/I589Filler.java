@@ -1,9 +1,13 @@
 package com.diyasylum.formfiller;
 
+import com.diyasylum.formfiller.models.I589Field;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+import org.apache.pdfbox.pdmodel.interactive.form.PDTerminalField;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 class I589Filler {
@@ -13,6 +17,10 @@ class I589Filler {
 
   private final PDDocument i589Pdf;
 
+  static I589Filler fromPDDocument(PDDocument pdDocument) {
+    return new I589Filler(pdDocument);
+  }
+
   static I589Filler fromi589PdfBytes(byte[] i589pdf) throws IOException {
     PDDocument pdDoc = PDDocument.load(i589pdf);
     return new I589Filler(pdDoc);
@@ -20,6 +28,18 @@ class I589Filler {
 
   private I589Filler(PDDocument i589pdf) {
     this.i589Pdf = i589pdf;
+  }
+
+  List<I589Field> extractFields() {
+    List<I589Field> fields = new ArrayList<>();
+    PDDocumentCatalog pdCatalog = i589Pdf.getDocumentCatalog();
+    PDAcroForm pdAcroForm = pdCatalog.getAcroForm();
+    for (PDField pdField : pdAcroForm.getFieldTree()) {
+      if (pdField instanceof PDTerminalField) {
+        fields.add(I589Field.fromPdField(pdField));
+      }
+    }
+    return fields;
   }
 
   Optional<String> extractRevisionDate() throws IOException {
