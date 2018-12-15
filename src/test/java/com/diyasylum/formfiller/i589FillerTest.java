@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.diyasylum.formfiller.models.FieldType;
 import com.diyasylum.formfiller.models.I589Field;
-import com.diyasylum.formfiller.models.I589FieldBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -96,21 +96,22 @@ class i589FillerTest {
   void testFieldExtraction() throws IOException {
     List<I589Field> expectedFields =
         Arrays.asList(
-            new I589FieldBuilder()
-                .setDescription("Im such a field omg")
-                .setFieldType(FieldType.TEXT)
-                .setAbsolutePath("Group.field 1")
-                .setRelativePath("field 1")
-                .setValue(null)
-                .createI589Field(),
-            new I589FieldBuilder()
-                .setDescription("Im a button")
-                .setFieldType(FieldType.BUTTON)
-                .setAbsolutePath("Group.button1")
-                .setRelativePath("button1")
-                .setValue(null)
-                .createI589Field());
+            new I589Field("Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, ""),
+            new I589Field("Im a button", "Group.button1", "button1", FieldType.BUTTON, "Off"));
     I589Filler filler = I589Filler.fromPDDocument(createForm());
     assertEquals(expectedFields, filler.extractFields());
+  }
+
+  @Test
+  void testFieldSerializationAndDeserialization() throws IOException {
+    I589Field field =
+        new I589Field("Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, "Yes!");
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    String serializedJson = objectMapper.writeValueAsString(field);
+
+    I589Field deserializedField = objectMapper.readValue(serializedJson, I589Field.class);
+
+    assertEquals(field, deserializedField);
   }
 }

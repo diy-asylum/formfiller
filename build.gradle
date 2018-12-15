@@ -19,6 +19,7 @@ test {
 
 dependencies {
     compile 'org.apache.pdfbox:pdfbox:2.0.13'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'

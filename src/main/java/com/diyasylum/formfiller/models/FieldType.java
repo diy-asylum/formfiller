@@ -1,17 +1,22 @@
 package com.diyasylum.formfiller.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum FieldType {
   TEXT,
   BUTTON;
 
-  static FieldType fromString(String ftype) {
-    switch (ftype) {
+  @JsonCreator
+  static FieldType fromString(String fieldType) {
+    switch (fieldType) {
+      case "BUTTON":
       case "Btn":
         return FieldType.BUTTON;
       case "Tx":
+      case "TEXT":
         return FieldType.TEXT;
       default:
-        throw new IllegalArgumentException("Dont know about ftype " + ftype);
+        throw new IllegalArgumentException("Dont know about ftype " + fieldType);
     }
   }
 }

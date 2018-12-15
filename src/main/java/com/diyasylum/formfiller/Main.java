@@ -1,5 +1,6 @@
 package com.diyasylum.formfiller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -9,6 +10,10 @@ public class Main {
     I589Filler i589Filler =
         I589Filler.fromi589PdfBytes(
             Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
-    i589Filler.extractFields().forEach(System.out::println);
+    ObjectMapper objectMapper = new ObjectMapper();
+    System.out.println(
+        objectMapper
+            .writerWithDefaultPrettyPrinter()
+            .writeValueAsString(i589Filler.extractFields()));
   }
 }
