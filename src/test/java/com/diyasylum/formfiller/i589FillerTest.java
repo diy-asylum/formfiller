@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.diyasylum.formfiller.models.FieldType;
 import com.diyasylum.formfiller.models.I589Field;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -12,6 +11,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -103,15 +103,53 @@ class i589FillerTest {
   }
 
   @Test
-  void testFieldSerializationAndDeserialization() throws IOException {
-    I589Field field =
-        new I589Field("Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, "Yes!");
+  void testFillingInDocument() throws IOException {
+    I589Filler filler = I589Filler.fromi589PdfBytes(getCurrentFormFromResources());
+    List<I589Field> filledIn =
+        Arrays.asList(
+            new I589Field(
+                "",
+                "form1[0].#subform[4].TextField13[53]",
+                "TextField13[53]",
+                FieldType.TEXT,
+                "BATMAN"),
+            new I589Field(
+                "",
+                "form1[0].#subform[4].TextField13[54]",
+                "TextField13[54]",
+                FieldType.TEXT,
+                "ROBIN"));
+    PDDocument result = PDDocument.load(filler.fillInForm(filledIn));
+    assertEquals(
+        "BATMAN",
+        result
+            .getDocumentCatalog()
+            .getAcroForm()
+            .getField("form1[0].#subform[4].TextField13[53]")
+            .getValueAsString());
+    assertEquals(
+        "ROBIN",
+        result
+            .getDocumentCatalog()
+            .getAcroForm()
+            .getField("form1[0].#subform[4].TextField13[54]")
+            .getValueAsString());
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    String serializedJson = objectMapper.writeValueAsString(field);
-
-    I589Field deserializedField = objectMapper.readValue(serializedJson, I589Field.class);
-
-    assertEquals(field, deserializedField);
+    // Pass in nothing to get the original doc to prove it was unModified
+    PDDocument unFilled = PDDocument.load(filler.fillInForm(Collections.emptyList()));
+    assertEquals(
+            "",
+            unFilled
+                    .getDocumentCatalog()
+                    .getAcroForm()
+                    .getField("form1[0].#subform[4].TextField13[53]")
+                    .getValueAsString());
+    assertEquals(
+            "",
+            unFilled
+                    .getDocumentCatalog()
+                    .getAcroForm()
+                    .getField("form1[0].#subform[4].TextField13[54]")
+                    .getValueAsString());
   }
 }
