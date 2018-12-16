@@ -8,3 +8,5 @@ cache:
     - $HOME/.gradle/wrapper/
 jdk:
   - openjdk11
+after_success:
+  - ./gradlew jacocoTestReport coveralls
