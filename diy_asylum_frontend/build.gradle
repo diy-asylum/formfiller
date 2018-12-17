@@ -1,4 +1,11 @@
-plugins {
-    id "com.moowork.node" version "1.2.0"
+task('npm_install', type:Exec) {
+    inputs.files(project.fileTree(dir: "src"))
+    outputs.dir("${project.buildDir}/node_modules/")
+    commandLine 'npm', 'install'
 }
 
+task('npm_test', type:Exec) {
+    dependsOn 'npm_install'
+    environment "CI", "true"
+    commandLine 'npm', 'test'
+}

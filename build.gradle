@@ -7,3 +7,6 @@ spotless {
         googleJavaFormat()
     }
 }
+
+project.tasks.test.dependsOn(':diy_asylum_frontend:npm_test')
+
