@@ -1,2 +1,3 @@
 rootProject.name = 'formfiller'
-
+include 'formfiller'
+include 'diy_asylum_frontend'
