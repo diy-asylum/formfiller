@@ -1,5 +1,5 @@
 task('npm_install', type:Exec) {
-    inputs.files(project.fileTree(dir: "src"))
+    inputs.files(project.fileTree(dir: "."))
     outputs.dir("${project.buildDir}/node_modules/")
     commandLine 'npm', 'install'
 }
