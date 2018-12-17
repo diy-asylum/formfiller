@@ -1,8 +1,7 @@
 # formfiler
 [![Build Status](https://travis-ci.org/diy-asylum/formfiller.svg?branch=master)](https://travis-ci.org/diy-asylum/formfiller)
 
-Mostly a spike repo for experimenting with filling in Asylum forms
-
+the DIY asylum monorepo
 
 Repo uses the gradle wrapper for its builds
 
