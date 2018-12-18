@@ -51,7 +51,7 @@ java -jar formfiller-1.0-SNAPSHOT-all.jar ~/Desktop/fields.json ./out.pdf
 See /Users/bachmann/code/formfiller/src/main/resources/fields.json
 
 For a blank template check out [Fields.json](src/main/resources/fields.json). Not all fields
-need to be there. The app will work with what its given. 
+need to be there. The app will work with what its given.
 
 There is a known gotcha around checkboxes. Only specific inputs will work. This is still
 an alpha and we will improve and rework this over time.
