@@ -12,4 +12,3 @@ To build and run the tests simply use the included wrapper script
 ```
 
 This will build the project, run its tests, and verify the coverage for you.
-

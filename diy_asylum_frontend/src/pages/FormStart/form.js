@@ -47,9 +47,10 @@ const Form = props => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {errors.email && touched.email && (
-          <div className="invalid-feedback">{errors.email}</div>
-        )}
+        {errors.email &&
+          touched.email && (
+            <div className="invalid-feedback">{errors.email}</div>
+          )}
       </div>
 
       <div className="form-group">
@@ -64,9 +65,10 @@ const Form = props => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {errors.username && touched.username && (
-          <div className="invalid-feedback">{errors.username}</div>
-        )}
+        {errors.username &&
+          touched.username && (
+            <div className="invalid-feedback">{errors.username}</div>
+          )}
       </div>
 
       <button
