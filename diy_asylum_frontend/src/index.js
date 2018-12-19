@@ -1,18 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+// import { IntlProvider, addLocaleData, injectIntl } from "react-intl";
+import { IntlProvider } from "react-intl";
+import { Provider as ReduxProvider } from "react-redux";
+import "./index.css";
+import App from "./App";
 // import registerServiceWorker from './registerServiceWorker';
 import * as serviceWorker from "./serviceWorker";
-import store from './store';
+import store from "./store";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-/* eslint-disable */
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <ReduxProvider store={store}>
+    <IntlProvider locale="en">
+      <App />
+    </IntlProvider>
+  </ReduxProvider>,
+  document.getElementById("root")
+);
 
 // registerServiceWorker();
-
-
 
 // ************************************
 // ReactDOM.render(<FullApplication />, document.getElementById("root"));
@@ -21,7 +28,6 @@ ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementB
 // // unregister() to register() below. Note this comes with some pitfalls.
 // // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
 
 // import React from "react";
 // import ReactDOM from "react-dom";

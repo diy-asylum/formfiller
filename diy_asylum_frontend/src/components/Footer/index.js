@@ -11,7 +11,7 @@ const messages = defineMessages({
 });
 
 const Footer = ({ intl: { formatMessage } }) => (
-  <div className="footerPanel row">
+  <div className="bottom-footer row">
     <div className="col-sm copyright">
       <p>© 2018 DIY Asylum, LLC</p>
     </div>

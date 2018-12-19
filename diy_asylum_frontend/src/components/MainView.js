@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateUserLocale } from "../reducers/user";
-import { nextFormStep, previousFormStep } from "../reducers/form";
+import { updateUserLocale } from '../reducers/user';
+import NavHeader from './NavHeader'
+import ProgressPanel from './ProgressPanel'
+import CenterForm from './CenterForm'
+import InstructionsPanel from './InstructionsPanel'
+import Footer from './Footer'
+
+
+import { nextFormStep, previousFormStep } from '../reducers/form';
 
 class MainView extends Component {
   constructor() {
@@ -15,36 +22,38 @@ class MainView extends Component {
     //
   }
 
-  handleChange = event => {
-    const newValue = event.target.value;
-    this.props.updateUserLocale(newValue);
-  };
+
+  // Hello World
+  // <br />
+  // <button onClick={this.props.nextFormStep}>Next</button>
+  // <button onClick={this.props.previousFormStep}>Previous</button>
 
   render() {
     return (
       <div className="main-view">
-        Hello World
-        <br />
-        <button onClick={this.props.nextFormStep}>Next</button>
-        <button onClick={this.props.previousFormStep}>Previous</button>
-        <br />
-        <select onChange={this.handleChange}>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-        </select>
+        <NavHeader></NavHeader>
+
+        <div className="container">
+          <div className="row">
+            <ProgressPanel></ProgressPanel>
+            <CenterForm></CenterForm>
+            <InstructionsPanel></InstructionsPanel>
+          </div>
+          <Footer></Footer>
+          
+        </div>
+
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  step: state.form.currentStep,
-  locale: state.user.locale
+  step: state.form.currentStep
 });
 const mapDispatchToProps = {
-  updateUserLocale,
   nextFormStep,
-  previousFormStep
+  previousFormStep,
 };
 
 export default connect(
