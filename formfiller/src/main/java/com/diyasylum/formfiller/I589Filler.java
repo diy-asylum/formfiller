@@ -20,7 +20,7 @@ public class I589Filler {
   public static I589Filler fromIncludedForm() throws IOException {
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     return I589Filler.fromi589PdfBytes(
-            Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
+        Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
   }
 
   static I589Filler fromPDDocument(PDDocument pdDocument) {
