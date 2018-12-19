@@ -18,7 +18,7 @@ const updateLocale = val => ({
 
 // Action creators, functions will dispatch certain actions
 //
-export const saveNewLocale = data => (dispatch) => {
+export const updateUserLocale = data => (dispatch) => {
   if (data !== "") {
     dispatch(updateLocale(data));
   }
