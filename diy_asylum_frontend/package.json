@@ -18,6 +18,8 @@
     "reduce-reducers": "^0.4.3",
     "redux": "^4.0.1",
     "redux-utilities": "0.0.4",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
     "test": "^0.6.0",
     "yup": "^0.26.6"
   },
