@@ -10,12 +10,18 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTerminalField;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-class I589Filler {
+public class I589Filler {
   static final String FORM_URL =
       "https://www.uscis.gov/system/files_force/files/form/i-589.pdf?download=1";
   static final String SUPPORTED_FORM_REVISION = "Form I-589 (Rev. 05/16/17) N";
 
   private final PDDocument i589Pdf;
+
+  public static I589Filler fromIncludedForm() throws IOException {
+    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    return I589Filler.fromi589PdfBytes(
+            Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
+  }
 
   static I589Filler fromPDDocument(PDDocument pdDocument) {
     return new I589Filler(pdDocument);
@@ -55,7 +61,7 @@ class I589Filler {
    * @return byte[] with the contents of the form.
    * @throws IOException if there are problems working with the pdf
    */
-  byte[] fillInForm(List<I589Field> fields) throws IOException {
+  public byte[] fillInForm(List<I589Field> fields) throws IOException {
     Map<String, String> fieldToValue =
         fields.stream().collect(Collectors.toMap(I589Field::getAbsolutePath, I589Field::getValue));
 
