@@ -1,9 +1,6 @@
 import React from "react";
-
 import { injectIntl, defineMessages } from "react-intl";
-
 import { connect } from "react-redux";
-
 import { makeSetLocaleAction } from "../reducers/locale";
 
 const messages = defineMessages({

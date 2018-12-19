@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './style.scss';
 import { injectIntl, defineMessages } from "react-intl";
 import { connect } from "react-redux";
 import { updateUserLocale } from '../../reducers/user';
@@ -21,7 +22,6 @@ class NavHeader extends Component {
     return (
       <div
         className="nav-header container-fluid"
-        style={{ backgroundColor: "red" }}
       >
         <span>{formatMessage(messages.headerText)}</span>
 

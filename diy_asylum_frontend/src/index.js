@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 // import { IntlProvider, addLocaleData, injectIntl } from "react-intl";
 import { IntlProvider } from "react-intl";
 import { Provider as ReduxProvider } from "react-redux";
-import "./index.css";
 import App from "./App";
 // import registerServiceWorker from './registerServiceWorker';
 import * as serviceWorker from "./serviceWorker";
