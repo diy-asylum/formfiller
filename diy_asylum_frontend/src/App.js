@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import MainView from './components/MainView';
-import './App.css';
+import './App.scss';
 
 
 

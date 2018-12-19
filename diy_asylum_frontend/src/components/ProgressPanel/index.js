@@ -1,7 +1,8 @@
 import React from "react";
+import './style.scss';
 
 const ProgressPanel = (props) => (
-  <div className="progress-panel col-sm" style={{background: "yellow"}}>
+  <div className="progress-panel col-sm">
     <ol>
       <li>Name</li>
       <li>Background</li>
