@@ -1,34 +1,64 @@
 buildscript {
-	ext {
-		springBootVersion = '2.1.1.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '2.1.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
+apply plugin: "com.diffplug.gradle.spotless"
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.github.kt3k.coveralls'
 
 group = 'com.diyasylum'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 11
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
+jacoco {
+    toolVersion = "0.8.2"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.8
+            }
+        }
+    }
+}
+check.dependsOn jacocoTestReport
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter-web')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-	testImplementation 'org.junit-pioneer:junit-pioneer:0.3.0'
-	testImplementation 'commons-codec:commons-codec:1.11'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    implementation project(':formfiller')
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testImplementation 'org.junit-pioneer:junit-pioneer:0.3.0'
+    testImplementation 'commons-codec:commons-codec:1.11'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }

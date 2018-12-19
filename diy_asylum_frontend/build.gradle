@@ -1,11 +1,38 @@
+plugins {
+    id 'java'
+    id "com.diffplug.gradle.spotless"
+}
 task('npm_install', type:Exec) {
     inputs.files(project.fileTree(dir: "."))
     outputs.dir("${project.buildDir}/node_modules/")
     commandLine 'npm', 'install'
 }
 
+task('npm_clean', type:Exec) {
+    commandLine 'rm', "${project.buildDir}/node_modules/"
+}
+
 task('npm_test', type:Exec) {
     dependsOn 'npm_install'
     environment "CI", "true"
     commandLine 'npm', 'test'
+}
+
+clean.dependsOn(npm_clean)
+test.dependsOn(npm_test)
+
+spotless {
+    format 'styling', {
+        target 'src/**/*.css',
+                'src/**/*.scss'
+        prettier().config(['parser': 'css'])
+    }
+    format 'javascript', {
+        target 'config/**/*.js',
+                'public/**/*.js',
+                'config/**/*.js',
+                'scripts/**/*.js',
+                'src/**/*.js'
+        prettier().config(['parser': 'babylon'])
+    }
 }

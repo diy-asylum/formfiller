@@ -2,13 +2,14 @@ plugins {
     id 'java'
     id 'jacoco'
     id "com.github.johnrengelman.shadow" version "4.0.3"
-    id 'com.github.kt3k.coveralls' version '2.6.3'
+    id "com.diffplug.gradle.spotless"
+    id 'com.github.kt3k.coveralls'
 }
 
 group 'com.diyasylum'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.11
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -49,6 +50,11 @@ jacocoTestCoverageVerification {
     }
 }
 
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
 
 jar {
     manifest {

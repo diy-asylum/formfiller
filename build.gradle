@@ -1,6 +1,7 @@
 plugins {
     id "java"
     id "com.diffplug.gradle.spotless" version "3.16.0"
+    id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 spotless {
     format 'misc', {
@@ -10,28 +11,12 @@ spotless {
                 'diy_asylum_frontend/*.gradle',
                 'diy_asylum_frontend/*.md',
                 'formfiller/*.gradle',
-                'formfiller/*.md'
+                'formfiller/*.md',
+                'formserver/*.gradle',
+                'formserver/*.md'
 
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
     }
-    java {
-        googleJavaFormat()
-    }
-    format 'styling', {
-        target 'diy_asylum_frontend/src/**/*.css',
-                'diy_asylum_frontend/src/**/*.scss'
-        prettier().config(['parser': 'css'])
-    }
-    format 'javascript', {
-        target 'diy_asylum_frontend/config/**/*.js',
-                'diy_asylum_frontend/public/**/*.js',
-                'diy_asylum_frontend/config/**/*.js',
-                'diy_asylum_frontend/scripts/**/*.js',
-                'diy_asylum_frontend/src/**/*.js'
-        prettier().config(['parser': 'babylon'])
-    }
 }
-
-project.tasks.test.dependsOn(':diy_asylum_frontend:npm_test')
