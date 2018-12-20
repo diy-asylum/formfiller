@@ -1,3 +1,8 @@
+repositories {
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
 buildscript {
     repositories {
         maven {
@@ -7,15 +12,18 @@ buildscript {
     dependencies {
         classpath "com.diffplug.spotless:spotless-plugin-gradle:3.16.0"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3"
+        classpath "com.palantir:jacoco-coverage:0.4.0"
     }
 }
+apply plugin: "java"
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'com.palantir.jacoco-full-report'
 
 subprojects {
 
     apply plugin: "java"
-    apply plugin: "jacoco"
     apply plugin: "com.diffplug.gradle.spotless"
+    apply plugin: "jacoco"
 
     sourceCompatibility = 11
     group 'com.diyasylum'
@@ -27,25 +35,6 @@ subprojects {
     test {
         useJUnitPlatform()
     }
-    jacoco {
-        toolVersion = "0.8.2"
-    }
-    jacocoTestReport {
-        reports {
-            xml.enabled true
-            html.enabled true
-        }
-    }
-    jacocoTestCoverageVerification {
-        violationRules {
-            rule {
-                limit {
-                    minimum = 0.8
-                }
-            }
-        }
-    }
-    check.dependsOn jacocoTestReport
     spotless {
         format 'misc', {
             target '*.gradle',
@@ -72,5 +61,33 @@ subprojects {
                     '*.js'
             prettier().config(['parser': 'babylon'])
         }
+    }
+
+    jacoco {
+        toolVersion = "0.8.2"
+    }
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled true
+        }
+    }
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    minimum = 0.8
+                }
+            }
+        }
+    }
+}
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
+}
+
+tasks.coveralls {
+    doFirst {
+        coveralls.sourceDirs = subprojects.sourceSets.main.java.srcDirs.flatten()
     }
 }
