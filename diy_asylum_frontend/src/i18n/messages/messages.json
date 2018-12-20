@@ -17,7 +17,7 @@
   {
     "id": "Header.headerText",
     "defaultMessage": "Some header text would go here, if we had any. We might even do some kind of navbar, although to be honest, I'm not sure what we would nav.",
-    "filepath": "src/components/layout/Header.js"
+    "filepath": "src/components/NavHeader/index.js"
   },
   {
     "id": "FormEnd.header",
