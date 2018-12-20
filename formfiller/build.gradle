@@ -2,21 +2,6 @@ plugins {
     id 'java'
     id 'jacoco'
     id "com.github.johnrengelman.shadow" version "4.0.3"
-    id "com.diffplug.gradle.spotless"
-    id 'com.github.kt3k.coveralls'
-}
-
-group 'com.diyasylum'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 11
-
-repositories {
-    mavenCentral()
-}
-
-test {
-    useJUnitPlatform()
 }
 
 dependencies {
@@ -30,36 +15,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
-jacoco {
-    toolVersion = "0.8.2"
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = 0.8
-            }
-        }
-    }
-}
-
-spotless {
-    java {
-        googleJavaFormat()
-    }
-}
-
 jar {
     manifest {
         attributes 'Main-Class': 'com.diyasylum.formfiller.FillerCli'
     }
 }
-
-check.dependsOn jacocoTestReport

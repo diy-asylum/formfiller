@@ -1,4 +1,4 @@
-rootProject.name = 'formfiller'
+rootProject.name = 'diy_asylum'
 include 'formfiller'
 include 'diy_asylum_frontend'
 include 'formserver'

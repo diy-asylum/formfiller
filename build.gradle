@@ -1,22 +1,76 @@
-plugins {
-    id "java"
-    id "com.diffplug.gradle.spotless" version "3.16.0"
-    id 'com.github.kt3k.coveralls' version '2.6.3'
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.16.0"
+        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3"
+    }
 }
-spotless {
-    format 'misc', {
-        target '*.gradle',
-                '*.md',
-                '.gitignore',
-                'diy_asylum_frontend/*.gradle',
-                'diy_asylum_frontend/*.md',
-                'formfiller/*.gradle',
-                'formfiller/*.md',
-                'formserver/*.gradle',
-                'formserver/*.md'
+apply plugin: 'com.github.kt3k.coveralls'
 
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
+subprojects {
+
+    apply plugin: "java"
+    apply plugin: "jacoco"
+    apply plugin: "com.diffplug.gradle.spotless"
+
+    sourceCompatibility = 11
+    group 'com.diyasylum'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+    test {
+        useJUnitPlatform()
+    }
+    jacoco {
+        toolVersion = "0.8.2"
+    }
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled true
+        }
+    }
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    minimum = 0.8
+                }
+            }
+        }
+    }
+    check.dependsOn jacocoTestReport
+    spotless {
+        format 'misc', {
+            target '*.gradle',
+                    '*.md',
+                    '.gitignore'
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
+        java {
+            googleJavaFormat()
+        }
+        format 'styling', {
+            target 'src/**/*.css',
+                    'src/**/*.scss'
+            prettier().config(['parser': 'css'])
+        }
+        format 'javascript', {
+            target 'config/**/*.js',
+                    'public/**/*.js',
+                    'config/**/*.js',
+                    'scripts/**/*.js',
+                    'src/**/*.js',
+                    '*.js'
+            prettier().config(['parser': 'babylon'])
+        }
     }
 }
