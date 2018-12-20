@@ -11,9 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <ReduxProvider store={store}>
-    <IntlProvider locale="en">
-      <App />
-    </IntlProvider>
+    <App></App>
   </ReduxProvider>,
   document.getElementById("root")
 );

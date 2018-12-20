@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import './style.scss';
+import "./style.scss";
 import { injectIntl, defineMessages } from "react-intl";
 import { connect } from "react-redux";
-import { updateUserLocale } from '../../reducers/user';
+import { updateUserLocale } from "../../reducers/user";
 
 const messages = defineMessages({
   headerText: {
@@ -13,19 +13,21 @@ const messages = defineMessages({
 
 class NavHeader extends Component {
   handleChange = event => {
-    this.props.updateUserLocale(event.target.value)
+    this.props.updateUserLocale(event.target.value);
   };
 
   render() {
     const formatMessage = this.props.intl.formatMessage;
 
     return (
-      <div
-        className="nav-header container-fluid"
-      >
+      <div className="nav-header container-fluid">
         <span>{formatMessage(messages.headerText)}</span>
 
-        <select onChange={this.handleChange} style={{ float: "right" }}>
+        <select
+          className="locale-select"
+          onChange={this.handleChange}
+          value={this.props.locale}
+        >
           <option value="en">English</option>
           <option value="es">Español</option>
         </select>
