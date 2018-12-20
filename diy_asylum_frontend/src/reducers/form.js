@@ -21,14 +21,14 @@ const decrementStep = () => ({
 // Action creators, functions will dispatch certain actions
 //
 export const nextFormStep = () => (dispatch, getState) => {
-  const currentStepState = getState().form.currentStep
+  const currentStepState = getState().form.currentStep;
   if (currentStepState < 5) {
     dispatch(incrementStep());
   }
 };
 
 export const previousFormStep = () => (dispatch, getState) => {
-  const currentStepState = getState().form.currentStep
+  const currentStepState = getState().form.currentStep;
   if (currentStepState > 1) {
     dispatch(decrementStep());
   }
