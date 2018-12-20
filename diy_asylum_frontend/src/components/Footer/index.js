@@ -1,5 +1,5 @@
 import React from "react";
-import './style.scss';
+import "./style.scss";
 import { injectIntl, defineMessages } from "react-intl";
 
 const messages = defineMessages({
