@@ -1,7 +1,10 @@
-.center-form{
+.center-form {
   background-color: green;
 
-  .dummy-text, .button-container{text-align: center;}
+  .dummy-text,
+  .button-container {
+    text-align: center;
+  }
 
   .dummy-text > span {
     display: block;

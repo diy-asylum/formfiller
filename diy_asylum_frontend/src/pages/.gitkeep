@@ -1,0 +1,2 @@
+# Eventually we will move src/MainView.js into it's own page, when the router becomes more fleshed out
+# As of now, we don't have any other views, so we will just keep this pages folder empty for now

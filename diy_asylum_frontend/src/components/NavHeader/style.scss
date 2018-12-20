@@ -1,7 +1,10 @@
-.nav-header{
+.nav-header {
   background-color: red;
 
-  .locale-select{
+  .header-text {
+    display: inline;
+  }
+  .locale-select {
     float: right;
   }
 }

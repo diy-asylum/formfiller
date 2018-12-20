@@ -21,7 +21,7 @@ class NavHeader extends Component {
 
     return (
       <div className="nav-header container-fluid">
-        <span>{formatMessage(messages.headerText)}</span>
+        <h1 className="header-text">{formatMessage(messages.headerText)}</h1>
 
         <select
           className="locale-select"
