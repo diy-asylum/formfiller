@@ -32,7 +32,8 @@ spotless {
                 'public/**/*.js',
                 'config/**/*.js',
                 'scripts/**/*.js',
-                'src/**/*.js'
+                'src/**/*.js',
+                '*.js'
         prettier().config(['parser': 'babylon'])
     }
 }
