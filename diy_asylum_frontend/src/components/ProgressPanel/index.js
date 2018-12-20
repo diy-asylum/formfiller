@@ -1,18 +1,30 @@
 import React from "react";
-import './style.scss';
+import "./style.scss";
 
-const ProgressPanel = (props) => (
-  <div className="progress-panel col-sm">
-    <ol>
-      <li>Name</li>
-      <li>Background</li>
-      <li>Birthdate</li>
-      <li>Family Members</li>
-      <li>Confirmation and Review</li>
-    </ol>
+const ProgressPanel = props => {
+  const stepNames = [
+    "Name",
+    "Background",
+    "Birthdate",
+    "Family Members",
+    "Confirmation and Review"
+  ];
+  const mappedListItemsEl = stepNames.map((stepName, idx) => {
+    return (
+      <li
+        key={`step${idx + 1}text`}
+        className={props.currentStep > idx ? "completed" : "unfinished"}
+      >
+        {stepName}
+      </li>
+    );
+  });
 
-
-  </div>
-);
+  return (
+    <div className="progress-panel col-sm">
+      <ol>{mappedListItemsEl}</ol>
+    </div>
+  );
+};
 
 export default ProgressPanel;

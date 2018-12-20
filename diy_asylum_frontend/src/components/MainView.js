@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateUserLocale } from '../reducers/user';
-import NavHeader from './NavHeader'
-import ProgressPanel from './ProgressPanel'
-import CenterForm from './CenterForm'
-import InstructionsPanel from './InstructionsPanel'
-import Footer from './Footer'
-
-
-import { nextFormStep, previousFormStep } from '../reducers/form';
+import NavHeader from "./NavHeader";
+import ProgressPanel from "./ProgressPanel";
+import CenterForm from "./CenterForm";
+import InstructionsPanel from "./InstructionsPanel";
+import Footer from "./Footer";
 
 class MainView extends Component {
   constructor() {
     super();
+    // set up state here
     this.state = {};
   }
 
@@ -22,39 +19,29 @@ class MainView extends Component {
     //
   }
 
-
-  // Hello World
-  // <br />
-  // <button onClick={this.props.nextFormStep}>Next</button>
-  // <button onClick={this.props.previousFormStep}>Previous</button>
-
   render() {
     return (
       <div className="main-view">
-        <NavHeader></NavHeader>
+        <NavHeader />
 
         <div className="container">
           <div className="row">
-            <ProgressPanel></ProgressPanel>
-            <CenterForm></CenterForm>
-            <InstructionsPanel></InstructionsPanel>
+            <ProgressPanel currentStep={this.props.formStep}/>
+            <CenterForm />
+            <InstructionsPanel />
           </div>
-          <Footer></Footer>
-          
+          <Footer />
         </div>
-
       </div>
     );
   }
 }
-
+// any redux state you want to read as props
 const mapStateToProps = state => ({
-  step: state.form.currentStep
+  formStep: state.form.currentStep
 });
-const mapDispatchToProps = {
-  nextFormStep,
-  previousFormStep,
-};
+// any dispatcher you want to update redux state
+const mapDispatchToProps = {};
 
 export default connect(
   mapStateToProps,
