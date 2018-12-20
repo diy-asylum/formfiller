@@ -1,3 +1,11 @@
 .progress-panel {
   background-color: yellow;
+
+  .completed {
+    opacity: 1;
+  }
+
+  .unfinished {
+    opacity: 0.5;
+  }
 }

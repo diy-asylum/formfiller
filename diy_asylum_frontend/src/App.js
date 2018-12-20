@@ -4,7 +4,6 @@ import MainView from './components/MainView';
 import './App.scss';
 
 
-
 export default () => (
   <div className="App">
     <Router>
