@@ -4,8 +4,15 @@ task('npm_install', type:Exec) {
     commandLine 'npm', 'install'
 }
 
+task('npm_clean', type:Exec) {
+    commandLine 'rm', "${project.buildDir}/node_modules/"
+}
+
 task('npm_test', type:Exec) {
     dependsOn 'npm_install'
     environment "CI", "true"
     commandLine 'npm', 'test'
 }
+
+test.dependsOn(':diy_asylum_frontend:npm_test')
+clean.dependsOn(':diy_asylum_frontend:npm_clean')

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Objects;
 import picocli.CommandLine;
 import picocli.CommandLine.Parameters;
 
@@ -24,11 +23,8 @@ public class FillerCli implements Runnable {
   private String outputPath;
 
   public void run() {
-    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     try {
-      I589Filler i589Filler =
-          I589Filler.fromi589PdfBytes(
-              Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
+      I589Filler i589Filler = I589Filler.fromIncludedForm();
       ObjectMapper objectMapper = new ObjectMapper();
       String json = Files.readString(fieldsJson.toPath());
       I589Field[] inputFields = objectMapper.readValue(json, I589Field[].class);

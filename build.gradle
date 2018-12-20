@@ -1,37 +1,93 @@
-plugins {
-    id "java"
-    id "com.diffplug.gradle.spotless" version "3.16.0"
-}
-spotless {
-    format 'misc', {
-        target '*.gradle',
-                '*.md',
-                '.gitignore',
-                'diy_asylum_frontend/*.gradle',
-                'diy_asylum_frontend/*.md',
-                'formfiller/*.gradle',
-                'formfiller/*.md'
-
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
-    }
-    java {
-        googleJavaFormat()
-    }
-    format 'styling', {
-        target 'diy_asylum_frontend/src/**/*.css',
-                'diy_asylum_frontend/src/**/*.scss'
-        prettier().config(['parser': 'css'])
-    }
-    format 'javascript', {
-        target 'diy_asylum_frontend/config/**/*.js',
-                'diy_asylum_frontend/public/**/*.js',
-                'diy_asylum_frontend/config/**/*.js',
-                'diy_asylum_frontend/scripts/**/*.js',
-                'diy_asylum_frontend/src/**/*.js'
-        prettier().config(['parser': 'babylon'])
+repositories {
+    maven {
+        url "https://plugins.gradle.org/m2/"
     }
 }
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.16.0"
+        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3"
+        classpath "com.palantir:jacoco-coverage:0.4.0"
+    }
+}
+apply plugin: "java"
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'com.palantir.jacoco-full-report'
 
-project.tasks.test.dependsOn(':diy_asylum_frontend:npm_test')
+subprojects {
+
+    apply plugin: "java"
+    apply plugin: "com.diffplug.gradle.spotless"
+    apply plugin: "jacoco"
+
+    sourceCompatibility = 11
+    group 'com.diyasylum'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+    test {
+        useJUnitPlatform()
+    }
+    spotless {
+        format 'misc', {
+            target '*.gradle',
+                    '*.md',
+                    '.gitignore'
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
+        java {
+            googleJavaFormat()
+        }
+        format 'styling', {
+            target 'src/**/*.css',
+                    'src/**/*.scss'
+            prettier().config(['parser': 'css'])
+        }
+        format 'javascript', {
+            target 'config/**/*.js',
+                    'public/**/*.js',
+                    'config/**/*.js',
+                    'scripts/**/*.js',
+                    'src/**/*.js',
+                    '*.js'
+            prettier().config(['parser': 'babylon'])
+        }
+    }
+
+    jacoco {
+        toolVersion = "0.8.2"
+    }
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled true
+        }
+    }
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    minimum = 0.8
+                }
+            }
+        }
+    }
+}
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
+}
+
+tasks.coveralls {
+    doFirst {
+        coveralls.sourceDirs = subprojects.sourceSets.main.java.srcDirs.flatten()
+    }
+}
