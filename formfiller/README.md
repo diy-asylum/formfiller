@@ -1,57 +1,33 @@
-# formfiler
-[![Build Status](https://travis-ci.org/diy-asylum/formfiller.svg?branch=master)](https://travis-ci.org/diy-asylum/formfiller)
+# formfiler Server 
 
-the DIY asylum monorepo
+This module contains the spring boot server for the application.
 
-Repo uses the gradle wrapper for its builds
+Its job is to accept requests, validate them and then pass them to the formfiller module to fill
+in the final document.
 
-To build and run the tests simply use the included wrapper script
+Business logic involving the PDF should **Not** live in this module.
 
-```bash
-./gradlew check
-```
-
-This will build the project, run its tests, and verify the coverage for you.
-
-This repo is configured to enforce Google's code style. I did not pick it for any particular reason.
-I mostly dont like having to think or argue about code style. Spotless will fail anything that does
-not conform to the style, it can also reformat your code automatically.
-
-This repo contains a CLI application which can provide a filled in I589 form.
-
-To create the jar first run
+To start the server simply run this from the root of the repo
 
 ```bash
-❯ ./gradlew shadowJar
-
-BUILD SUCCESSFUL in 1s
-3 actionable tasks: 1 executed, 2 up-to-date
+./gradlew :formserver:bootRun
 ```
 
-this will create an independent executable for the app
+This command will not "complete" until you ctrl-c so dont wait for the progress bar.
+
+If you are using an IDE like intellij simply run the FormServerApplication Main method
+
+Right now the api is very raw (see the formfiller module for details). However, here is an example request
 
 ```bash
-❯ cd build/libs
-❯ java -jar formfiller-1.0-SNAPSHOT-all.jar
-Missing required parameters: fieldsJson, outputPath
-Usage: Fill In i589 [-hV] fieldsJson outputPath
-      fieldsJson   Json telling me what fields to fill in with what
-      outputPath   Where to save the result
-  -h, --help       Show this help message and exit.
-  -V, --version    Print version information and exit.
+curl -X POST localhost:8080/i589/fillraw -H "Content-Type: application/json" --data '[{
+        "description": "Part. A. 1. Information About You. 2. Enter U. S. Social Security Number, if any.",
+        "absolutePath": "form1[0].#subform[0].TextField1[0]",
+        "relativePath": "TextField1[0]",
+        "fieldType": "TEXT",
+        "value": "Batman"
+    }]' > test.pdf
 ```
 
-Simply provide it two args. One pointing to a json file with the fields to fill
-and another telling it what file to make for the new pdf
+This will fill in one field of the pdf with the text batman and pipe the result into a file
 
-```bash
-java -jar formfiller-1.0-SNAPSHOT-all.jar ~/Desktop/fields.json ./out.pdf
-```
-
-See /Users/bachmann/code/formfiller/src/main/resources/fields.json
-
-For a blank template check out [Fields.json](src/main/resources/fields.json). Not all fields
-need to be there. The app will work with what its given.
-
-There is a known gotcha around checkboxes. Only specific inputs will work. This is still
-an alpha and we will improve and rework this over time.
