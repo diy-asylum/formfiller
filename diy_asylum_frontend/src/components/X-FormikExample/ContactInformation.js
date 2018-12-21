@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { injectIntl, defineMessages } from "react-intl";
-
 import { withFormik } from "formik";
 import * as Yup from "yup";
 
@@ -97,7 +95,7 @@ const RawForm = ({
 );
 
 // TODO: i18n for these yup validations, somehow? How to pass intl here?
-const FormikedForm = withFormik({
+const FormikExample = withFormik({
   mapPropsToValues: props => ({}),
 
   validationSchema: ({ intl: { formatMessage } }) =>
@@ -121,9 +119,9 @@ const IntlForm = injectIntl(FormikedForm);
 const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({});
 
-const FormPanel = connect(
+const FormikExample = connect(
   mapStateToProps,
   mapDispatchToProps
 )(IntlForm);
 
-export default FormPanel;
+export default FormikExample;

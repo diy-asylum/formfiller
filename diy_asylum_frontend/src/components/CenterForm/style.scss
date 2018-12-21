@@ -1,0 +1,14 @@
+.center-form {
+  background-color: green;
+
+  .dummy-text,
+  .button-container {
+    text-align: center;
+  }
+
+  .dummy-text > span {
+    display: block;
+    font-weight: bold;
+    font-size: 33px;
+  }
+}
