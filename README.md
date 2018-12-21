@@ -1,5 +1,7 @@
 # formfiler
 [![Build Status](https://travis-ci.org/diy-asylum/formfiller.svg?branch=master)](https://travis-ci.org/diy-asylum/formfiller)
+[![Coverage Status](https://coveralls.io/repos/github/diy-asylum/formfiller/badge.svg?branch=master)](https://coveralls.io/github/diy-asylum/formfiller?branch=master)
+
 
 the DIY asylum monorepo
 
@@ -25,7 +27,8 @@ Travis Push
 Travis PR
    Runs the build as if it was merged to master. Ensures a clean merge
 Coveralls report
-   Runs to verify coverage. Currently configured to get mad if coverage drops
+   Runs to verify coverage. Right now it should not fail until we decide on a threshold for failure for the project as a whole.
+   Travis could fail since both java modules are expected to maintain at least 80% coverage
    
 
 The travis build is defined in [The Travis config](.travis.yml) 
