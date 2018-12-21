@@ -86,6 +86,7 @@ subprojects {
         }
     }
 }
+jacocoFullReport.dependsOn(':jacocoTestReport')
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
 }

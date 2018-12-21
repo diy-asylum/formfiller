@@ -1,33 +1,42 @@
-# formfiler Server 
+# formfiler CLI
 
-This module contains the spring boot server for the application.
+This repo contains a CLI application which can provide a filled in I589 form.
 
-Its job is to accept requests, validate them and then pass them to the formfiller module to fill
-in the final document.
+It is where any logic involving the PDFs should live.
 
-Business logic involving the PDF should **Not** live in this module.
-
-To start the server simply run this from the root of the repo
+To create the jar first run
 
 ```bash
-./gradlew :formserver:bootRun
+❯ ./gradlew shadowJar
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 1 executed, 2 up-to-date
 ```
 
-This command will not "complete" until you ctrl-c so dont wait for the progress bar.
-
-If you are using an IDE like intellij simply run the FormServerApplication Main method
-
-Right now the api is very raw (see the formfiller module for details). However, here is an example request
+this will create an independent executable for the app
 
 ```bash
-curl -X POST localhost:8080/i589/fillraw -H "Content-Type: application/json" --data '[{
-        "description": "Part. A. 1. Information About You. 2. Enter U. S. Social Security Number, if any.",
-        "absolutePath": "form1[0].#subform[0].TextField1[0]",
-        "relativePath": "TextField1[0]",
-        "fieldType": "TEXT",
-        "value": "Batman"
-    }]' > test.pdf
+❯ cd build/libs
+❯ java -jar formfiller-1.0-SNAPSHOT-all.jar
+Missing required parameters: fieldsJson, outputPath
+Usage: Fill In i589 [-hV] fieldsJson outputPath
+      fieldsJson   Json telling me what fields to fill in with what
+      outputPath   Where to save the result
+  -h, --help       Show this help message and exit.
+  -V, --version    Print version information and exit.
 ```
 
-This will fill in one field of the pdf with the text batman and pipe the result into a file
+Simply provide it two args. One pointing to a json file with the fields to fill
+and another telling it what file to make for the new pdf
 
+```bash
+java -jar formfiller-1.0-SNAPSHOT-all.jar ~/Desktop/fields.json ./out.pdf
+```
+
+See /formfiller/formfiller/src/main/resources/fields.json
+
+For a blank template check out [Fields.json](src/main/resources/fields.json). Not all fields
+need to be there. The app will work with what its given.
+
+There is a known gotcha around checkboxes. Only specific inputs will work. This is still
+an alpha and we will improve and rework this over time.

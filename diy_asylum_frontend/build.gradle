@@ -5,7 +5,7 @@ task('npm_install', type:Exec) {
 }
 
 task('npm_clean', type:Exec) {
-    commandLine 'rm', "${project.buildDir}/node_modules/"
+    commandLine 'rm', '-r', "${project.buildDir}/node_modules/"
 }
 
 task('npm_test', type:Exec) {
