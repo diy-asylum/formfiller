@@ -57,7 +57,7 @@ resource "aws_iam_role_policy" "ecs_execution_policy" {
 EOF
 }
 
-# Overly permissive security group allowing access 
+# Overly permissive security group allowing public access 
 # to all ports we care about. We will eventually need a more
 # comprehensive security setup.
 
@@ -69,6 +69,13 @@ resource "aws_security_group" "allow_all" {
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -97,7 +104,9 @@ resource "aws_security_group" "allow_all" {
 
 # Create private VPC to host our service.
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 }
 
 # Declare subnets in which our service will be hosted.
@@ -156,7 +165,7 @@ resource "aws_route_table_association" "public_egress_route_2" {
   route_table_id = "${aws_route_table.public_egress.id}"
 }
 
-# NAT gateway to give our private subnets access to the internet
+# NAT gateway to give our private subnets access to the public internet
 resource "aws_eip" "public_eip_1" {
   vpc = true
 }
@@ -229,20 +238,62 @@ resource "aws_lb" "be-load-balancer" {
   }
 }
 
-# Print load balancer DNS when deployment is complete.
-output "fe_dns" {
-  value = "${aws_lb.fe-load-balancer.dns_name}"
+# Set up public and private DNS
+data "aws_route53_zone" "diyasylum_public" {
+  name         = "diyasylum.com."
+  private_zone = false
 }
 
-output "be_dns" {
-  value = "${aws_lb.be-load-balancer.dns_name}"
+resource "aws_route53_zone" "diyasylum_private" {
+  name = "diyasylum.com"
+
+  vpc {
+    vpc_id = "${aws_vpc.main.id}"
+  }
+}
+
+resource "aws_route53_record" "public_fe_dev_dns" {
+  zone_id = "${data.aws_route53_zone.diyasylum_public.zone_id}"
+  name    = "squirtle.diyasylum.com"
+  type    = "A"
+
+  alias {
+    name                   = "${aws_lb.fe-load-balancer.dns_name}"
+    zone_id                = "${aws_lb.fe-load-balancer.zone_id}"
+    evaluate_target_health = true
+  }
+}
+
+resource "aws_route53_record" "private_be_dev_dns" {
+  zone_id = "${aws_route53_zone.diyasylum_private.zone_id}"
+  name    = "formfiller.diyasylum.com"
+  type    = "A"
+
+  alias {
+    name                   = "${aws_lb.be-load-balancer.dns_name}"
+    zone_id                = "${aws_lb.be-load-balancer.zone_id}"
+    evaluate_target_health = true
+  }
+}
+
+# We assume that we already have a verified SSL cert
+# Since terraform cannot do the validation for us
+data "aws_acm_certificate" "diyasylum" {
+  domain      = "*.diyasylum.com"
+  types       = ["AMAZON_ISSUED"]
+  most_recent = true
 }
 
 # Direct load balancers to forward to target groups.
+# Note that SSL is applied to traffic from the client to the FE load balancer
+# But not to the traffic within the VPC 
+# (which should already be shielded from the public internet)
 resource "aws_lb_listener" "fe-listener" {
   load_balancer_arn = "${aws_lb.fe-load-balancer.arn}"
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2015-05"
+  certificate_arn   = "${data.aws_acm_certificate.diyasylum.arn}"
 
   default_action {
     target_group_arn = "${aws_lb_target_group.fe-target-group.arn}"
@@ -259,6 +310,15 @@ resource "aws_lb_listener" "be-listener" {
     target_group_arn = "${aws_lb_target_group.be-target-group.arn}"
     type             = "forward"
   }
+}
+
+# Print load balancer DNS when deployment is complete.
+output "fe_dns" {
+  value = "${aws_route53_record.public_fe_dev_dns.name}"
+}
+
+output "be_dns" {
+  value = "${aws_route53_record.private_be_dev_dns.name}"
 }
 
 # Define parameters of ECS task. Indicates the Docker container which will be run,
@@ -285,7 +345,7 @@ resource "aws_ecs_task_definition" "diyasylum-fe" {
                 }
             ],
     "environment" : [
-      { "name" : "BE_HOST", "value" : "http://${aws_lb.be-load-balancer.dns_name}" }
+      { "name" : "BE_HOST", "value" : "http://${aws_route53_record.private_be_dev_dns.name}" }
   ]
   }
 ]
