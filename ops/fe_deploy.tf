@@ -57,21 +57,24 @@ resource "aws_iam_role_policy" "ecs_execution_policy" {
 EOF
 }
 
-# Overly permissive security group allowing public access 
-# to all ports we care about. We will eventually need a more
-# comprehensive security setup.
-
-resource "aws_security_group" "allow_all" {
-  name        = "allow_all"
-  description = "Allow all inbound traffic"
+# Security groups which restrict access as much as possible
+resource "aws_security_group" "egress_all" {
+  name        = "egress_all"
+  description = "Allow all outbound traffic"
   vpc_id      = "${aws_vpc.main.id}"
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_security_group" "fe_lb_security" {
+  name        = "fe_lb_security"
+  description = "Allow all inbound HTTPS traffic"
+  vpc_id      = "${aws_vpc.main.id}"
 
   ingress {
     from_port   = 443
@@ -81,25 +84,68 @@ resource "aws_security_group" "allow_all" {
   }
 
   ingress {
-    from_port   = 3000
-    to_port     = 3000
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_security_group" "fe_ecs_security" {
+  name        = "fe_ecs_security"
+  description = "Allow inbound traffic from FE load balancer"
+  vpc_id      = "${aws_vpc.main.id}"
 
   ingress {
-    from_port   = 12345
-    to_port     = 12345
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port       = 3000
+    to_port         = 3000
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.fe_lb_security.id}"]
   }
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+resource "aws_security_group_rule" "traffic_from_fe_lb_to_ecs" {
+  type                     = "egress"
+  from_port                = 3000
+  to_port                  = 3000
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.fe_ecs_security.id}"
+  security_group_id        = "${aws_security_group.fe_lb_security.id}"
+}
+
+resource "aws_security_group" "be_lb_security" {
+  name        = "be_lb_security"
+  description = "Allow inbound traffic from FE"
+  vpc_id      = "${aws_vpc.main.id}"
+
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.fe_ecs_security.id}"]
   }
+}
+
+resource "aws_security_group" "be_ecs_security" {
+  name        = "be_ecs_security"
+  description = "Allow inbound traffic from BE load balancer"
+  vpc_id      = "${aws_vpc.main.id}"
+
+  ingress {
+    from_port       = 12345
+    to_port         = 12345
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.be_lb_security.id}"]
+  }
+}
+
+resource "aws_security_group_rule" "traffic_from_be_lb_to_ecs" {
+  type                     = "egress"
+  from_port                = 12345
+  to_port                  = 12345
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.be_ecs_security.id}"
+  security_group_id        = "${aws_security_group.be_lb_security.id}"
 }
 
 # Create private VPC to host our service.
@@ -114,28 +160,28 @@ resource "aws_vpc" "main" {
 # Corresponding public subnets will be used for public facing load balancers
 # and for NAT gateways which give our servers the ability to access the public internet.
 resource "aws_subnet" "public_subnet_1" {
-  vpc_id                  = "${aws_security_group.allow_all.vpc_id}"
+  vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.0.0.0/26"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-east-1a"
 }
 
 resource "aws_subnet" "public_subnet_2" {
-  vpc_id                  = "${aws_security_group.allow_all.vpc_id}"
+  vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.0.0.64/26"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-east-1b"
 }
 
 resource "aws_subnet" "private_subnet_1" {
-  vpc_id                  = "${aws_security_group.allow_all.vpc_id}"
+  vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.0.0.128/26"
   map_public_ip_on_launch = "false"
   availability_zone       = "us-east-1a"
 }
 
 resource "aws_subnet" "private_subnet_2" {
-  vpc_id                  = "${aws_security_group.allow_all.vpc_id}"
+  vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.0.0.192/26"
   map_public_ip_on_launch = "false"
   availability_zone       = "us-east-1b"
@@ -161,7 +207,7 @@ resource "aws_route_table_association" "public_egress_route_1" {
 }
 
 resource "aws_route_table_association" "public_egress_route_2" {
-  subnet_id      = "${aws_subnet.public_subnet_1.id}"
+  subnet_id      = "${aws_subnet.public_subnet_2.id}"
   route_table_id = "${aws_route_table.public_egress.id}"
 }
 
@@ -218,7 +264,7 @@ resource "aws_lb_target_group" "be-target-group" {
 # while the BE load balancer is in the private subnets and is internal.
 resource "aws_lb" "fe-load-balancer" {
   name            = "fe-load-balancer"
-  security_groups = ["${aws_security_group.allow_all.id}"]
+  security_groups = ["${aws_security_group.fe_lb_security.id}"]
   subnets         = ["${aws_subnet.public_subnet_1.id}", "${aws_subnet.public_subnet_2.id}"]
   internal        = false
 
@@ -229,7 +275,7 @@ resource "aws_lb" "fe-load-balancer" {
 
 resource "aws_lb" "be-load-balancer" {
   name            = "be-load-balancer"
-  security_groups = ["${aws_security_group.allow_all.id}"]
+  security_groups = ["${aws_security_group.be_lb_security.id}"]
   subnets         = ["${aws_subnet.private_subnet_1.id}", "${aws_subnet.private_subnet_2.id}"]
   internal        = true
 
@@ -276,28 +322,58 @@ resource "aws_route53_record" "private_be_dev_dns" {
   }
 }
 
-# We assume that we already have a verified SSL cert
-# Since terraform cannot do the validation for us
-data "aws_acm_certificate" "diyasylum" {
-  domain      = "*.diyasylum.com"
-  types       = ["AMAZON_ISSUED"]
-  most_recent = true
+# We assume that an ACM certificate has been independently issued
+# Validation with Terraform is TBD
+resource "aws_acm_certificate" "diyasylum_cert" {
+  domain_name       = "*.diyasylum.com"
+  validation_method = "DNS"
+}
+
+resource "aws_route53_record" "diyasylum_cert_validation" {
+  name    = "${aws_acm_certificate.diyasylum_cert.domain_validation_options.0.resource_record_name}"
+  type    = "${aws_acm_certificate.diyasylum_cert.domain_validation_options.0.resource_record_type}"
+  zone_id = "${data.aws_route53_zone.diyasylum_public.zone_id}"
+  records = ["${aws_acm_certificate.diyasylum_cert.domain_validation_options.0.resource_record_value}"]
+  ttl     = 60
+}
+
+resource "aws_acm_certificate_validation" "diyasylum_cert_validation" {
+  certificate_arn         = "${aws_acm_certificate.diyasylum_cert.arn}"
+  validation_record_fqdns = ["${aws_route53_record.diyasylum_cert_validation.fqdn}"]
 }
 
 # Direct load balancers to forward to target groups.
-# Note that SSL is applied to traffic from the client to the FE load balancer
-# But not to the traffic within the VPC 
-# (which should already be shielded from the public internet)
+# FE LB uses SSL whereas BE does not, since traffic is protected in our VPC
+# FE redirects HTTP requests to HTTPS
 resource "aws_lb_listener" "fe-listener" {
   load_balancer_arn = "${aws_lb.fe-load-balancer.arn}"
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2015-05"
-  certificate_arn   = "${data.aws_acm_certificate.diyasylum.arn}"
+  certificate_arn   = "${aws_acm_certificate.diyasylum_cert.arn}"
 
   default_action {
     target_group_arn = "${aws_lb_target_group.fe-target-group.arn}"
     type             = "forward"
+  }
+
+  depends_on = ["aws_acm_certificate_validation.diyasylum_cert_validation"]
+}
+
+resource "aws_lb_listener" "fe-redirect-http-to-https" {
+  load_balancer_arn = "${aws_lb.fe-load-balancer.arn}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.fe-target-group.arn}"
+    type             = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }
 
@@ -389,16 +465,15 @@ resource "aws_ecs_cluster" "diyasylum" {
 # Create ECS service to run the task defined above. 
 # Services are private and do not have a public IP. 
 # The FE service is publicly accesible via the load balancer defined above. 
-# The BE service is internally accessible via the load balancer. 
 resource "aws_ecs_service" "diyasylum-fe" {
   name          = "diyasylum-fe"
   cluster       = "${aws_ecs_cluster.diyasylum.id}"
-  desired_count = 1
+  desired_count = 2
   launch_type   = "FARGATE"
 
   network_configuration {
     assign_public_ip = false
-    security_groups  = ["${aws_security_group.allow_all.id}"]
+    security_groups  = ["${aws_security_group.egress_all.id}", "${aws_security_group.fe_ecs_security.id}"]
     subnets          = ["${aws_subnet.private_subnet_1.id}", "${aws_subnet.private_subnet_2.id}"]
   }
 
@@ -413,15 +488,17 @@ resource "aws_ecs_service" "diyasylum-fe" {
   depends_on = ["aws_lb_listener.fe-listener"]
 }
 
+# The BE service is internally accessible via the load balancer.
+# Access is restricted to the FE ECS cluster. 
 resource "aws_ecs_service" "diyasylum-be" {
   name          = "diyasylum-be"
   cluster       = "${aws_ecs_cluster.diyasylum.id}"
-  desired_count = 1
+  desired_count = 2
   launch_type   = "FARGATE"
 
   network_configuration {
     assign_public_ip = false
-    security_groups  = ["${aws_security_group.allow_all.id}"]
+    security_groups  = ["${aws_security_group.egress_all.id}", "${aws_security_group.be_ecs_security.id}"]
     subnets          = ["${aws_subnet.private_subnet_1.id}", "${aws_subnet.private_subnet_2.id}"]
   }
 
