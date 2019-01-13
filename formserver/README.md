@@ -30,3 +30,14 @@ curl -X POST localhost:8080/i589/fillraw -H "Content-Type: application/json" --d
 ```
 
 This will fill in one field of the pdf with the text batman and pipe the result into a file
+
+## building and running the dockerfile
+
+This module includes a dockerfile for its deployment. You can build and run the server with the following commands
+
+```bash
+./gradlew :formserver:build :formserver:docker
+docker run -p 8080:8080 -t diyasylum/formserver
+```
+
+You can test it by running the curl command from above
