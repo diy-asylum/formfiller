@@ -1,14 +1,26 @@
 import React from "react";
 import "./style.scss";
 
-const InstructionsPanel = () => (
+import contentPages from "../../contentpages";
+
+const getHelpText = ({ currentStep }) => {
+  const helpIndex = currentStep - 1;
+  if (
+    helpIndex === undefined ||
+    helpIndex < 0 ||
+    helpIndex >= contentPages.length
+  ) {
+    return "";
+  }
+  const page = contentPages[helpIndex];
+  return page.help;
+};
+
+const InstructionsPanel = ({ currentStep }) => (
   <div className="instructions-panel col-sm">
-    <p>This is the instructions and helper text Panel</p>
-    <p>
-      A blurp or paragraph will be here and will change whenever a users either
-      goes to another step or, if we want to go the extra mile, focuses on a new
-      form element input.
-    </p>
+    <h6>Help</h6>
+    <p>{getHelpText({ currentStep })}</p>
+    {/* Integrate the per-form-item help here somehow (how user interaction???) */}
   </div>
 );
 

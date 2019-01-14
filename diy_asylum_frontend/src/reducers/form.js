@@ -1,3 +1,5 @@
+import { numPages } from "../contentpages";
+
 // initial state of form
 const initState = {
   currentStep: 1
@@ -22,7 +24,8 @@ const decrementStep = () => ({
 //
 export const nextFormStep = () => (dispatch, getState) => {
   const currentStepState = getState().form.currentStep;
-  if (currentStepState < 5) {
+  // TODO: this is some placeholder control flow, replace it when we get srs
+  if (currentStepState < numPages) {
     dispatch(incrementStep());
   }
 };
