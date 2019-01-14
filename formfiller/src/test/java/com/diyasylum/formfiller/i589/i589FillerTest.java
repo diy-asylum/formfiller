@@ -1,9 +1,8 @@
-package com.diyasylum.formfiller;
+package com.diyasylum.formfiller.i589;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.diyasylum.formfiller.models.FieldType;
-import com.diyasylum.formfiller.models.I589Field;
+import com.diyasylum.formfiller.TestUtils;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;

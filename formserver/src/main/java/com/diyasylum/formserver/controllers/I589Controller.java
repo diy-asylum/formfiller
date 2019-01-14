@@ -1,7 +1,7 @@
 package com.diyasylum.formserver.controllers;
 
-import com.diyasylum.formfiller.I589Filler;
-import com.diyasylum.formfiller.models.I589Field;
+import com.diyasylum.formfiller.i589.I589Field;
+import com.diyasylum.formfiller.i589.I589Filler;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

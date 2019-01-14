@@ -2,7 +2,7 @@ package com.diyasylum.formserver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.diyasylum.formfiller.I589Filler;
+import com.diyasylum.formfiller.i589.I589Filler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

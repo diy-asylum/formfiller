@@ -1,4 +1,4 @@
-package com.diyasylum.formfiller.models;
+package com.diyasylum.formfiller.i589;
 
 import static org.junit.jupiter.api.Assertions.*;
 
