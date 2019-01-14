@@ -4,6 +4,20 @@ This repo contains a CLI application which can provide a filled in I589 form.
 
 It is where any logic involving the PDFs should live.
 
+## Some notes on the design
+
+My thinking is that there are two distinct parts to this.
+
+com.diyasylum.formfiller.application contains the classes that hold information. They model the *data* and know
+*nothing* about the PDF file. The main class is called "I589Application".
+
+com.diyasylum.i589 contains information about the literal form/pdf. How to map data to fields, logic for detecting when
+a supplemental page or section is necessary, validation, etc.
+
+please keep these two separate.
+
+## Building and running the application
+
 To create the jar first run
 
 ```bash

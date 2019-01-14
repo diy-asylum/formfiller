@@ -1,6 +1,7 @@
 package com.diyasylum.formfiller;
 
-import com.diyasylum.formfiller.models.I589Field;
+import com.diyasylum.formfiller.i589.I589Field;
+import com.diyasylum.formfiller.i589.I589Filler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;

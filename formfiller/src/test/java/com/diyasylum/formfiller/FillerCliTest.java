@@ -2,8 +2,8 @@ package com.diyasylum.formfiller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.diyasylum.formfiller.models.FieldType;
-import com.diyasylum.formfiller.models.I589Field;
+import com.diyasylum.formfiller.i589.FieldType;
+import com.diyasylum.formfiller.i589.I589Field;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileWriter;
 import java.io.IOException;

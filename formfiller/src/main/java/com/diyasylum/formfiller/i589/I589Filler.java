@@ -1,6 +1,5 @@
-package com.diyasylum.formfiller;
+package com.diyasylum.formfiller.i589;
 
-import com.diyasylum.formfiller.models.I589Field;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
