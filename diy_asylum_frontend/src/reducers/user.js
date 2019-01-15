@@ -31,6 +31,7 @@ export default (state = initState, action) => {
         ...state,
         locale: action.payload
       };
+
     default:
       return state;
   }

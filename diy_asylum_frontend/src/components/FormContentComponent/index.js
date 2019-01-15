@@ -30,8 +30,8 @@ const inputMaker = ({ inputType, elementName, help }, helpTextSetter) => {
   }
 };
 
-const makeFormElement = formElement => {
-  const inputs = inputMaker(formElement);
+const makeFormElement = helpTextSetter => formElement => {
+  const inputs = inputMaker(formElement, helpTextSetter);
 
   return (
     <div className="form-group">
@@ -40,32 +40,13 @@ const makeFormElement = formElement => {
   );
 };
 
-class ContentPage extends Component {
-  constructor({ formElements }) {
-    super();
-    // set up state here
-    this.state = {};
-    this.formElements = formElements;
-  }
+const FormContentComponent = ({ formElements, helpTextSetter }) => {
+  const formElementMaker = makeFormElement(helpTextSetter);
+  return (
+    <div>
+      <form>{formElements.map(formElementMaker)}</form>
+    </div>
+  );
+};
 
-  componentDidMount() {
-    //
-    // potentially fetch user data here
-    //
-  }
-
-  render() {
-    console.log(this.helpTextSetter);
-    return (
-      <div>
-        <form>{this.formElements.map(makeFormElement)}</form>
-      </div>
-    );
-  }
-}
-
-// TODO: action dispatcher which attaches help text
-
-const makeContentPage = contentPage => new ContentPage(contentPage);
-
-export default makeContentPage;
+export default FormContentComponent;

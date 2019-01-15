@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import { connect } from "react-redux";
 
 import contentPages from "../../contentpages";
 
@@ -16,12 +17,24 @@ const getHelpText = ({ currentStep }) => {
   return page.help;
 };
 
-const InstructionsPanel = ({ currentStep }) => (
+const InstructionsPanel = ({ currentStep, inputHelpText }) => (
   <div className="instructions-panel col-sm">
-    <h6>Help</h6>
+    <h6>Instructions</h6>
     <p>{getHelpText({ currentStep })}</p>
-    {/* Integrate the per-form-item help here somehow (how user interaction???) */}
+    {inputHelpText ? (
+      <div>
+        <h6>Help</h6>
+        <p>{inputHelpText}</p>
+      </div>
+    ) : (
+      ""
+    )}
   </div>
 );
 
-export default InstructionsPanel;
+const mapStateToProps = state => ({
+  step: state.form.currentStep,
+  inputHelpText: state.helpText.inputHelpText
+});
+
+export default connect(mapStateToProps)(InstructionsPanel);
