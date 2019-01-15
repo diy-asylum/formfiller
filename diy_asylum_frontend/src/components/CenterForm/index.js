@@ -71,12 +71,12 @@ const FormContent = ({ step, helpTextSetter }) => {
   step -= 1;
 
   if (step >= 0 && step < contentPages.length) {
-    const { formElements, id } = contentPages[step];
+    const { formElements } = contentPages[step];
     return (
       <FormContentComponent
         formElements={formElements}
         helpTextSetter={helpTextSetter}
-        formId={id}
+        formId={step}
       />
     );
   } else {

@@ -31,6 +31,5 @@ const formElements = [
 export default makeContentPage({
   name: "Your name",
   formElements,
-  help: "Your complete name",
-  id: Symbol()
+  help: "Your complete name"
 });
