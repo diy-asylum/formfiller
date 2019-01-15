@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const inputMaker = ({ inputType, elementName, help }, helpTextSetter) => {
   const onfocus = () => helpTextSetter(help);
