@@ -1,5 +1,3 @@
-import { INCREMENT_STEP, DECREMENT_STEP } from "./form";
-
 const initState = {
   inputHelpText: ""
 };
@@ -18,18 +16,6 @@ export const setInputHelpText = helpText => dispatch => {
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case INCREMENT_STEP:
-      return {
-        ...state,
-        inputHelpText: ""
-      };
-
-    case DECREMENT_STEP:
-      return {
-        ...state,
-        inputHelpText: ""
-      };
-
     case SET_INPUT_HELP_TEXT:
       return {
         ...state,
