@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import MainView from "./components/MainView";
+import LandingPage from "./components/LandingPage";
 import { IntlProvider, addLocaleData } from "react-intl";
 import enLocaleData from "react-intl/locale-data/en";
 import esLocaleData from "react-intl/locale-data/es";
@@ -23,10 +24,15 @@ class App extends Component {
       <IntlProvider locale={locale} key={locale} messages={messages}>
         <div className="App">
           <Router>
-            <Route
-              path="/:filter?"
-              render={({ match }) => <MainView filter={match.params.filter} />}
-            />
+            <switch>
+              <Route path="/landing" component={() => <LandingPage />} />
+              <Route
+                path="/main/:filter?"
+                render={({ match }) => (
+                  <MainView filter={match.params.filter} />
+                )}
+              />
+            </switch>
           </Router>
         </div>
       </IntlProvider>
