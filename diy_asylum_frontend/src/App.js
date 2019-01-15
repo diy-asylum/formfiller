@@ -25,9 +25,10 @@ class App extends Component {
         <div className="App">
           <Router>
             <switch>
+              {/* order matters here; if landing is after the MainView the wrong thing will be rendered */}
               <Route path="/landing" component={() => <LandingPage />} />
               <Route
-                path="/main/:filter?"
+                path="/:filter?"
                 render={({ match }) => (
                   <MainView filter={match.params.filter} />
                 )}
