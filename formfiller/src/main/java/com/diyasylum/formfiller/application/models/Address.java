@@ -3,6 +3,7 @@ package com.diyasylum.formfiller.application.models;
 import java.util.Objects;
 
 public class Address {
+  private final String inCareOf;
   private final String streetName;
   private final String streetNumber;
   private final String apartmentNumber;
@@ -13,6 +14,7 @@ public class Address {
   private final String phoneNumber;
 
   public Address(
+      String inCareOf,
       String streetName,
       String streetNumber,
       String apartmentNumber,
@@ -21,6 +23,7 @@ public class Address {
       String zipCode,
       String areaCode,
       String phoneNumber) {
+    this.inCareOf = inCareOf;
     this.streetName = streetName;
     this.streetNumber = streetNumber;
     this.apartmentNumber = apartmentNumber;
@@ -29,6 +32,10 @@ public class Address {
     this.zipCode = zipCode;
     this.areaCode = areaCode;
     this.phoneNumber = phoneNumber;
+  }
+
+  public String getInCareOf() {
+    return inCareOf;
   }
 
   public String getStreetName() {
@@ -68,7 +75,8 @@ public class Address {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Address address = (Address) o;
-    return Objects.equals(streetName, address.streetName)
+    return Objects.equals(inCareOf, address.inCareOf)
+        && Objects.equals(streetName, address.streetName)
         && Objects.equals(streetNumber, address.streetNumber)
         && Objects.equals(apartmentNumber, address.apartmentNumber)
         && Objects.equals(city, address.city)
@@ -81,13 +89,24 @@ public class Address {
   @Override
   public int hashCode() {
     return Objects.hash(
-        streetName, streetNumber, apartmentNumber, city, state, zipCode, areaCode, phoneNumber);
+        inCareOf,
+        streetName,
+        streetNumber,
+        apartmentNumber,
+        city,
+        state,
+        zipCode,
+        areaCode,
+        phoneNumber);
   }
 
   @Override
   public String toString() {
     return "Address{"
-        + "streetName='"
+        + "inCareOf='"
+        + inCareOf
+        + '\''
+        + ", streetName='"
         + streetName
         + '\''
         + ", streetNumber='"

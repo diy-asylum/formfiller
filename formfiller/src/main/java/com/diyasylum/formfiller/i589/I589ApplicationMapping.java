@@ -1,12 +1,7 @@
 package com.diyasylum.formfiller.i589;
 
-import com.diyasylum.formfiller.application.models.Gender;
-import com.diyasylum.formfiller.application.models.I589Application;
-import com.diyasylum.formfiller.application.models.ImmigrationCourtHistory;
-import com.diyasylum.formfiller.application.models.MaritalStatus;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import com.diyasylum.formfiller.application.models.*;
+import java.util.*;
 import java.util.function.Function;
 import org.apache.commons.lang3.StringUtils;
 
@@ -137,17 +132,66 @@ abstract class I589ApplicationMapping {
                 a.getApplicantInfo().getImmigrationCourtHistory()
                     == ImmigrationCourtHistory.CURRENTLY,
                 "B"));
-    pdfFieldMap.put("form1[0].#subform[0].DateTimeField6[0]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField3[0]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].DateTimeField2[0]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField4[0]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField4[1]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].DateTimeField3[0]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField4[2]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField4[3]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].DateTimeField4[0]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField4[4]", a -> "");
-    pdfFieldMap.put("form1[0].#subform[0].TextField4[5]", a -> "");
+    pdfFieldMap.put(
+        "form1[0].#subform[0].DateTimeField6[0]",
+        a -> a.getUsTravelHistory().getLastLeftHomeCountry());
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField3[0]",
+        a -> noneIfBlank(a.getUsTravelHistory().getI94Number()));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].DateTimeField2[0]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 0)
+                .map(UsTravelEvent::getDate)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField4[0]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 0)
+                .map(UsTravelEvent::getPlace)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField4[1]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 0)
+                .map(UsTravelEvent::getStatus)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].DateTimeField3[0]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 1)
+                .map(UsTravelEvent::getDate)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField4[2]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 1)
+                .map(UsTravelEvent::getPlace)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField4[3]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 1)
+                .map(UsTravelEvent::getStatus)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].DateTimeField4[0]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 2)
+                .map(UsTravelEvent::getDate)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField4[4]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 2)
+                .map(UsTravelEvent::getPlace)
+                .orElse(""));
+    pdfFieldMap.put(
+        "form1[0].#subform[0].TextField4[5]",
+        a ->
+            safeListAccess(a.getUsTravelHistory().getTravelEvents(), 2)
+                .map(UsTravelEvent::getStatus)
+                .orElse(""));
     pdfFieldMap.put(
         "form1[0].#subform[0].TextField5[0]",
         a -> noneIfBlank(a.getApplicantInfo().getCountryWhoLastIssuedPassport()));
@@ -170,7 +214,9 @@ abstract class I589ApplicationMapping {
     pdfFieldMap.put(
         "form1[0].#subform[0].DateTimeField2[2]",
         a -> naIfBlank(a.getApplicantInfo().getTravelDocumentExpirationDate()));
-    pdfFieldMap.put("form1[0].#subform[0].PtAILine9_InCareOf[0]", a -> "");
+    pdfFieldMap.put(
+        "form1[0].#subform[0].PtAILine9_InCareOf[0]",
+        a -> naIfBlank(a.getApplicantInfo().getUsMailingAddress().getInCareOf()));
     pdfFieldMap.put(
         "form1[0].#subform[0].TextField7[0]", a -> a.getApplicantInfo().getNativeLanguage());
     pdfFieldMap.put(
@@ -209,5 +255,13 @@ abstract class I589ApplicationMapping {
    */
   private static String formatCheckbox(boolean condition, String checkedValue) {
     return condition ? checkedValue : "Off";
+  }
+
+  private static <T> Optional<T> safeListAccess(List<T> list, int index) {
+    if (index < 0 || index >= list.size()) {
+      return Optional.empty();
+    } else {
+      return Optional.of(list.get(index));
+    }
   }
 }
