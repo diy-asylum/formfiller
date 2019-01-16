@@ -15,6 +15,8 @@ public class ApplicantInfo {
   private final String dateOfBirth; // mm/dd/yyyy
   private final String cityOfBirth;
   private final String countryOfBirth;
+  private final String presentNationality;
+  private final String nationalityAtBirth;
   private final String raceEthnicOrTribalGroup;
   private final String religion;
   private final String nativeLanguage;
@@ -46,6 +48,8 @@ public class ApplicantInfo {
       String dateOfBirth,
       String cityOfBirth,
       String countryOfBirth,
+      String presentNationality,
+      String nationalityAtBirth,
       String raceEthnicOrTribalGroup,
       String religion,
       ImmigrationCourtHistory immigrationCourtHistory,
@@ -71,6 +75,8 @@ public class ApplicantInfo {
     this.dateOfBirth = dateOfBirth;
     this.cityOfBirth = cityOfBirth;
     this.countryOfBirth = countryOfBirth;
+    this.presentNationality = presentNationality;
+    this.nationalityAtBirth = nationalityAtBirth;
     this.raceEthnicOrTribalGroup = raceEthnicOrTribalGroup;
     this.religion = religion;
     this.immigrationCourtHistory = immigrationCourtHistory;
@@ -183,16 +189,21 @@ public class ApplicantInfo {
     return otherLanguages;
   }
 
+  public String getPresentNationality() {
+    return presentNationality;
+  }
+
+  public String getNationalityAtBirth() {
+    return nationalityAtBirth;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ApplicantInfo that = (ApplicantInfo) o;
-    return alsoApplyingConventionAgainstTorture == that.alsoApplyingConventionAgainstTorture
-        && fluentInEnglish == that.fluentInEnglish
-        && Objects.equals(alienRegistrationNumber, that.alienRegistrationNumber)
-        && Objects.equals(socialSecurityNumber, that.socialSecurityNumber)
-        && Objects.equals(USISAccountNumber, that.USISAccountNumber)
+    return fluentInEnglish == that.fluentInEnglish
+        && alsoApplyingConventionAgainstTorture == that.alsoApplyingConventionAgainstTorture
         && Objects.equals(lastName, that.lastName)
         && Objects.equals(firstName, that.firstName)
         && Objects.equals(middleName, that.middleName)
@@ -204,24 +215,25 @@ public class ApplicantInfo {
         && Objects.equals(dateOfBirth, that.dateOfBirth)
         && Objects.equals(cityOfBirth, that.cityOfBirth)
         && Objects.equals(countryOfBirth, that.countryOfBirth)
+        && Objects.equals(presentNationality, that.presentNationality)
+        && Objects.equals(nationalityAtBirth, that.nationalityAtBirth)
         && Objects.equals(raceEthnicOrTribalGroup, that.raceEthnicOrTribalGroup)
         && Objects.equals(religion, that.religion)
+        && Objects.equals(nativeLanguage, that.nativeLanguage)
+        && Objects.equals(otherLanguages, that.otherLanguages)
+        && Objects.equals(alienRegistrationNumber, that.alienRegistrationNumber)
+        && Objects.equals(socialSecurityNumber, that.socialSecurityNumber)
+        && Objects.equals(USISAccountNumber, that.USISAccountNumber)
         && immigrationCourtHistory == that.immigrationCourtHistory
         && Objects.equals(countryWhoLastIssuedPassport, that.countryWhoLastIssuedPassport)
         && Objects.equals(passportNumber, that.passportNumber)
         && Objects.equals(travelDocumentNumber, that.travelDocumentNumber)
-        && Objects.equals(travelDocumentExpirationDate, that.travelDocumentExpirationDate)
-        && Objects.equals(nativeLanguage, that.nativeLanguage)
-        && Objects.equals(otherLanguages, that.otherLanguages);
+        && Objects.equals(travelDocumentExpirationDate, that.travelDocumentExpirationDate);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        alsoApplyingConventionAgainstTorture,
-        alienRegistrationNumber,
-        socialSecurityNumber,
-        USISAccountNumber,
         lastName,
         firstName,
         middleName,
@@ -233,33 +245,28 @@ public class ApplicantInfo {
         dateOfBirth,
         cityOfBirth,
         countryOfBirth,
+        presentNationality,
+        nationalityAtBirth,
         raceEthnicOrTribalGroup,
         religion,
+        nativeLanguage,
+        fluentInEnglish,
+        otherLanguages,
+        alsoApplyingConventionAgainstTorture,
+        alienRegistrationNumber,
+        socialSecurityNumber,
+        USISAccountNumber,
         immigrationCourtHistory,
         countryWhoLastIssuedPassport,
         passportNumber,
         travelDocumentNumber,
-        travelDocumentExpirationDate,
-        nativeLanguage,
-        fluentInEnglish,
-        otherLanguages);
+        travelDocumentExpirationDate);
   }
 
   @Override
   public String toString() {
     return "ApplicantInfo{"
-        + "alsoApplyingConventionAgainstTorture="
-        + alsoApplyingConventionAgainstTorture
-        + ", alienRegistrationNumber='"
-        + alienRegistrationNumber
-        + '\''
-        + ", socialSecurityNumber='"
-        + socialSecurityNumber
-        + '\''
-        + ", USISAccountNumber='"
-        + USISAccountNumber
-        + '\''
-        + ", lastName='"
+        + "lastName='"
         + lastName
         + '\''
         + ", firstName='"
@@ -287,11 +294,35 @@ public class ApplicantInfo {
         + ", countryOfBirth='"
         + countryOfBirth
         + '\''
+        + ", presentNationality='"
+        + presentNationality
+        + '\''
+        + ", nationalityAtBirth='"
+        + nationalityAtBirth
+        + '\''
         + ", raceEthnicOrTribalGroup='"
         + raceEthnicOrTribalGroup
         + '\''
         + ", religion='"
         + religion
+        + '\''
+        + ", nativeLanguage='"
+        + nativeLanguage
+        + '\''
+        + ", fluentInEnglish="
+        + fluentInEnglish
+        + ", otherLanguages="
+        + otherLanguages
+        + ", alsoApplyingConventionAgainstTorture="
+        + alsoApplyingConventionAgainstTorture
+        + ", alienRegistrationNumber='"
+        + alienRegistrationNumber
+        + '\''
+        + ", socialSecurityNumber='"
+        + socialSecurityNumber
+        + '\''
+        + ", USISAccountNumber='"
+        + USISAccountNumber
         + '\''
         + ", immigrationCourtHistory="
         + immigrationCourtHistory
@@ -307,13 +338,6 @@ public class ApplicantInfo {
         + ", travelDocumentExpirationDate='"
         + travelDocumentExpirationDate
         + '\''
-        + ", nativeLanguage='"
-        + nativeLanguage
-        + '\''
-        + ", fluentInEnglish="
-        + fluentInEnglish
-        + ", otherLanguages="
-        + otherLanguages
         + '}';
   }
 }
