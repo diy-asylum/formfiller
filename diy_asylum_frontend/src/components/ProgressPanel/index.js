@@ -1,19 +1,15 @@
 import React from "react";
 import "./style.scss";
 
-const ProgressPanel = props => {
-  const stepNames = [
-    "Name",
-    "Background",
-    "Birthdate",
-    "Family Members",
-    "Confirmation and Review"
-  ];
+import { pageNames } from "../../contentpages";
+
+const ProgressPanel = ({ currentStep }) => {
+  const stepNames = pageNames;
   const mappedListItemsEl = stepNames.map((stepName, idx) => {
     return (
       <li
         key={`step${idx + 1}text`}
-        className={props.currentStep > idx ? "completed" : "unfinished"}
+        className={currentStep > idx ? "completed" : "unfinished"}
       >
         {stepName}
       </li>
@@ -22,6 +18,7 @@ const ProgressPanel = props => {
 
   return (
     <div className="progress-panel col-sm">
+      <h6>Application Progress</h6>
       <ol>{mappedListItemsEl}</ol>
     </div>
   );
