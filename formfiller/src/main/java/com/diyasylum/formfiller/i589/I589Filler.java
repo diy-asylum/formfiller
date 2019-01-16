@@ -1,5 +1,6 @@
 package com.diyasylum.formfiller.i589;
 
+import com.diyasylum.formfiller.application.models.I589Application;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
@@ -61,9 +62,20 @@ public class I589Filler {
    * @throws IOException if there are problems working with the pdf
    */
   public byte[] fillInForm(List<I589Field> fields) throws IOException {
-    Map<String, String> fieldToValue =
-        fields.stream().collect(Collectors.toMap(I589Field::getAbsolutePath, I589Field::getValue));
+    return fillInForm(
+        fields.stream().collect(Collectors.toMap(I589Field::getAbsolutePath, I589Field::getValue)));
+  }
 
+  public byte[] fillInForm(I589Application application) throws IOException {
+    Map<String, String> fieldToValue =
+        I589ApplicationMapping.PDF_FIELD_MAP
+            .entrySet()
+            .stream()
+            .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().apply(application)));
+    return fillInForm(fieldToValue);
+  }
+
+  private byte[] fillInForm(Map<String, String> fieldToValue) throws IOException {
     PDDocument filledInForm = cloneI589();
 
     for (PDField pdField : filledInForm.getDocumentCatalog().getAcroForm().getFieldTree()) {
