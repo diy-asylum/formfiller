@@ -5,13 +5,19 @@ import java.util.Objects;
 public class I589Application {
 
   private final ApplicantInfo applicantInfo;
+  private final UsTravelHistory usTravelHistory;
 
-  public I589Application(ApplicantInfo applicantInfo) {
+  public I589Application(ApplicantInfo applicantInfo, UsTravelHistory usTravelHistory) {
     this.applicantInfo = applicantInfo;
+    this.usTravelHistory = usTravelHistory;
   }
 
   public ApplicantInfo getApplicantInfo() {
     return applicantInfo;
+  }
+
+  public UsTravelHistory getUsTravelHistory() {
+    return usTravelHistory;
   }
 
   @Override
@@ -19,16 +25,22 @@ public class I589Application {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     I589Application that = (I589Application) o;
-    return Objects.equals(applicantInfo, that.applicantInfo);
+    return Objects.equals(applicantInfo, that.applicantInfo)
+        && Objects.equals(usTravelHistory, that.usTravelHistory);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicantInfo);
+    return Objects.hash(applicantInfo, usTravelHistory);
   }
 
   @Override
   public String toString() {
-    return "I589Application{" + "applicantInfo=" + applicantInfo + '}';
+    return "I589Application{"
+        + "applicantInfo="
+        + applicantInfo
+        + ", usTravelHistory="
+        + usTravelHistory
+        + '}';
   }
 }
