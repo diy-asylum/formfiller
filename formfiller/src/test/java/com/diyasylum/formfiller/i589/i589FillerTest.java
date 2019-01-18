@@ -3,15 +3,16 @@ package com.diyasylum.formfiller.i589;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.diyasylum.formfiller.TestUtils;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import com.diyasylum.formfiller.application.models.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -142,5 +143,87 @@ class i589FillerTest {
             .getAcroForm()
             .getField("form1[0].#subform[4].TextField13[54]")
             .getValueAsString());
+  }
+
+  @Test
+  void fillInFromModel() throws IOException {
+    I589Filler filler = I589Filler.fromi589PdfBytes(TestUtils.getCurrentFormFromResources());
+    // This is a nonsense application
+    I589Application application = new I589Application(
+            new ApplicantInfoBuilder()
+                    .setAliases(Set.of("Spider-man"))
+                    .setAlienRegistrationNumber("4234912")
+                    .setAlsoApplyingConventionAgainstTorture(true)
+                    .setCityOfBirth("Beijing")
+                    .setCountryOfBirth("China")
+                    .setCountryWhoLastIssuedPassport("China")
+                    .setFirstName("Peter")
+                    .setLastName("Parker")
+                    .setDateOfBirth("8/10/1962")
+                    .setFluentInEnglish(true)
+                    .setGender(Gender.MALE)
+                    .setImmigrationCourtHistory(ImmigrationCourtHistory.NEVER)
+                    .setMiddleName("Benjamin")
+                    .setMaritalStatus(MaritalStatus.MARRIED)
+                    .setNationalityAtBirth("Chinese")
+                    .setNativeLanguage("Chinese")
+                    .setOtherLanguages(Set.of("English", "Spanish"))
+                    .setPassportNumber("999999999")
+                    .setPresentNationality("Chinese")
+                    .setRaceEthnicOrTribalGroup("Asian")
+                    .setUSISAccountNumber("A012345678")
+                    .setReligion("Christian")
+                    .setSocialSecurityNumber("234-22-1113")
+                    .setTravelDocumentExpirationDate("12-12-9999")
+                    .setTravelDocumentNumber("29312")
+                    .setUsResidence(
+                            new AddressBuilder()
+                                    .setApartmentNumber("6")
+                                    .setAreaCode("212")
+                                    .setCity("New York")
+                                    .setPhoneNumber("3230122")
+                                    .setState("New York")
+                                    .setStreetName("50th Street")
+                                    .setStreetNumber("135 W.")
+                                    .setZipCode("10020")
+                            .createAddress()
+                    )
+                    .setUsMailingAddress(
+                            new AddressBuilder()
+                                    .setApartmentNumber("6")
+                                    .setAreaCode("212")
+                                    .setCity("New York")
+                                    .setPhoneNumber("3230122")
+                                    .setState("New York")
+                                    .setStreetName("34th street")
+                                    .setStreetNumber("7")
+                                    .setInCareOf("May Parker")
+                                    .setZipCode("10020")
+                                    .createAddress()
+                    )
+                    .createApplicantInfo(),
+            new UsTravelHistoryBuilder()
+                    .setDateStatusExpires("12/12/2018")
+                    .setI94Number("123456789 01")
+                    .setDateStatusExpires("4/2/2022")
+                    .setLastLeftHomeCountry("1/1/2018")
+                    .setTravelEvents(Arrays.asList(
+                            new UsTravelEventBuilder()
+                                    .setDate("12/12/2015")
+                                    .setPlace("New York")
+                                    .setStatus("visitor").createUsTravelEvent(),
+                            new UsTravelEventBuilder()
+                                    .setDate("12/12/2016")
+                                    .setPlace("New York")
+                                    .setStatus("visitor").createUsTravelEvent(),
+                            new UsTravelEventBuilder()
+                                    .setDate("12/12/2017")
+                                    .setPlace("New York")
+                                    .setStatus("visitor").createUsTravelEvent()
+
+                    ))
+                    .createUsTravelHistory()
+    );
+    byte[] filled = filler.fillInForm(application);
   }
 }
