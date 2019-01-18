@@ -147,8 +147,5 @@ class i589FillerTest {
   void fillInFromModel() throws IOException {
     I589Filler filler = I589Filler.fromi589PdfBytes(TestUtils.getCurrentFormFromResources());
     byte[] filled = filler.fillInForm(TestUtils.exampleApplication());
-    try (FileOutputStream fos = new FileOutputStream("/Users/bachmann/Desktop/result.pdf")) {
-      fos.write(filled);
-    }
   }
 }

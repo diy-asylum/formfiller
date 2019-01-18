@@ -5,17 +5,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.diyasylum.formfiller.mappings.i589.I589ApplicationMapper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTerminalField;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+// I think we could generalise this to just be a generic form filler
+// which will nice when we build supplemental forms
 public class I589Filler {
   static final String FORM_URL =
       "https://www.uscis.gov/system/files_force/files/form/i-589.pdf?download=1";
   static final String SUPPORTED_FORM_REVISION = "Form I-589 (Rev. 05/16/17) N";
 
   private final PDDocument i589Pdf;
+  private final I589ApplicationMapper i589ApplicationMapper;
 
   public static I589Filler fromIncludedForm() throws IOException {
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -39,6 +44,7 @@ public class I589Filler {
 
   private I589Filler(PDDocument i589pdf) {
     this.i589Pdf = i589pdf;
+    this.i589ApplicationMapper = new I589ApplicationMapper();
   }
 
   /*
@@ -68,7 +74,7 @@ public class I589Filler {
 
   public byte[] fillInForm(I589Application application) throws IOException {
     Map<String, String> fieldToValue =
-        I589ApplicationMapping.PDF_FIELD_MAP
+        i589ApplicationMapper.getFormMapper()
             .entrySet()
             .stream()
             .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().apply(application)));
