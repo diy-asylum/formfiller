@@ -30,7 +30,7 @@ abstract class I589ApplicationMapping {
             String.join(
                 " ",
                 a.getApplicantInfo().getUsResidence().getStreetNumber(),
-                a.getApplicantInfo().getUsMailingAddress().getStreetNumber()));
+                a.getApplicantInfo().getUsResidence().getStreetName()));
     pdfFieldMap.put(
         "form1[0].#subform[0].TextField1[1]",
         a -> String.join(",", a.getApplicantInfo().getAliases()));
