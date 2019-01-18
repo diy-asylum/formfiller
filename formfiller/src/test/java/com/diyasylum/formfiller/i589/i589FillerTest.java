@@ -3,7 +3,7 @@ package com.diyasylum.formfiller.i589;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.diyasylum.formfiller.TestUtils;
-
+import com.diyasylum.formfiller.application.models.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -11,8 +11,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
-
-import com.diyasylum.formfiller.application.models.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -152,6 +150,5 @@ class i589FillerTest {
     try (FileOutputStream fos = new FileOutputStream("/Users/bachmann/Desktop/result.pdf")) {
       fos.write(filled);
     }
-
   }
 }
