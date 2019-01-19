@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./landing.css";
 
 const LandingPage = () => (
@@ -6,7 +6,7 @@ const LandingPage = () => (
     <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
             Start Form
           </a>
           <button

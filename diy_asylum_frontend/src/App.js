@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import MainView from "./components/MainView";
 import LandingPage from "./components/LandingPage";
@@ -24,15 +24,16 @@ class App extends Component {
       <IntlProvider locale={locale} key={locale} messages={messages}>
         <div className="App">
           <Router>
-            <switch>
+            <Switch>
+              {/* order matters here; if landing is after the MainView the wrong thing will be rendered */}
               <Route path="/landing" component={() => <LandingPage />} />
               <Route
-                path="/main/:filter?"
+                path="/:filter?"
                 render={({ match }) => (
                   <MainView filter={match.params.filter} />
                 )}
               />
-            </switch>
+            </Switch>
           </Router>
         </div>
       </IntlProvider>

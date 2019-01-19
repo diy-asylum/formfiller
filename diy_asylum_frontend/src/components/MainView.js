@@ -28,7 +28,7 @@ class MainView extends Component {
           <div className="row">
             <ProgressPanel currentStep={this.props.formStep} />
             <CenterForm />
-            <InstructionsPanel />
+            <InstructionsPanel currentStep={this.props.formStep || 1} />
           </div>
           <Footer />
         </div>
