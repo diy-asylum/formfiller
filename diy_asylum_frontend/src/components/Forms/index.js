@@ -1,8 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import { injectIntl, defineMessages } from "react-intl";
 import { withFormik } from "formik";
-import * as Yup from "yup";
+import _ from "lodash";
 
 // TODO: i18n injection
 // TODO: form valiation with Yup (parametrized somehow)
@@ -22,7 +20,7 @@ const RawFormGroup = props => {
       <label>{label}</label>
       <input
         name={elementId}
-        type={type}
+        type={type.type}
         className={`form-control ${error && "is-invalid"}`}
         value={value}
         onFocus={handleFocus}
@@ -35,10 +33,7 @@ const RawFormGroup = props => {
 
 const RawFullForm = props => {
   const {
-    values,
     errors,
-    isSubmitting,
-    handleSubmit,
     contentPage,
     helpTextSetter,
     fullFormState,
@@ -46,19 +41,21 @@ const RawFullForm = props => {
   } = props;
 
   const { formElements: elements, name: pageId } = contentPage;
+  const relevantFormState = _.get(fullFormState, pageId, {});
 
   console.log("RawFullForm props:", props);
 
   return (
-    <form onSubmit={handleSubmit} key={pageId}>
+    <form key={pageId}>
       {elements.map((elt, i) => {
-        const { label, elementName: id, inputType: type } = elt;
+        const { label, elementName: id, inputType: type, help } = elt;
         return (
           <RawFormGroup
             label={label}
             type={type}
             elementId={id}
-            value={values[id]}
+            value={_.get(relevantFormState, id, "")}
+            handleFocus={() => helpTextSetter(help)}
             error={errors[id]}
             handleChange={event => {
               setFormElementState({
@@ -71,43 +68,23 @@ const RawFullForm = props => {
           />
         );
       })}
-
-      <button
-        type="submit"
-        className="btn btn-outline-primary"
-        disable={isSubmitting ? "true" : "false"}
-      >
-        {isSubmitting ? "Please wait" : "Save changes"}
-      </button>
     </form>
   );
 };
 
 const FormikedForm = withFormik({
-  mapPropsToValues: () => ({}),
+  mapPropsToValues: () => ({})
   // TODO: validationSchema
-  handleSubmit: (values, { props, resetForm }) => {
-    alert(
-      `Placeholder for now, but we did get all your info: ${JSON.stringify(
-        values
-      )}, redux state is ${JSON.stringify(props.fullFormState)}`
-    );
-    resetForm(values);
-  }
 })(RawFullForm);
 
-/*
-  helpTextSetter={helpTextSetter}
-  setFormElementState={setFormElementState}
-  */
+// Exposed in this way to control the props you can / should
+// pass to the form (even though it's a fairly trivial wrapper)
 const UsefulForm = ({
   contentPage,
   helpTextSetter,
   fullFormState,
   setFormElementState
 }) => {
-  // ... stuff?
-
   return (
     <FormikedForm
       contentPage={contentPage}

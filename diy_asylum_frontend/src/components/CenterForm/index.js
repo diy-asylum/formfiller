@@ -12,65 +12,6 @@ import FormikedForm from "../Forms";
 
 import contentPages from "../../contentpages";
 
-const CenterFormInput = ({
-  formElement: { inputType, elementName, help, label },
-  helpTextSetter
-}) => {
-  const onfocus = () => helpTextSetter(help);
-
-  switch (inputType.type) {
-    case "text":
-      return (
-        <div>
-          <p>{label}</p>
-          <p>
-            <input name={elementName} type="text" onFocus={onfocus} />
-          </p>
-        </div>
-      );
-
-    case "date":
-      return (
-        <div>
-          <p>{label}</p>
-          <p>
-            <input name={elementName} type="date" onFocus={onfocus} />
-          </p>
-        </div>
-      );
-
-    case "radio":
-      return (
-        <div>
-          <p>{label}</p>
-          <p>
-            {inputType.choices.map(choiceStr => (
-              <p>
-                <input name={elementName} type="radio" onFocus={onfocus} />{" "}
-                {choiceStr}
-              </p>
-            ))}
-          </p>
-        </div>
-      );
-
-    default:
-      return <div>Unrecognized input type {inputType.type}</div>;
-  }
-};
-
-const FormContentComponent = ({ formElements, helpTextSetter, id }) => (
-  <form id={id}>
-    {formElements.map((elt, i) => (
-      <CenterFormInput
-        formElement={elt}
-        helpTextSetter={helpTextSetter}
-        key={i}
-      />
-    ))}
-  </form>
-);
-
 const FormContent = ({
   step,
   fullFormState,
@@ -83,17 +24,7 @@ const FormContent = ({
 
   if (step >= 0 && step < contentPages.length) {
     const contentPage = contentPages[step];
-    // const { formElements } = contentPage;
     return (
-      // TODO: we're replacing these components, but need to
-      // not lose any functionality
-      /*
-      <FormContentComponent
-        formElements={formElements}
-        helpTextSetter={helpTextSetter}
-        formId={step}
-      />
-      */
       <FormikedForm
         contentPage={contentPage}
         helpTextSetter={helpTextSetter}
@@ -115,6 +46,7 @@ const CenterForm = ({
   fullFormState
 }) => (
   <div className="center-form col-sm">
+    <h4>{contentPages[step - 1].name}</h4>
     <FormContent
       step={step}
       helpTextSetter={helpTextSetter}
