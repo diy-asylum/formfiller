@@ -3,14 +3,14 @@ import "./landing.css";
 
 const LandingPage = () => (
   <div>
-    <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-          <a class="navbar-brand" href="/">
+    <div className="white-background">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div className="container">
+          <a className="navbar-brand" href="/">
             Start Form
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarResponsive"
@@ -18,28 +18,28 @@ const LandingPage = () => (
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
+          <div className="collapse navbar-collapse" id="navbarResponsive">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item active">
+                <a className="nav-link" href="/landing">
                   Home
-                  <span class="sr-only">(current)</span>
+                  <span className="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+              <li className="nav-item">
+                <a className="nav-link" href="/landing">
                   About
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+              <li className="nav-item">
+                <a className="nav-link" href="/landing">
                   Services
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+              <li className="nav-item">
+                <a className="nav-link" href="/landing">
                   Contact
                 </a>
               </li>
@@ -48,11 +48,11 @@ const LandingPage = () => (
         </div>
       </nav>
 
-      <header class="business-header mt-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 mt-5">
-              <h1 class="display-3 text-center extra-space mt-5">
+      <header className="business-header mt-4">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12 mt-5">
+              <h1 className="display-3 text-center extra-space mt-5">
                 D.I.Y. Asylum
               </h1>
             </div>
@@ -60,20 +60,20 @@ const LandingPage = () => (
         </div>
       </header>
 
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8">
-            <h2 class="mt-4">What We Do</h2>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-8">
+            <h2 className="mt-4">What We Do</h2>
             <p>We help asylum seekers fill forms.</p>
             <p>We have a team of dedicated volunteers.</p>
             <p>
-              <a class="btn btn-outline-success btn-lg" href="#">
+              <a className="btn btn-outline-success btn-lg" href="/landing">
                 Call to Action &raquo;
               </a>
             </p>
           </div>
-          <div class="col-sm-4">
-            <h2 class="mt-4">Contact Us</h2>
+          <div className="col-sm-4">
+            <h2 className="mt-4">Contact Us</h2>
             <address>
               <strong>DIYASYLUM</strong>
               <br />
@@ -94,56 +94,56 @@ const LandingPage = () => (
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-sm-4 my-4">
-            <div class="card">
+        <div className="row">
+          <div className="col-sm-4 my-4">
+            <div className="card">
               <img
-                class="card-img-top"
+                className="card-img-top"
                 src="http://placehold.it/300x200"
                 alt=""
               />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Card content.</p>
+              <div className="card-body">
+                <h4 className="card-title">Card title</h4>
+                <p className="card-text">Card content.</p>
               </div>
-              <div class="card-footer">
-                <a href="#" class="btn btn-outline-success">
+              <div className="card-footer">
+                <a href="/landing" className="btn btn-outline-success">
                   Find Out More!
                 </a>
               </div>
             </div>
           </div>
-          <div class="col-sm-4 my-4">
-            <div class="card">
+          <div className="col-sm-4 my-4">
+            <div className="card">
               <img
-                class="card-img-top"
+                className="card-img-top"
                 src="http://placehold.it/300x200"
                 alt=""
               />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Card content.</p>
+              <div className="card-body">
+                <h4 className="card-title">Card title</h4>
+                <p className="card-text">Card content.</p>
               </div>
-              <div class="card-footer">
-                <a href="#" class="btn btn-outline-success">
+              <div className="card-footer">
+                <a href="/landing" className="btn btn-outline-success">
                   Find Out More!
                 </a>
               </div>
             </div>
           </div>
-          <div class="col-sm-4 my-4">
-            <div class="card">
+          <div className="col-sm-4 my-4">
+            <div className="card">
               <img
-                class="card-img-top"
+                className="card-img-top"
                 src="http://placehold.it/300x200"
                 alt=""
               />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Card content.</p>
+              <div className="card-body">
+                <h4 className="card-title">Card title</h4>
+                <p className="card-text">Card content.</p>
               </div>
-              <div class="card-footer">
-                <a href="#" class="btn btn-outline-success">
+              <div className="card-footer">
+                <a href="/landing" className="btn btn-outline-success">
                   Find Out More!
                 </a>
               </div>
@@ -152,14 +152,14 @@ const LandingPage = () => (
         </div>
       </div>
 
-      <footer class="py-5 bg-dark">
-        <div class="container">
-          <p class="m-0 text-center text-white">
+      <footer className="py-5 bg-dark">
+        <div className="container">
+          <p className="m-0 text-center text-white">
             Copyright &copy; DIYASYLUM 2019
           </p>
         </div>
       </footer>
-    </body>
+    </div>
   </div>
 );
 

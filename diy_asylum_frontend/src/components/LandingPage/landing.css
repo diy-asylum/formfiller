@@ -31,3 +31,7 @@ body {
 .card {
   height: 100%;
 }
+
+.white-background {
+  background-color: white;
+}
