@@ -13,12 +13,15 @@ export const makeContentPage = ({ name, formElements, help }) => {
   // TODO: we may want more structure here at some point
   help = help || "";
 
-  // so that the element names are unique across sections
-  const fixId = elt => {
-    elt.elementName = `${name}.${elt.elementName}`;
-  };
-
-  formElements.forEach(fixId);
+  const seenIds = new Set();
+  for (const elt of formElements) {
+    if (seenIds.has(elt.elementName)) {
+      throw new Error(
+        `Element id ${elt.elementName} is repeated in section ${name}`
+      );
+    }
+    seenIds.add(elt.elementName);
+  }
 
   return {
     name,

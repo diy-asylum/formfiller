@@ -72,15 +72,19 @@ export default (state = initState, action) => {
     case SET_FORM_ELEMENT_STATE:
       console.log("Triggered!", action);
       const { sectionId, elementId, newValue } = action;
-      const out = {
-        ...state,
+      const { formValues } = state;
+      const newValues = {
+        ...formValues,
         [sectionId]: {
-          ...state[sectionId],
+          ...formValues[sectionId],
           [elementId]: newValue
         }
       };
-      console.log("Result", out);
-      return out;
+      console.log("Result", newValues);
+      return {
+        ...state,
+        formValues: newValues
+      };
 
     default:
       return state;
