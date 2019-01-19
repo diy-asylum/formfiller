@@ -1,4 +1,5 @@
 rootProject.name = 'diy_asylum'
 include 'formfiller'
+include 'encryption'
 include 'diy_asylum_frontend'
 include 'formserver'
