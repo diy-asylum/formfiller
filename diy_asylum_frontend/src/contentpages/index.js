@@ -17,6 +17,14 @@ const pages = [
   demographicsPage
 ];
 
+const seenNames = new Set();
+for (const page of pages) {
+  if (seenNames.has(page.name)) {
+    throw new Error(`Section name ${page.name} is reused`);
+  }
+  seenNames.add(page.name);
+}
+
 export const pageNames = pages.map(page => page.name);
 export const numPages = pages.length;
 
