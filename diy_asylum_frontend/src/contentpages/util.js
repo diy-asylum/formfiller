@@ -13,6 +13,13 @@ export const makeContentPage = ({ name, formElements, help }) => {
   // TODO: we may want more structure here at some point
   help = help || "";
 
+  // so that the element names are unique across sections
+  const fixId = elt => {
+    elt.elementName = `${name}.${elt.elementName}`;
+  };
+
+  formElements.forEach(fixId);
+
   return {
     name,
     formElements,

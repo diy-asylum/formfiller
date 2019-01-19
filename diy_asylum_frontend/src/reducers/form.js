@@ -2,13 +2,15 @@ import { numPages } from "../contentpages";
 
 // initial state of form
 const initState = {
-  currentStep: 1
+  currentStep: 1,
+  formValues: {}
 };
 
 // Action Constant Variables
 //
 export const INCREMENT_STEP = "INCREMENT_STEP";
 export const DECREMENT_STEP = "DECREMENT_STEP";
+export const SET_FORM_ELEMENT_STATE = "SET_FORM_ELEMENT_STATE";
 
 // Dispatch Actions
 //
@@ -18,6 +20,13 @@ const incrementStep = () => ({
 
 const decrementStep = () => ({
   type: DECREMENT_STEP
+});
+
+const setFormElementStateAction = ({ sectionId, elementId, newValue }) => ({
+  type: SET_FORM_ELEMENT_STATE,
+  sectionId,
+  elementId,
+  newValue
 });
 
 // Action creators, functions will dispatch certain actions
@@ -37,6 +46,13 @@ export const previousFormStep = () => (dispatch, getState) => {
   }
 };
 
+export const setFormElementState = ({
+  sectionId,
+  elementId,
+  newValue
+}) => dispatch =>
+  dispatch(setFormElementStateAction({ sectionId, elementId, newValue }));
+
 // User Reducer
 // takes dispatched actions (from action creators) and updates user state
 export default (state = initState, action) => {
@@ -52,6 +68,19 @@ export default (state = initState, action) => {
         ...state,
         currentStep: state.currentStep - 1
       };
+
+    case SET_FORM_ELEMENT_STATE:
+      console.log("Triggered!", action);
+      const { sectionId, elementId, newValue } = action;
+      const out = {
+        ...state,
+        [sectionId]: {
+          ...state[sectionId],
+          [elementId]: newValue
+        }
+      };
+      console.log("Result", out);
+      return out;
 
     default:
       return state;

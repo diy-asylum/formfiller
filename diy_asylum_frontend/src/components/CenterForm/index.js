@@ -1,8 +1,14 @@
 import React from "react";
 import "./style.scss";
 import { connect } from "react-redux";
-import { nextFormStep, previousFormStep } from "../../reducers/form";
+import {
+  nextFormStep,
+  previousFormStep,
+  setFormElementState
+} from "../../reducers/form";
 import { setInputHelpText } from "../../reducers/helpText";
+
+import FormikedForm from "../Forms";
 
 import contentPages from "../../contentpages";
 
@@ -65,18 +71,34 @@ const FormContentComponent = ({ formElements, helpTextSetter, id }) => (
   </form>
 );
 
-const FormContent = ({ step, helpTextSetter }) => {
+const FormContent = ({
+  step,
+  fullFormState,
+  helpTextSetter,
+  setFormElementState
+}) => {
   // index pages from zero, but steps start at one
 
   step -= 1;
 
   if (step >= 0 && step < contentPages.length) {
-    const { formElements } = contentPages[step];
+    const contentPage = contentPages[step];
+    // const { formElements } = contentPage;
     return (
+      // TODO: we're replacing these components, but need to
+      // not lose any functionality
+      /*
       <FormContentComponent
         formElements={formElements}
         helpTextSetter={helpTextSetter}
         formId={step}
+      />
+      */
+      <FormikedForm
+        contentPage={contentPage}
+        helpTextSetter={helpTextSetter}
+        fullFormState={fullFormState}
+        setFormElementState={setFormElementState}
       />
     );
   } else {
@@ -84,9 +106,21 @@ const FormContent = ({ step, helpTextSetter }) => {
   }
 };
 
-const CenterForm = ({ step, nextButton, prevButton, helpTextSetter }) => (
+const CenterForm = ({
+  step,
+  nextButton,
+  prevButton,
+  helpTextSetter,
+  setFormElementState,
+  fullFormState
+}) => (
   <div className="center-form col-sm">
-    <FormContent step={step} helpTextSetter={helpTextSetter} />
+    <FormContent
+      step={step}
+      helpTextSetter={helpTextSetter}
+      setFormElementState={setFormElementState}
+      fullFormState={fullFormState}
+    />
     <div className="button-container">
       <button
         onClick={() => {
@@ -109,13 +143,15 @@ const CenterForm = ({ step, nextButton, prevButton, helpTextSetter }) => (
 );
 
 const mapStateToProps = state => ({
-  step: state.form.currentStep
+  step: state.form.currentStep,
+  fullFormState: state.form.formValues
 });
 
 const mapDispatchToProps = {
   nextButton: nextFormStep,
   prevButton: previousFormStep,
-  helpTextSetter: setInputHelpText
+  helpTextSetter: setInputHelpText,
+  setFormElementState
 };
 
 export default connect(
