@@ -2,6 +2,8 @@ import React from "react";
 import { withFormik } from "formik";
 import _ from "lodash";
 
+import "./style.scss";
+
 // TODO: i18n injection
 // TODO: form valiation with Yup (parametrized somehow)
 const RawFormGroup = props => {
@@ -15,6 +17,34 @@ const RawFormGroup = props => {
     handleChange
   } = props;
   console.log("Form group props:", props);
+
+  if (type.type === "radio") {
+    return (
+      <div className="form-group">
+        <label>{label}</label>
+        {type.choices.map(({ id: choiceId, label: choiceLabel }, i) => (
+          <div key={i}>
+            <label>
+              <input
+                name={choiceId}
+                type="radio"
+                className={`${error && "is-invalid"} radio`}
+                value={value}
+                onFocus={handleFocus}
+                onChange={() => handleChange(choiceId)}
+                id={choiceId}
+                checked={choiceId === value}
+              />
+              {choiceLabel}
+            </label>
+          </div>
+        ))}
+        {error && <div className="invalid-feedback">{error}</div>}
+      </div>
+    );
+  }
+
+  // works for text type and date type, and probably number type
   return (
     <div className="form-group">
       <label>{label}</label>
@@ -24,7 +54,7 @@ const RawFormGroup = props => {
         className={`form-control ${error && "is-invalid"}`}
         value={value}
         onFocus={handleFocus}
-        onChange={handleChange}
+        onChange={event => handleChange(event.target.value)}
       />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
@@ -57,11 +87,11 @@ const RawFullForm = props => {
             value={_.get(relevantFormState, id, "")}
             handleFocus={() => helpTextSetter(help)}
             error={errors[id]}
-            handleChange={event => {
+            handleChange={newValue => {
               setFormElementState({
                 sectionId: pageId,
                 elementId: id,
-                newValue: event.target.value
+                newValue
               });
             }}
             key={i}

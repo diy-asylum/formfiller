@@ -42,3 +42,6 @@ export const makeTextType = () => ({
 export const makeDateType = () => ({
   type: "date"
 });
+
+// Just labeling the signature of a choice
+export const makeChoice = ({ id, label }) => ({ id, label });

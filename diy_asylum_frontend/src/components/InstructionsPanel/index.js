@@ -21,14 +21,13 @@ const InstructionsPanel = ({ currentStep, inputHelpText }) => (
   <div className="instructions-panel col-sm">
     <h6>Instructions</h6>
     <p>{getHelpText({ currentStep })}</p>
-    {inputHelpText ? (
-      <div>
-        <h6>Help</h6>
-        <p>{inputHelpText}</p>
-      </div>
-    ) : (
-      ""
-    )}
+    <div>
+      <h6>Help</h6>
+      <p>
+        {inputHelpText ||
+          "Click on a question box to for specific instructions"}
+      </p>
+    </div>
   </div>
 );
 
