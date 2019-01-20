@@ -11,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -167,7 +166,7 @@ class i589FillerTest {
             .keySet()
             .stream()
             .collect(
-                  Collectors.toMap(
+                Collectors.toMap(
                     key -> key,
                     key ->
                         filledPdfDocument
