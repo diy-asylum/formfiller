@@ -3,6 +3,7 @@ package com.diyasylum.encryption;
 import com.diyasylum.encryption.models.EncryptedMessage;
 import com.muquit.libsodiumjna.SodiumLibrary;
 import com.muquit.libsodiumjna.exceptions.SodiumLibraryException;
+import com.sun.jna.Platform;
 import java.util.Optional;
 
 public class SecretBox {
@@ -47,9 +48,16 @@ class LibsodiumLibrary {
   private static boolean isInitialized = false;
 
   private static void loadLibrary() {
-    String libraryPath = "/usr/local/lib/libsodium.so";
+    String libraryPath;
+    if (Platform.isMac()) {
+      libraryPath = "/usr/local/lib/libsodium.dylib";
+    } else if (Platform.isWindows()) {
+      libraryPath = "C:/libsodium/libsodium.dll";
+    } else {
+      libraryPath = "/usr/local/lib/libsodium.so";
+    }
+
     SodiumLibrary.setLibraryPath(libraryPath);
-    String v = SodiumLibrary.libsodiumVersionString();
   }
 
   public static void initialize() {
