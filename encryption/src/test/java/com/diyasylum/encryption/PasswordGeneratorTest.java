@@ -14,8 +14,8 @@ class PasswordGeneratorTest {
 
   @Test
   void passwordUsesAlphanumericChars() {
-  	String password = PasswordGenerator.getPassword();
-  	String alphaNum = "[a-zA-Z0-9]".repeat(16);
-  	assertTrue(password.matches(alphaNum));
+    String password = PasswordGenerator.getPassword();
+    String alphaNum = "[a-zA-Z0-9]".repeat(16);
+    assertTrue(password.matches(alphaNum));
   }
 }

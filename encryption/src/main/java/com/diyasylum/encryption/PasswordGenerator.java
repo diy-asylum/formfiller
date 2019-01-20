@@ -5,14 +5,15 @@ import org.apache.syncope.common.lib.SecureTextRandomProvider;
 
 class PasswordGenerator {
 
-	private static char[][] range = {{'a','z'},{'0','9'},{'A','Z'}};
-	private static RandomStringGenerator generator = new RandomStringGenerator.Builder()
-     		.withinRange(range)
-     		.usingRandom(new SecureTextRandomProvider())
-     		.build();
-    private static int passwordLength = 16;
+  private static char[][] range = {{'a', 'z'}, {'0', '9'}, {'A', 'Z'}};
+  private static RandomStringGenerator generator =
+      new RandomStringGenerator.Builder()
+          .withinRange(range)
+          .usingRandom(new SecureTextRandomProvider())
+          .build();
+  private static int passwordLength = 16;
 
-	public static String getPassword() {
- 		return generator.generate(passwordLength);
-	} 
+  public static String getPassword() {
+    return generator.generate(passwordLength);
+  }
 }
