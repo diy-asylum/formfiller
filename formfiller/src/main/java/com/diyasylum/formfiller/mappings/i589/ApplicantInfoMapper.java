@@ -128,7 +128,8 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
           "form1[0].#subform[0].TextField1[8]",
           applicantInfo -> AbstractMapper.noneIfBlank(applicantInfo.getUSISAccountNumber()));
       fieldMapping = pdfFieldMap;
-      fieldMapping.putAll(new UsMailingAddressMapper().composeMapping(ApplicantInfo::getUsMailingAddress));
+      fieldMapping.putAll(
+          new UsMailingAddressMapper().composeMapping(ApplicantInfo::getUsMailingAddress));
       fieldMapping.putAll(new UsResidenceMapper().composeMapping(ApplicantInfo::getUsResidence));
     }
     return fieldMapping;

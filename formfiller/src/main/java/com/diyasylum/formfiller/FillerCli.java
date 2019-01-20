@@ -25,11 +25,11 @@ public class FillerCli implements Runnable {
 
   public void run() {
     try {
-      PDFiller PDFiller = PDFiller.fromIncludedForm();
+      PDFiller pdFiller = PDFiller.fromIncludedForm();
       ObjectMapper objectMapper = new ObjectMapper();
       String json = Files.readString(fieldsJson.toPath());
       SimplePdField[] inputFields = objectMapper.readValue(json, SimplePdField[].class);
-      byte[] result = PDFiller.fillInForm(Arrays.asList(inputFields));
+      byte[] result = pdFiller.fillInForm(Arrays.asList(inputFields));
       Files.write(Paths.get(outputPath), result);
     } catch (IOException e) {
       System.out.println("Failed to fill in form");
