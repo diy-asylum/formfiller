@@ -6,6 +6,7 @@ before_install:
   - sudo encryption/scripts/installLibSodium.sh
 cache:
   directories:
+    - $HOME/libsodium-1.0.17/
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 jdk:
