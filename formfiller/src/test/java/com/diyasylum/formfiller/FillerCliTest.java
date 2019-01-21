@@ -3,7 +3,7 @@ package com.diyasylum.formfiller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.diyasylum.formfiller.i589.FieldType;
-import com.diyasylum.formfiller.i589.I589Field;
+import com.diyasylum.formfiller.i589.SimplePdField;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,15 +24,15 @@ class FillerCliTest {
     Path fields = tempDir.resolve("fields.json");
     FileWriter fileWriter = new FileWriter(fields.toFile());
     ObjectMapper objectMapper = new ObjectMapper();
-    List<I589Field> filledIn =
+    List<SimplePdField> filledIn =
         Arrays.asList(
-            new I589Field(
+            new SimplePdField(
                 "",
                 "form1[0].#subform[4].TextField13[53]",
                 "TextField13[53]",
                 FieldType.TEXT,
                 "BATMAN"),
-            new I589Field(
+            new SimplePdField(
                 "",
                 "form1[0].#subform[4].TextField13[54]",
                 "TextField13[54]",

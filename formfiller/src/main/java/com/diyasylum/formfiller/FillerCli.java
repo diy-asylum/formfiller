@@ -1,7 +1,7 @@
 package com.diyasylum.formfiller;
 
-import com.diyasylum.formfiller.i589.I589Field;
-import com.diyasylum.formfiller.i589.I589Filler;
+import com.diyasylum.formfiller.i589.PDFiller;
+import com.diyasylum.formfiller.i589.SimplePdField;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -25,11 +25,11 @@ public class FillerCli implements Runnable {
 
   public void run() {
     try {
-      I589Filler i589Filler = I589Filler.fromIncludedForm();
+      PDFiller PDFiller = PDFiller.fromIncludedForm();
       ObjectMapper objectMapper = new ObjectMapper();
       String json = Files.readString(fieldsJson.toPath());
-      I589Field[] inputFields = objectMapper.readValue(json, I589Field[].class);
-      byte[] result = i589Filler.fillInForm(Arrays.asList(inputFields));
+      SimplePdField[] inputFields = objectMapper.readValue(json, SimplePdField[].class);
+      byte[] result = PDFiller.fillInForm(Arrays.asList(inputFields));
       Files.write(Paths.get(outputPath), result);
     } catch (IOException e) {
       System.out.println("Failed to fill in form");

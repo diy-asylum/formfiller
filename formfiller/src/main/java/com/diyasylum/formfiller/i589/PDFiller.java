@@ -1,50 +1,41 @@
 package com.diyasylum.formfiller.i589;
 
 import com.diyasylum.formfiller.application.models.I589Application;
+import com.diyasylum.formfiller.mappings.AbstractMapper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.diyasylum.formfiller.mappings.i589.I589ApplicationMapper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTerminalField;
-import org.apache.pdfbox.text.PDFTextStripper;
 
-// I think we could generalise this to just be a generic form filler
-// which will nice when we build supplemental forms
-public class I589Filler {
-  static final String FORM_URL =
-      "https://www.uscis.gov/system/files_force/files/form/i-589.pdf?download=1";
-  static final String SUPPORTED_FORM_REVISION = "Form I-589 (Rev. 05/16/17) N";
+public class PDFiller {
+  private final PDDocument pdDocument;
 
-  private final PDDocument i589Pdf;
-  private final I589ApplicationMapper i589ApplicationMapper;
-
-  public static I589Filler fromIncludedForm() throws IOException {
+  public static PDFiller fromIncludedForm() throws IOException {
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-    return I589Filler.fromi589PdfBytes(
+    return PDFiller.fromPdfBytes(
         Objects.requireNonNull(classloader.getResourceAsStream("i-589.pdf")).readAllBytes());
   }
 
-  static I589Filler fromPDDocument(PDDocument pdDocument) {
-    return new I589Filler(pdDocument);
+  static PDFiller fromPDDocument(PDDocument pdDocument) {
+    return new PDFiller(pdDocument);
   }
 
   /**
    * Creates a filler based on a provided byte array representing a pdf calling this removes any
    * existing security on the document
    */
-  static I589Filler fromi589PdfBytes(byte[] i589pdf) throws IOException {
-    PDDocument pdDoc = PDDocument.load(i589pdf);
+  static PDFiller fromPdfBytes(byte[] pdfBytes) throws IOException {
+    PDDocument pdDoc = PDDocument.load(pdfBytes);
     pdDoc.setAllSecurityToBeRemoved(true);
-    return new I589Filler(pdDoc);
+    return new PDFiller(pdDoc);
   }
 
-  private I589Filler(PDDocument i589pdf) {
-    this.i589Pdf = i589pdf;
-    this.i589ApplicationMapper = new I589ApplicationMapper();
+  private PDFiller(PDDocument pdDocument) {
+    this.pdDocument = pdDocument;
   }
 
   /*
@@ -52,9 +43,9 @@ public class I589Filler {
    So for filling in I would prefer to use a new document.
    If this proves stupid slow I can scrap the idea
   */
-  private PDDocument cloneI589() throws IOException {
+  private PDDocument cloneDocument() throws IOException {
     ByteArrayOutputStream copyStream = new ByteArrayOutputStream();
-    i589Pdf.save(copyStream);
+    pdDocument.save(copyStream);
     return PDDocument.load(copyStream.toByteArray());
   }
 
@@ -62,19 +53,27 @@ public class I589Filler {
    * Method makes a best faith effort to fill in the form based on the fields provided. This
    * operation clears out the original security of the form
    *
-   * @param fields list of I589 fields. Unrecognized fields will be ignored. Method will fill in any
-   *     field it can.
+   * @param fields list of fields in the document. Unrecognized fields will be ignored. Method will
+   *     fill in any field it can.
    * @return byte[] with the contents of the form.
    * @throws IOException if there are problems working with the pdf
    */
-  public byte[] fillInForm(List<I589Field> fields) throws IOException {
+  public byte[] fillInForm(List<SimplePdField> fields) throws IOException {
     return fillInForm(
-        fields.stream().collect(Collectors.toMap(I589Field::getAbsolutePath, I589Field::getValue)));
+        fields
+            .stream()
+            .collect(Collectors.toMap(SimplePdField::getAbsolutePath, SimplePdField::getValue)));
   }
 
-  public byte[] fillInForm(I589Application application) throws IOException {
+  // The generic here may make you think that this method is too specific. But my thinking is
+  // any form be it the I589 or a supplemental form we make will (at its root) have a
+  // Mapper<I589Application>
+  // as that object represents all the data were provided by the user
+  public byte[] fillInForm(I589Application application, AbstractMapper<I589Application> fieldMapper)
+      throws IOException {
     Map<String, String> fieldToValue =
-        i589ApplicationMapper.getFormMapper()
+        fieldMapper
+            .getFormMapper()
             .entrySet()
             .stream()
             .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().apply(application)));
@@ -82,7 +81,7 @@ public class I589Filler {
   }
 
   private byte[] fillInForm(Map<String, String> fieldToValue) throws IOException {
-    PDDocument filledInForm = cloneI589();
+    PDDocument filledInForm = cloneDocument();
 
     for (PDField pdField : filledInForm.getDocumentCatalog().getAcroForm().getFieldTree()) {
       if (fieldToValue.containsKey(pdField.getFullyQualifiedName())) {
@@ -96,21 +95,13 @@ public class I589Filler {
     return byteArrayOutputStream.toByteArray();
   }
 
-  List<I589Field> extractFields() {
-    List<I589Field> fields = new ArrayList<>();
-    for (PDField pdField : i589Pdf.getDocumentCatalog().getAcroForm().getFieldTree()) {
+  List<SimplePdField> extractFields() {
+    List<SimplePdField> fields = new ArrayList<>();
+    for (PDField pdField : pdDocument.getDocumentCatalog().getAcroForm().getFieldTree()) {
       if (pdField instanceof PDTerminalField) {
-        fields.add(I589Field.fromPdField(pdField));
+        fields.add(SimplePdField.fromPdField(pdField));
       }
     }
     return fields;
-  }
-
-  Optional<String> extractRevisionDate() throws IOException {
-    PDFTextStripper tStripper = new PDFTextStripper();
-    String pdfFileInText = tStripper.getText(this.i589Pdf);
-    return Arrays.stream(pdfFileInText.split("\n"))
-        .filter(s -> s.startsWith("Form I-589 (Rev. "))
-        .findFirst();
   }
 }
