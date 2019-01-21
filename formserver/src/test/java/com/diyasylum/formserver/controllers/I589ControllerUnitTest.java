@@ -5,9 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.diyasylum.formfiller.i589.FieldType;
-import com.diyasylum.formfiller.i589.PDFiller;
-import com.diyasylum.formfiller.i589.SimplePdField;
+import com.diyasylum.formfiller.pdfiller.FieldType;
+import com.diyasylum.formfiller.pdfiller.PDFiller;
+import com.diyasylum.formfiller.pdfiller.SimplePdField;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.List;

@@ -108,7 +108,6 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
           applicantInfo ->
               AbstractMapper.formatCheckbox(
                   applicantInfo.isAlsoApplyingConventionAgainstTorture(), "1"));
-      pdfFieldMap.put("form1[0].#subform[0].DateTimeField2[1]", applicantInfo -> "");
       pdfFieldMap.put(
           "form1[0].#subform[0].DateTimeField2[2]",
           applicantInfo ->

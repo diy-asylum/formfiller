@@ -15,6 +15,8 @@ public class UsTravelHistoryMapper extends AbstractMapper<UsTravelHistory> {
       fieldMapping =
           Map.ofEntries(
               Map.entry(
+                  "form1[0].#subform[0].DateTimeField2[1]", UsTravelHistory::getDateStatusExpires),
+              Map.entry(
                   "form1[0].#subform[0].DateTimeField6[0]",
                   UsTravelHistory::getLastLeftHomeCountry),
               Map.entry(
