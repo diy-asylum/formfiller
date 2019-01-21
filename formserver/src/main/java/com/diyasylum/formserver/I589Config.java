@@ -1,6 +1,6 @@
 package com.diyasylum.formserver;
 
-import com.diyasylum.formfiller.i589.PDFiller;
+import com.diyasylum.formfiller.pdfiller.PDFiller;
 import java.io.IOException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

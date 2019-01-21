@@ -3,10 +3,8 @@ package com.diyasylum.formfiller;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.diyasylum.formfiller.application.models.*;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 public class TestUtils {
   public static I589Application exampleApplication() {
@@ -87,10 +85,28 @@ public class TestUtils {
             .createUsTravelHistory());
   }
 
-  public static byte[] getCurrentFormFromResources() throws IOException {
+  public static byte[] getCurrenti589FormFromResources() throws IOException {
     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
     InputStream is = classloader.getResourceAsStream("i-589.pdf");
     assertNotNull(is);
     return is.readAllBytes();
+  }
+
+  /** @param filename filename for a resource that is a TSV with no headers */
+  public static Map<String, String> loadMapFromTSVInResources(String filename) throws IOException {
+    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    BufferedReader reader =
+        new BufferedReader(
+            new InputStreamReader(
+                Objects.requireNonNull(classloader.getResourceAsStream(filename))));
+    String line;
+    String[] parts;
+    Map<String, String> result = new HashMap<>();
+    while ((line = reader.readLine()) != null) {
+      parts = line.split("\t");
+      String value = parts.length > 1 ? parts[1] : "";
+      result.put(parts[0], value);
+    }
+    return result;
   }
 }

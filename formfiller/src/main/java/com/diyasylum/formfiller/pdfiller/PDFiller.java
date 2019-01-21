@@ -1,4 +1,4 @@
-package com.diyasylum.formfiller.i589;
+package com.diyasylum.formfiller.pdfiller;
 
 import com.diyasylum.formfiller.application.models.I589Application;
 import com.diyasylum.formfiller.mappings.AbstractMapper;

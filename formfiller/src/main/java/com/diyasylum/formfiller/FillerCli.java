@@ -1,7 +1,7 @@
 package com.diyasylum.formfiller;
 
-import com.diyasylum.formfiller.i589.PDFiller;
-import com.diyasylum.formfiller.i589.SimplePdField;
+import com.diyasylum.formfiller.pdfiller.PDFiller;
+import com.diyasylum.formfiller.pdfiller.SimplePdField;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;

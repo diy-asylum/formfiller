@@ -1,4 +1,4 @@
-package com.diyasylum.formfiller.i589;
+package com.diyasylum.formfiller.pdfiller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -82,7 +82,7 @@ class i589FillerTest {
   @Test
   void assertVersionIsCurrent() throws IOException, InterruptedException {
     // This code is functionally useless if it is out of sync with the current form
-    String savedPdfSha = DigestUtils.sha256Hex(TestUtils.getCurrentFormFromResources());
+    String savedPdfSha = DigestUtils.sha256Hex(TestUtils.getCurrenti589FormFromResources());
     byte[] downloadedPdf = getCurrentFormFromWebsite();
     String downloadedPdfSha = DigestUtils.sha256Hex(downloadedPdf);
     assertEquals(savedPdfSha, downloadedPdfSha, "The website checksum does not match!");
@@ -104,7 +104,7 @@ class i589FillerTest {
 
   @Test
   void testFillingInDocument() throws IOException {
-    PDFiller filler = PDFiller.fromPdfBytes(TestUtils.getCurrentFormFromResources());
+    PDFiller filler = PDFiller.fromPdfBytes(TestUtils.getCurrenti589FormFromResources());
     List<SimplePdField> filledIn =
         Arrays.asList(
             new SimplePdField(
@@ -155,11 +155,11 @@ class i589FillerTest {
 
   @Test
   void fillInFromModel() throws IOException {
-    PDFiller filler = PDFiller.fromPdfBytes(TestUtils.getCurrentFormFromResources());
-    byte[] filled = filler.fillInForm(TestUtils.exampleApplication(), new I589ApplicationMapper());
+    PDFiller filler = PDFiller.fromPdfBytes(TestUtils.getCurrenti589FormFromResources());
     PDDocument filledPdfDocument =
         PDDocument.load(
             filler.fillInForm(TestUtils.exampleApplication(), new I589ApplicationMapper()));
+    Map<String, String> expected = TestUtils.loadMapFromTSVInResources("expectedFormResult.csv");
     Map<String, String> result =
         new I589ApplicationMapper()
             .getFormMapper()
@@ -174,5 +174,9 @@ class i589FillerTest {
                             .getAcroForm()
                             .getField(key)
                             .getValueAsString()));
+    assertEquals(expected.keySet().size(), result.keySet().size());
+    for (String key : expected.keySet()) {
+      assertEquals(expected.get(key), result.get(key));
+    }
   }
 }

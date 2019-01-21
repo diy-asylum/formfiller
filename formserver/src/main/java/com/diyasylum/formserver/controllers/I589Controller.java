@@ -1,7 +1,7 @@
 package com.diyasylum.formserver.controllers;
 
-import com.diyasylum.formfiller.i589.PDFiller;
-import com.diyasylum.formfiller.i589.SimplePdField;
+import com.diyasylum.formfiller.pdfiller.PDFiller;
+import com.diyasylum.formfiller.pdfiller.SimplePdField;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

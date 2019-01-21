@@ -1,4 +1,4 @@
-package com.diyasylum.formfiller.i589;
+package com.diyasylum.formfiller.pdfiller;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
