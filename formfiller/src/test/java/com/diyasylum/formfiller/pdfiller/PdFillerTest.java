@@ -176,7 +176,7 @@ class PdFillerTest {
                             .getValueAsString()));
     assertEquals(expected.keySet().size(), result.keySet().size());
     for (String key : expected.keySet()) {
-      assertEquals(expected.get(key), result.get(key));
+      assertEquals(expected.get(key), result.get(key), "Field " + key + " Returned the wrong value");
     }
   }
 }

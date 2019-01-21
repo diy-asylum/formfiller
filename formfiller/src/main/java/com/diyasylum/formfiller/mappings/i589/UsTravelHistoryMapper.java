@@ -19,9 +19,7 @@ public class UsTravelHistoryMapper extends AbstractMapper<UsTravelHistory> {
               Map.entry(
                   "form1[0].#subform[0].DateTimeField6[0]",
                   UsTravelHistory::getLastLeftHomeCountry),
-              Map.entry(
-                  "form1[0].#subform[0].TextField3[0]",
-                  usTravelHistory -> AbstractMapper.noneIfBlank(usTravelHistory.getI94Number())),
+              Map.entry("form1[0].#subform[0].TextField3[0]", this::formatI94Number),
               Map.entry(
                   "form1[0].#subform[0].DateTimeField2[0]",
                   usTravelHistory ->
@@ -78,5 +76,9 @@ public class UsTravelHistoryMapper extends AbstractMapper<UsTravelHistory> {
                           .orElse("")));
     }
     return fieldMapping;
+  }
+
+  private String formatI94Number(UsTravelHistory usTravelHistory) {
+    return AbstractMapper.noneIfBlank(usTravelHistory.getI94Number());
   }
 }
