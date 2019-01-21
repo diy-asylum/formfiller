@@ -1,9 +1,9 @@
 package com.diyasylum.formserver.controllers;
 
+import com.diyasylum.formfiller.application.models.I589Application;
+import com.diyasylum.formfiller.mappings.i589.I589ApplicationMapper;
 import com.diyasylum.formfiller.pdfiller.PDFiller;
-import com.diyasylum.formfiller.pdfiller.SimplePdField;
 import java.io.IOException;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,10 +19,12 @@ public class I589Controller {
   private static final String FILLED_IN_FORM_FILENAME = "I589-filled.pdf";
   private final HttpHeaders fillResponseHeaders;
   private final PDFiller PDFiller;
+  private final I589ApplicationMapper i589ApplicationMapper;
 
   @Autowired
-  public I589Controller(PDFiller PDFiller) {
+  public I589Controller(PDFiller PDFiller, I589ApplicationMapper i589ApplicationMapper) {
     this.PDFiller = PDFiller;
+    this.i589ApplicationMapper = i589ApplicationMapper;
     this.fillResponseHeaders = getFillResponseHeaders();
   }
 
@@ -34,11 +36,13 @@ public class I589Controller {
     return headers;
   }
 
-  @PostMapping(
-      "/i589/fillraw") // The final api will be fill. Made this endpoint so we can transition
+  @PostMapping("/i589/fill")
   @ResponseBody
-  public ResponseEntity<byte[]> fillI589(@RequestBody List<SimplePdField> pdfFields)
+  public ResponseEntity<byte[]> fillI589(@RequestBody I589Application application)
       throws IOException {
-    return new ResponseEntity<>(PDFiller.fillInForm(pdfFields), fillResponseHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(
+        PDFiller.fillInForm(application, new I589ApplicationMapper()),
+        fillResponseHeaders,
+        HttpStatus.OK);
   }
 }
