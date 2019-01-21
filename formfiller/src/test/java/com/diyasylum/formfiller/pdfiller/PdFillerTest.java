@@ -23,7 +23,7 @@ import org.apache.pdfbox.pdmodel.interactive.form.*;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Test;
 
-class i589FillerTest {
+class PdFillerTest {
 
   private byte[] getCurrentFormFromWebsite() throws IOException, InterruptedException {
     HttpClient client = HttpClient.newHttpClient();
