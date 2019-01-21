@@ -5,7 +5,7 @@ import com.diyasylum.encryption.models.EncryptionPackage;
 import com.diyasylum.encryption.models.UnencryptedMessage;
 
 public class EncryptionHandler {
-
+  // Is there a better way to handle missing values here / propagate errors?
   public static EncryptionPackage handleEncryption(UnencryptedMessage message) {
     String password = PasswordGenerator.getPassword();
     SecretBox box = new SecretBox(password);

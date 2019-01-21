@@ -1,8 +1,6 @@
 package com.diyasylum.formserver.controllers;
 
-import com.diyasylum.encryption.PasswordGenerator;
-import com.diyasylum.encryption.SecretBox;
-import com.diyasylum.encryption.models.EncryptedMessage;
+import com.diyasylum.encryption.EncryptionHandler;
 import com.diyasylum.encryption.models.EncryptionPackage;
 import com.diyasylum.encryption.models.UnencryptedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,21 +32,15 @@ public class EncryptionController {
   @PostMapping("/encryption/v1")
   @ResponseBody
   public ResponseEntity<EncryptionPackage> encryptMessage(@RequestBody UnencryptedMessage message) {
-    String password = PasswordGenerator.getPassword();
-    SecretBox box = new SecretBox(password);
-    EncryptedMessage encryptedMessage = box.encrypt(message.getMessage()).get();
-    EncryptionPackage response = new EncryptionPackage(encryptedMessage, password);
-    return new ResponseEntity<>(response, fillResponseHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(
+        EncryptionHandler.handleEncryption(message), fillResponseHeaders, HttpStatus.OK);
   }
 
   @PostMapping("/decryption/v1")
   @ResponseBody
   public ResponseEntity<UnencryptedMessage> decryptMessage(
       @RequestBody EncryptionPackage encryptionPackage) {
-    String password = encryptionPackage.getPassword();
-    EncryptedMessage encryptedMessage = encryptionPackage.getMessage();
-    SecretBox box = new SecretBox(password);
-    UnencryptedMessage message = new UnencryptedMessage(box.decrypt(encryptedMessage).get());
-    return new ResponseEntity<>(message, fillResponseHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(
+        EncryptionHandler.handleDecryption(encryptionPackage), fillResponseHeaders, HttpStatus.OK);
   }
 }
