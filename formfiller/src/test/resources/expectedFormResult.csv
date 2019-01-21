@@ -15,7 +15,6 @@ form1[0].#subform[0].TextField1[5]	Chinese
 form1[0].#subform[0].PtAILine9_StreetNumandName[0]	7 34th street
 form1[0].#subform[0].CheckBox3[2]	Off
 form1[0].#subform[0].PtAILine9_City[0]	New York
-form1[0].#subform[10].USCISOnlineAcctNumber[0]	A012345678
 form1[0].#subform[0].DateTimeField4[0]	12/12/2017
 form1[0].#subform[0].PtAILine1_ANumber[0]	4234912
 form1[0].#subform[0].PartALine9Gender[1]	Off
