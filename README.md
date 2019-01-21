@@ -1,4 +1,4 @@
-# formfiler
+# formfiller
 [![Build Status](https://travis-ci.org/diy-asylum/formfiller.svg?branch=master)](https://travis-ci.org/diy-asylum/formfiller)
 [![Coverage Status](https://coveralls.io/repos/github/diy-asylum/formfiller/badge.svg?branch=master)](https://coveralls.io/github/diy-asylum/formfiller?branch=master)
 

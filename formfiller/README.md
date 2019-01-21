@@ -1,4 +1,4 @@
-# formfiler CLI
+# formfiller CLI
 
 This repo contains a CLI application which can provide a filled in I589 form.
 
