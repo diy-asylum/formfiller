@@ -163,6 +163,6 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
   }
 
   private String formatUscisNumber(ApplicantInfo applicantInfo) {
-    return AbstractMapper.noneIfBlank(applicantInfo.getUsisAccountNumber());
+    return AbstractMapper.noneIfBlank(applicantInfo.getUscisAccountNumber());
   }
 }
