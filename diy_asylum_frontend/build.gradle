@@ -5,7 +5,14 @@ task('npm_install', type:Exec) {
 }
 
 task('npm_clean', type:Exec) {
-    commandLine 'rm', '-r', "${project.buildDir}/node_modules/"
+    def node_modules_directory = "${project.buildDir}/node_modules/"
+    def node_modules = new File(node_modules_directory)
+
+    if( node_modules.exists() ) {
+        commandLine 'rm', '-r', node_modules_directory
+    } else {
+        commandLine 'echo', 'No node modules to clean'
+    }
 }
 
 task('npm_test', type:Exec) {
