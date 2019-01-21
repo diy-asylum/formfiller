@@ -2,6 +2,7 @@ import {
   makeFormElement,
   makeContentPage,
   makeChoicesType,
+  makeChoice,
   makeTextType,
   makeDateType
 } from "./util";
@@ -11,7 +12,10 @@ const formElements = [
     elementName: "gender",
     label: "Gender",
     inputType: makeChoicesType({
-      choices: ["Male", "Female"]
+      choices: [
+        makeChoice({ label: "Male", id: "M" }),
+        makeChoice({ label: "Female", id: "F" })
+      ]
     }),
     help:
       "Choose one (and only one) box which best corresponds with your gender."
