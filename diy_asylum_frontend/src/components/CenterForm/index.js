@@ -56,19 +56,19 @@ const CenterForm = ({
     <div className="button-container">
       <button
         onClick={() => {
-          nextButton();
-          helpTextSetter("");
-        }}
-      >
-        Next
-      </button>
-      <button
-        onClick={() => {
           prevButton();
           helpTextSetter("");
         }}
       >
         Previous
+      </button>
+      <button
+        onClick={() => {
+          nextButton();
+          helpTextSetter("");
+        }}
+      >
+        Next
       </button>
     </div>
   </div>
