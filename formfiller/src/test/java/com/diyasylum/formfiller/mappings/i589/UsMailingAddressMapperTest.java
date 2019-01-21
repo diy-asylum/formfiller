@@ -58,6 +58,11 @@ class UsMailingAddressMapperTest {
   @Test
   void missingCareOf() {
     Address nullInCareOf = new AddressBuilder().createAddress();
-    assertEquals("N/A", new UsMailingAddressMapper().getFormMapper().get("form1[0].#subform[0].PtAILine9_InCareOf[0]").apply(nullInCareOf));
+    assertEquals(
+        "N/A",
+        new UsMailingAddressMapper()
+            .getFormMapper()
+            .get("form1[0].#subform[0].PtAILine9_InCareOf[0]")
+            .apply(nullInCareOf));
   }
 }
