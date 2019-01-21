@@ -14,8 +14,7 @@ public class UsResidenceMapper extends AbstractMapper<Address> {
       fieldMapping =
           Map.of(
               "form1[0].#subform[0].PtAILine8_StreetNumandName[0]",
-              usResidence ->
-                  String.join(" ", usResidence.getStreetNumber(), usResidence.getStreetName()),
+              this::formatStreetNameAndNumber,
               "form1[0].#subform[0].TextField1[2]",
               Address::getCity,
               "form1[0].#subform[0].PtAILine8_AreaCode[0]",
@@ -30,5 +29,9 @@ public class UsResidenceMapper extends AbstractMapper<Address> {
               Address::getZipCode);
     }
     return fieldMapping;
+  }
+
+  private String formatStreetNameAndNumber(Address address) {
+    return String.join(" ", address.getStreetNumber(), address.getStreetName());
   }
 }
