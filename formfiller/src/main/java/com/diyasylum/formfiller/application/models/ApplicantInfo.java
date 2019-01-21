@@ -27,7 +27,7 @@ public class ApplicantInfo {
   private final boolean alsoApplyingConventionAgainstTorture;
   private final String alienRegistrationNumber;
   private final String socialSecurityNumber;
-  private final String usisAccountNumber;
+  private final String uscisAccountNumber;
   private final ImmigrationCourtHistory immigrationCourtHistory;
   private final String countryWhoLastIssuedPassport;
   private final String passportNumber;
@@ -40,7 +40,7 @@ public class ApplicantInfo {
           boolean alsoApplyingConventionAgainstTorture,
       @JsonProperty("alienRegistrationNumber") String alienRegistrationNumber,
       @JsonProperty("socialSecurityNumber") String socialSecurityNumber,
-      @JsonProperty("usisAccountNumber") String usisAccountNumber,
+      @JsonProperty("uscisAccountNumber") String uscisAccountNumber,
       @JsonProperty("lastName") String lastName,
       @JsonProperty("firstName") String firstName,
       @JsonProperty("middleName") String middleName,
@@ -67,7 +67,7 @@ public class ApplicantInfo {
     this.alsoApplyingConventionAgainstTorture = alsoApplyingConventionAgainstTorture;
     this.alienRegistrationNumber = alienRegistrationNumber;
     this.socialSecurityNumber = socialSecurityNumber;
-    this.usisAccountNumber = usisAccountNumber;
+    this.uscisAccountNumber = uscisAccountNumber;
     this.lastName = lastName;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -105,8 +105,8 @@ public class ApplicantInfo {
     return socialSecurityNumber;
   }
 
-  public String getUsisAccountNumber() {
-    return usisAccountNumber;
+  public String getUscisAccountNumber() {
+    return uscisAccountNumber;
   }
 
   public String getLastName() {
@@ -227,7 +227,7 @@ public class ApplicantInfo {
         && Objects.equals(otherLanguages, that.otherLanguages)
         && Objects.equals(alienRegistrationNumber, that.alienRegistrationNumber)
         && Objects.equals(socialSecurityNumber, that.socialSecurityNumber)
-        && Objects.equals(usisAccountNumber, that.usisAccountNumber)
+        && Objects.equals(uscisAccountNumber, that.uscisAccountNumber)
         && immigrationCourtHistory == that.immigrationCourtHistory
         && Objects.equals(countryWhoLastIssuedPassport, that.countryWhoLastIssuedPassport)
         && Objects.equals(passportNumber, that.passportNumber)
@@ -259,7 +259,7 @@ public class ApplicantInfo {
         alsoApplyingConventionAgainstTorture,
         alienRegistrationNumber,
         socialSecurityNumber,
-        usisAccountNumber,
+        uscisAccountNumber,
         immigrationCourtHistory,
         countryWhoLastIssuedPassport,
         passportNumber,
@@ -325,8 +325,8 @@ public class ApplicantInfo {
         + ", socialSecurityNumber='"
         + socialSecurityNumber
         + '\''
-        + ", usisAccountNumber='"
-        + usisAccountNumber
+        + ", uscisAccountNumber='"
+        + uscisAccountNumber
         + '\''
         + ", immigrationCourtHistory="
         + immigrationCourtHistory
