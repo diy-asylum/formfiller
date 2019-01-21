@@ -27,10 +27,7 @@ public class UsResidenceMapper extends AbstractMapper<Address> {
               "form1[0].#subform[0].PtAILine8_State[0]",
               Address::getState,
               "form1[0].#subform[0].PtAILine8_Zipcode[0]",
-              Address::getZipCode,
-              "form1[0].#subform[0].PtAILine9_StreetNumandName[0]",
-              usResidence ->
-                  String.join(" ", usResidence.getStreetNumber(), usResidence.getStreetName()));
+              Address::getZipCode);
     }
     return fieldMapping;
   }
