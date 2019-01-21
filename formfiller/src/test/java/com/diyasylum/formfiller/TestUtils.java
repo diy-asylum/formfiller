@@ -7,6 +7,59 @@ import java.io.*;
 import java.util.*;
 
 public class TestUtils {
+
+  public static ApplicantInfoBuilder emptyAsPossibleApplicantInfoBuilder() {
+    return new ApplicantInfoBuilder()
+        .setAliases(List.of(""))
+        .setAlienRegistrationNumber("")
+        .setAlsoApplyingConventionAgainstTorture(true)
+        .setCityOfBirth("")
+        .setCountryOfBirth("")
+        .setCountryWhoLastIssuedPassport("")
+        .setFirstName("")
+        .setLastName("")
+        .setDateOfBirth("")
+        .setFluentInEnglish(true)
+        .setGender(Gender.MALE)
+        .setImmigrationCourtHistory(ImmigrationCourtHistory.NEVER)
+        .setMiddleName("")
+        .setMaritalStatus(MaritalStatus.MARRIED)
+        .setNationalityAtBirth("")
+        .setNativeLanguage("")
+        .setOtherLanguages(Collections.emptyList())
+        .setPassportNumber("")
+        .setPresentNationality("")
+        .setRaceEthnicOrTribalGroup("")
+        .setUSISAccountNumber("")
+        .setReligion("")
+        .setSocialSecurityNumber("")
+        .setTravelDocumentExpirationDate("")
+        .setTravelDocumentNumber("")
+        .setUsResidence(
+            new AddressBuilder()
+                .setApartmentNumber("")
+                .setAreaCode("")
+                .setCity("")
+                .setPhoneNumber("")
+                .setState("")
+                .setStreetName("")
+                .setStreetNumber("")
+                .setZipCode("")
+                .createAddress())
+        .setUsMailingAddress(
+            new AddressBuilder()
+                .setApartmentNumber("")
+                .setAreaCode("")
+                .setCity("")
+                .setPhoneNumber("")
+                .setState("")
+                .setStreetName("")
+                .setStreetNumber("")
+                .setInCareOf("")
+                .setZipCode("")
+                .createAddress());
+  }
+
   public static I589Application exampleApplication() {
     // This is a nonsense application. Mostly designed to fill in every field
     return new I589Application(

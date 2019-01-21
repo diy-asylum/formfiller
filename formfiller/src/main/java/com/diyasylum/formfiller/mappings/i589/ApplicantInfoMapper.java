@@ -48,8 +48,8 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
       pdfFieldMap.put(
           "form1[0].#subform[0].DateTimeField2[2]", this::formatTravelDocumentExpirationDate);
       pdfFieldMap.put("form1[0].#subform[0].TextField7[0]", ApplicantInfo::getNativeLanguage);
-      pdfFieldMap.put("form1[0].#subform[0].CheckBox4[0]", this::formatIfFluentInEnglish);
-      pdfFieldMap.put("form1[0].#subform[0].CheckBox4[1]", this::formatIfNotFluentInEnglish);
+      pdfFieldMap.put("form1[0].#subform[0].CheckBox4[0]", this::checkIfFluentInEnglish);
+      pdfFieldMap.put("form1[0].#subform[0].CheckBox4[1]", this::checkIfNotFluentInEnglish);
       pdfFieldMap.put("form1[0].#subform[0].TextField7[1]", this::formatOtherLanguages);
       pdfFieldMap.put("form1[0].#subform[0].TextField1[8]", this::formatUscisNumber);
       fieldMapping = pdfFieldMap;
@@ -150,12 +150,12 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
     return AbstractMapper.naIfBlank(applicantInfo.getTravelDocumentExpirationDate());
   }
 
-  private String formatIfFluentInEnglish(ApplicantInfo applicantInfo) {
+  private String checkIfFluentInEnglish(ApplicantInfo applicantInfo) {
     return AbstractMapper.formatCheckbox(applicantInfo.isFluentInEnglish(), "Yes");
   }
 
-  private String formatIfNotFluentInEnglish(ApplicantInfo applicantInfo) {
-    return AbstractMapper.formatCheckbox(!applicantInfo.isFluentInEnglish(), "Yes");
+  private String checkIfNotFluentInEnglish(ApplicantInfo applicantInfo) {
+    return AbstractMapper.formatCheckbox(!applicantInfo.isFluentInEnglish(), "No");
   }
 
   private String formatOtherLanguages(ApplicantInfo applicantInfo) {
