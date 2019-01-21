@@ -1,5 +1,7 @@
 package com.diyasylum.formfiller.application.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 public class I589Application {
@@ -7,7 +9,10 @@ public class I589Application {
   private final ApplicantInfo applicantInfo;
   private final UsTravelHistory usTravelHistory;
 
-  public I589Application(ApplicantInfo applicantInfo, UsTravelHistory usTravelHistory) {
+  @JsonCreator
+  public I589Application(
+      @JsonProperty("applicantInfo") ApplicantInfo applicantInfo,
+      @JsonProperty("usTravelHistory") UsTravelHistory usTravelHistory) {
     this.applicantInfo = applicantInfo;
     this.usTravelHistory = usTravelHistory;
   }

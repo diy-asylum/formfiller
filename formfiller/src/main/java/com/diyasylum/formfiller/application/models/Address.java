@@ -1,5 +1,7 @@
 package com.diyasylum.formfiller.application.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 public class Address {
@@ -13,16 +15,17 @@ public class Address {
   private final String areaCode;
   private final String phoneNumber;
 
+  @JsonCreator
   public Address(
-      String inCareOf,
-      String streetName,
-      String streetNumber,
-      String apartmentNumber,
-      String city,
-      String state,
-      String zipCode,
-      String areaCode,
-      String phoneNumber) {
+      @JsonProperty("inCareOf") String inCareOf,
+      @JsonProperty("streetName") String streetName,
+      @JsonProperty("streetNumber") String streetNumber,
+      @JsonProperty("apartmentNumber") String apartmentNumber,
+      @JsonProperty("city") String city,
+      @JsonProperty("state") String state,
+      @JsonProperty("zipCode") String zipCode,
+      @JsonProperty("areaCode") String areaCode,
+      @JsonProperty("phoneNumber") String phoneNumber) {
     this.inCareOf = inCareOf;
     this.streetName = streetName;
     this.streetNumber = streetNumber;

@@ -1,5 +1,7 @@
 package com.diyasylum.formfiller.application.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,11 +11,12 @@ public class UsTravelHistory {
   private final String i94Number;
   private final String dateStatusExpires;
 
+  @JsonCreator
   public UsTravelHistory(
-      List<UsTravelEvent> travelEvents,
-      String lastLeftHomeCountry,
-      String i94Number,
-      String dateStatusExpires) {
+      @JsonProperty("travelEvents") List<UsTravelEvent> travelEvents,
+      @JsonProperty("lastLeftHomeCountry") String lastLeftHomeCountry,
+      @JsonProperty("i94Number") String i94Number,
+      @JsonProperty("dateStatusExpires") String dateStatusExpires) {
     this.travelEvents = travelEvents;
     this.lastLeftHomeCountry = lastLeftHomeCountry;
     this.i94Number = i94Number;

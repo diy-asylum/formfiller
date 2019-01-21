@@ -22,7 +22,7 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
       pdfFieldMap.put("form1[0].#subform[0].TextField1[0]", ApplicantInfo::getSocialSecurityNumber);
       pdfFieldMap.put(
           "form1[0].#subform[10].USCISOnlineAcctNumber[0]",
-          applicantInfo -> AbstractMapper.noneIfBlank(applicantInfo.getUSISAccountNumber()));
+          applicantInfo -> AbstractMapper.noneIfBlank(applicantInfo.getUsisAccountNumber()));
       pdfFieldMap.put(
           "form1[0].#subform[0].PtAILine4_LastName[0]",
           applicantInfo -> AbstractMapper.naIfBlank(applicantInfo.getLastName()));
@@ -125,7 +125,7 @@ public class ApplicantInfoMapper extends AbstractMapper<ApplicantInfo> {
               AbstractMapper.noneIfBlank(String.join(",", applicantInfo.getOtherLanguages())));
       pdfFieldMap.put(
           "form1[0].#subform[0].TextField1[8]",
-          applicantInfo -> AbstractMapper.noneIfBlank(applicantInfo.getUSISAccountNumber()));
+          applicantInfo -> AbstractMapper.noneIfBlank(applicantInfo.getUsisAccountNumber()));
       fieldMapping = pdfFieldMap;
       fieldMapping.putAll(
           new UsMailingAddressMapper().composeMapping(ApplicantInfo::getUsMailingAddress));

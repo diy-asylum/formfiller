@@ -11,7 +11,7 @@ public class TestUtils {
     // This is a nonsense application. Mostly designed to fill in every field
     return new I589Application(
         new ApplicantInfoBuilder()
-            .setAliases(Set.of("Spider-man"))
+            .setAliases(List.of("Spider-man"))
             .setAlienRegistrationNumber("4234912")
             .setAlsoApplyingConventionAgainstTorture(true)
             .setCityOfBirth("Beijing")
@@ -27,7 +27,7 @@ public class TestUtils {
             .setMaritalStatus(MaritalStatus.MARRIED)
             .setNationalityAtBirth("Chinese")
             .setNativeLanguage("Chinese")
-            .setOtherLanguages(Set.of("English", "Spanish"))
+            .setOtherLanguages(Arrays.asList("English", "Spanish"))
             .setPassportNumber("999999999")
             .setPresentNationality("Chinese")
             .setRaceEthnicOrTribalGroup("Asian")
