@@ -12,4 +12,4 @@ cache:
 jdk:
   - openjdk11
 after_success:
-  - ./gradlew jacocoFullReport coveralls
+  - ./gradlew jacocoFullReport
