@@ -1,6 +1,6 @@
 package com.diyasylum.formfiller.application.models;
 
-import java.util.Set;
+import java.util.List;
 
 public class ApplicantInfoBuilder {
   private boolean alsoApplyingConventionAgainstTorture;
@@ -10,7 +10,7 @@ public class ApplicantInfoBuilder {
   private String lastName;
   private String firstName;
   private String middleName;
-  private Set<String> aliases;
+  private List<String> aliases;
   private Address usResidence;
   private Address usMailingAddress;
   private Gender gender;
@@ -29,7 +29,7 @@ public class ApplicantInfoBuilder {
   private String travelDocumentExpirationDate;
   private String nativeLanguage;
   private boolean fluentInEnglish;
-  private Set<String> otherLanguages;
+  private List<String> otherLanguages;
 
   public ApplicantInfoBuilder setAlsoApplyingConventionAgainstTorture(
       boolean alsoApplyingConventionAgainstTorture) {
@@ -67,7 +67,7 @@ public class ApplicantInfoBuilder {
     return this;
   }
 
-  public ApplicantInfoBuilder setAliases(Set<String> aliases) {
+  public ApplicantInfoBuilder setAliases(List<String> aliases) {
     this.aliases = aliases;
     return this;
   }
@@ -163,7 +163,7 @@ public class ApplicantInfoBuilder {
     return this;
   }
 
-  public ApplicantInfoBuilder setOtherLanguages(Set<String> otherLanguages) {
+  public ApplicantInfoBuilder setOtherLanguages(List<String> otherLanguages) {
     this.otherLanguages = otherLanguages;
     return this;
   }

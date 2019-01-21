@@ -1,13 +1,15 @@
 package com.diyasylum.formfiller.application.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class ApplicantInfo {
   private final String lastName;
   private final String firstName;
   private final String middleName;
-  private final Set<String> aliases;
+  private final List<String> aliases;
   private final Address usResidence;
   private final Address usMailingAddress;
   private final Gender gender;
@@ -21,49 +23,51 @@ public class ApplicantInfo {
   private final String religion;
   private final String nativeLanguage;
   private final boolean fluentInEnglish;
-  private final Set<String> otherLanguages;
+  private final List<String> otherLanguages;
   private final boolean alsoApplyingConventionAgainstTorture;
   private final String alienRegistrationNumber;
   private final String socialSecurityNumber;
-  private final String USISAccountNumber;
+  private final String usisAccountNumber;
   private final ImmigrationCourtHistory immigrationCourtHistory;
   private final String countryWhoLastIssuedPassport;
   private final String passportNumber;
   private final String travelDocumentNumber;
   private final String travelDocumentExpirationDate;
 
+  @JsonCreator
   ApplicantInfo(
-      boolean alsoApplyingConventionAgainstTorture,
-      String alienRegistrationNumber,
-      String socialSecurityNumber,
-      String USISAccountNumber,
-      String lastName,
-      String firstName,
-      String middleName,
-      Set<String> aliases,
-      Address usResidence,
-      Address usMailingAddress,
-      Gender gender,
-      MaritalStatus maritalStatus,
-      String dateOfBirth,
-      String cityOfBirth,
-      String countryOfBirth,
-      String presentNationality,
-      String nationalityAtBirth,
-      String raceEthnicOrTribalGroup,
-      String religion,
-      ImmigrationCourtHistory immigrationCourtHistory,
-      String countryWhoLastIssuedPassport,
-      String passportNumber,
-      String travelDocumentNumber,
-      String travelDocumentExpirationDate,
-      String nativeLanguage,
-      boolean fluentInEnglish,
-      Set<String> otherLanguages) {
+      @JsonProperty("alsoApplyingConventionAgainstTorture")
+          boolean alsoApplyingConventionAgainstTorture,
+      @JsonProperty("alienRegistrationNumber") String alienRegistrationNumber,
+      @JsonProperty("socialSecurityNumber") String socialSecurityNumber,
+      @JsonProperty("usisAccountNumber") String usisAccountNumber,
+      @JsonProperty("lastName") String lastName,
+      @JsonProperty("firstName") String firstName,
+      @JsonProperty("middleName") String middleName,
+      @JsonProperty("aliases") List<String> aliases,
+      @JsonProperty("usResidence") Address usResidence,
+      @JsonProperty("usMailingAddress") Address usMailingAddress,
+      @JsonProperty("gender") Gender gender,
+      @JsonProperty("maritalStatus") MaritalStatus maritalStatus,
+      @JsonProperty("dateOfBirth") String dateOfBirth,
+      @JsonProperty("cityOfBirth") String cityOfBirth,
+      @JsonProperty("countryOfBirth") String countryOfBirth,
+      @JsonProperty("presentNationality") String presentNationality,
+      @JsonProperty("nationalityAtBirth") String nationalityAtBirth,
+      @JsonProperty("raceEthnicOrTribalGroup") String raceEthnicOrTribalGroup,
+      @JsonProperty("religion") String religion,
+      @JsonProperty("immigrationCourtHistory") ImmigrationCourtHistory immigrationCourtHistory,
+      @JsonProperty("countryWhoLastIssuedPassport") String countryWhoLastIssuedPassport,
+      @JsonProperty("passportNumber") String passportNumber,
+      @JsonProperty("travelDocumentNumber") String travelDocumentNumber,
+      @JsonProperty("travelDocumentExpirationDate") String travelDocumentExpirationDate,
+      @JsonProperty("nativeLanguage") String nativeLanguage,
+      @JsonProperty("fluentInEnglish") boolean fluentInEnglish,
+      @JsonProperty("otherLanguages") List<String> otherLanguages) {
     this.alsoApplyingConventionAgainstTorture = alsoApplyingConventionAgainstTorture;
     this.alienRegistrationNumber = alienRegistrationNumber;
     this.socialSecurityNumber = socialSecurityNumber;
-    this.USISAccountNumber = USISAccountNumber;
+    this.usisAccountNumber = usisAccountNumber;
     this.lastName = lastName;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -101,8 +105,8 @@ public class ApplicantInfo {
     return socialSecurityNumber;
   }
 
-  public String getUSISAccountNumber() {
-    return USISAccountNumber;
+  public String getUsisAccountNumber() {
+    return usisAccountNumber;
   }
 
   public String getLastName() {
@@ -117,7 +121,7 @@ public class ApplicantInfo {
     return middleName;
   }
 
-  public Set<String> getAliases() {
+  public List<String> getAliases() {
     return aliases;
   }
 
@@ -185,7 +189,7 @@ public class ApplicantInfo {
     return fluentInEnglish;
   }
 
-  public Set<String> getOtherLanguages() {
+  public List<String> getOtherLanguages() {
     return otherLanguages;
   }
 
@@ -223,7 +227,7 @@ public class ApplicantInfo {
         && Objects.equals(otherLanguages, that.otherLanguages)
         && Objects.equals(alienRegistrationNumber, that.alienRegistrationNumber)
         && Objects.equals(socialSecurityNumber, that.socialSecurityNumber)
-        && Objects.equals(USISAccountNumber, that.USISAccountNumber)
+        && Objects.equals(usisAccountNumber, that.usisAccountNumber)
         && immigrationCourtHistory == that.immigrationCourtHistory
         && Objects.equals(countryWhoLastIssuedPassport, that.countryWhoLastIssuedPassport)
         && Objects.equals(passportNumber, that.passportNumber)
@@ -255,7 +259,7 @@ public class ApplicantInfo {
         alsoApplyingConventionAgainstTorture,
         alienRegistrationNumber,
         socialSecurityNumber,
-        USISAccountNumber,
+        usisAccountNumber,
         immigrationCourtHistory,
         countryWhoLastIssuedPassport,
         passportNumber,
@@ -321,8 +325,8 @@ public class ApplicantInfo {
         + ", socialSecurityNumber='"
         + socialSecurityNumber
         + '\''
-        + ", USISAccountNumber='"
-        + USISAccountNumber
+        + ", usisAccountNumber='"
+        + usisAccountNumber
         + '\''
         + ", immigrationCourtHistory="
         + immigrationCourtHistory
