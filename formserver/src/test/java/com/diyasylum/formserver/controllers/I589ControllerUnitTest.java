@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.diyasylum.formfiller.i589.FieldType;
-import com.diyasylum.formfiller.i589.I589Field;
-import com.diyasylum.formfiller.i589.I589Filler;
+import com.diyasylum.formfiller.i589.PDFiller;
+import com.diyasylum.formfiller.i589.SimplePdField;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 class I589ControllerUnitTest {
   private MockMvc mockMvc;
 
-  @MockBean private I589Filler i589Filler;
+  @MockBean private PDFiller PDFiller;
 
   @Autowired
   I589ControllerUnitTest(MockMvc mockMvc) {
@@ -35,10 +35,10 @@ class I589ControllerUnitTest {
   @Test
   void testBasicPost() throws Exception {
     byte[] expectedPdf = new byte[] {3}; // you are right, this is not a real pdf
-    List<I589Field> fieldList =
+    List<SimplePdField> fieldList =
         Collections.singletonList(
-            new I589Field("Best Superhero", "heroes/best", "best", FieldType.TEXT, "batman"));
-    when(i589Filler.fillInForm(fieldList)).thenReturn(expectedPdf);
+            new SimplePdField("Best Superhero", "heroes/best", "best", FieldType.TEXT, "batman"));
+    when(PDFiller.fillInForm(fieldList)).thenReturn(expectedPdf);
     this.mockMvc
         .perform(
             post("/i589/fillraw")
