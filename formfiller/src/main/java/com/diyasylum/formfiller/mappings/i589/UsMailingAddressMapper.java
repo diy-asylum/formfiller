@@ -26,7 +26,11 @@ public class UsMailingAddressMapper extends AbstractMapper<Address> {
               "form1[0].#subform[0].PtAILine9_TelephoneNumbe[0]",
               Address::getPhoneNumber,
               "form1[0].#subform[0].PtAILine9_InCareOf[0]",
-              usMailingAddress -> AbstractMapper.naIfBlank(usMailingAddress.getInCareOf()));
+              usMailingAddress -> AbstractMapper.naIfBlank(usMailingAddress.getInCareOf()),
+              "form1[0].#subform[0].PtAILine9_StreetNumandName[0]",
+              usMailingAddress ->
+                  String.join(
+                      " ", usMailingAddress.getStreetNumber(), usMailingAddress.getStreetName()));
     }
     return fieldMapping;
   }
