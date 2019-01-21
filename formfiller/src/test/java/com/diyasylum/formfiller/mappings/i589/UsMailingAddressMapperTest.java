@@ -32,7 +32,6 @@ class UsMailingAddressMapperTest {
             .stream()
             .collect(
                 Collectors.toMap(Map.Entry::getKey, e -> e.getValue().apply(usMailingAddress)));
-    result.forEach((k, v) -> System.out.println("\"" + k + "\", " + "\"" + v + "\","));
 
     assertEquals(
         Map.of(
