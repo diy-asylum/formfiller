@@ -6,7 +6,7 @@ import com.diyasylum.encryption.models.EncryptedMessage;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-class secretBoxTest {
+class SecretBoxTest {
 
   @Test
   void encryptAndDecrypt() {

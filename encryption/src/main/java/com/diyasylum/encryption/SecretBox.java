@@ -30,6 +30,7 @@ public class SecretBox {
 
   public Optional<String> decrypt(EncryptedMessage encryptedMessage) {
     try {
+      // TODO: Add input validation https://github.com/diy-asylum/formfiller/issues/34
       byte[] key =
           SodiumLibrary.cryptoPwhashArgon2i(password.getBytes(), encryptedMessage.getSalt());
       byte[] message =
