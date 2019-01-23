@@ -1,11 +1,10 @@
 import React from "react";
 import "./style.scss";
-
+import { connect } from "react-redux";
 import { pageNames } from "../../contentpages";
 
-const ProgressPanel = ({ currentStep }) => {
-  const stepNames = pageNames;
-  const mappedListItemsEl = stepNames.map((stepName, idx) => {
+const ProgressPanel = ({ progressList, currentStep }) => {
+  const mappedListItemsEl = progressList.map((stepName, idx) => {
     return (
       <li
         key={`step${idx + 1}text`}
@@ -24,4 +23,14 @@ const ProgressPanel = ({ currentStep }) => {
   );
 };
 
-export default ProgressPanel;
+
+const mapStateToProps = state => ({
+  progressList: state.form.stepList
+});
+
+const mapDispatchToProps = {};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProgressPanel);

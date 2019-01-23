@@ -4,7 +4,6 @@ import { setSectionHelpText } from "../../../reducers/helpText";
 
 class NameForm extends Component {
   componentDidMount() {
-    // this.props.setHelpText("Name")
     this.props.setHelpText("Your first, last, and middle name will be entered here.")
   }
 

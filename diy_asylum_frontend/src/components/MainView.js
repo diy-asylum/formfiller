@@ -7,18 +7,6 @@ import InstructionsPanel from "./InstructionsPanel";
 import Footer from "./Footer";
 
 class MainView extends Component {
-  constructor() {
-    super();
-    // set up state here
-    this.state = {};
-  }
-
-  componentDidMount() {
-    //
-    // potentially fetch user data here
-    //
-  }
-
   render() {
     return (
       <div className="main-view">

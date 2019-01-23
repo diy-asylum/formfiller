@@ -2,13 +2,16 @@ import { numPages } from "../contentpages";
 
 // initial state of form
 const initState = {
-  currentStep: 1
+  currentStep: 1,
+  stepList: []
 };
 
 // Action Constant Variables
 //
 export const INCREMENT_STEP = "INCREMENT_STEP";
 export const DECREMENT_STEP = "DECREMENT_STEP";
+export const SET_STEP_LIST = "SET_STEP_LIST";
+
 
 // Dispatch Actions
 //
@@ -20,11 +23,15 @@ const decrementStep = () => ({
   type: DECREMENT_STEP
 });
 
+const setStepList = val => ({
+  type: SET_STEP_LIST,
+  payload: val
+});
+
 // Action creators, functions will dispatch certain actions
 //
 export const nextFormStep = () => (dispatch, getState) => {
   const currentStepState = getState().form.currentStep;
-  // TODO: this is some placeholder control flow, replace it when we get srs
   if (currentStepState < numPages) {
     dispatch(incrementStep());
   }
@@ -36,6 +43,12 @@ export const previousFormStep = () => (dispatch, getState) => {
     dispatch(decrementStep());
   }
 };
+
+export const setProgressStepList = newList => dispatch => {
+  dispatch(setStepList(newList));
+};
+
+
 
 // User Reducer
 // takes dispatched actions (from action creators) and updates user state
@@ -51,6 +64,12 @@ export default (state = initState, action) => {
       return {
         ...state,
         currentStep: state.currentStep - 1
+      };
+
+    case SET_STEP_LIST:
+      return {
+        ...state,
+        stepList: action.payload
       };
 
     default:

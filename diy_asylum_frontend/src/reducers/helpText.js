@@ -22,7 +22,6 @@ export const setInputHelpText = helpText => dispatch => {
 };
 
 export const setSectionHelpText = helpText => dispatch => {
-  console.log(helpText)
   dispatch(sectionHelpTextActionMaker(helpText));
 };
 

@@ -5,7 +5,6 @@ import { setSectionHelpText } from "../../../reducers/helpText";
 class RegistrationForm extends Component {
 
   componentDidMount() {
-    // this.props.setHelpText("registration")
     this.props.setHelpText("The numbers asked here will help identify you and track your application")
   }
   render() {
