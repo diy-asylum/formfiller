@@ -2,39 +2,20 @@ import React from "react";
 import "./style.scss";
 import { connect } from "react-redux";
 
-import contentPages from "../../contentpages";
-
-const getHelpText = ({ currentStep }) => {
-  const helpIndex = currentStep - 1;
-  if (
-    helpIndex === undefined ||
-    helpIndex < 0 ||
-    helpIndex >= contentPages.length
-  ) {
-    return "";
-  }
-  const page = contentPages[helpIndex];
-  return page.help;
-};
-
-const InstructionsPanel = ({ currentStep, inputHelpText }) => (
+const InstructionsPanel = ({ sectionHelpText, inputHelpText }) => (
   <div className="instructions-panel col-sm">
     <h6>Instructions</h6>
-    <p>{getHelpText({ currentStep })}</p>
-    {inputHelpText ? (
-      <div>
-        <h6>Help</h6>
-        <p>{inputHelpText}</p>
-      </div>
-    ) : (
-      ""
-    )}
+    <p>{sectionHelpText}</p>
+    {inputHelpText ? ([
+      <hr key="hr-spacer"/>,
+      <p key="input-help-txt">{inputHelpText}</p>
+    ]) : null }
   </div>
 );
 
 const mapStateToProps = state => ({
-  step: state.form.currentStep,
-  inputHelpText: state.helpText.inputHelpText
+  inputHelpText: state.helpText.inputHelpText,
+  sectionHelpText: state.helpText.sectionHelpText
 });
 
 export default connect(mapStateToProps)(InstructionsPanel);

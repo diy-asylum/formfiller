@@ -1,27 +1,47 @@
 const initState = {
-  inputHelpText: ""
+  inputHelpText: "",
+  sectionHelpText: ""
 };
 
-export const SET_INPUT_HELP_TEXT = "SET_INPUT_HELP_TEXT";
+const SET_INPUT_HELP_TEXT = "SET_INPUT_HELP_TEXT";
+const SET_SECTION_HELP_TEXT = "SET_SECTION_HELP_TEXT";
 
-const inputHelpTextActionMaker = helpText => ({
+
+const inputHelpTextActionMaker = txtValue => ({
   type: SET_INPUT_HELP_TEXT,
-  inputHelpText: helpText
+  payload: txtValue
+});
+
+const sectionHelpTextActionMaker = txtValue => ({
+  type: SET_SECTION_HELP_TEXT,
+  payload: txtValue
 });
 
 export const setInputHelpText = helpText => dispatch => {
-  console.log(helpText);
   dispatch(inputHelpTextActionMaker(helpText));
+};
+
+export const setSectionHelpText = helpText => dispatch => {
+  console.log(helpText)
+  dispatch(sectionHelpTextActionMaker(helpText));
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
     case SET_INPUT_HELP_TEXT:
+    console.log("SET_INPUT_HELP_TEXT")
+
       return {
         ...state,
-        inputHelpText: action.inputHelpText
+        inputHelpText: action.payload
       };
 
+    case SET_SECTION_HELP_TEXT:
+    console.log("got SET_SECTION_HELP_TEXT")
+      return {
+        ...state,
+        sectionHelpText: action.payload
+      };
     default:
       return state;
   }

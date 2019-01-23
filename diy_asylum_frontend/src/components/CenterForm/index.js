@@ -23,12 +23,9 @@ class CenterForm extends Component {
 
   render() {
 
-      const currentFormSection = this.props.formSections[
-        this.props.step - 1
-      ]
-
-
-
+    const currentFormSection = this.props.formSections[
+      this.props.step - 1
+    ]
 
     return (
       <div className="center-form col-sm">
