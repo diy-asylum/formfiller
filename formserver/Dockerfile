@@ -7,7 +7,6 @@ COPY ${DEPENDENCY}/BOOT-INF/classes /app
 
 RUN \
     apt-get update && \
-    apt-get -y upgrade && \
     apt-get -y install curl build-essential unzip
 
 RUN \

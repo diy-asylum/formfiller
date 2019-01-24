@@ -1,4 +1,4 @@
-package com.diyasylum.encryption.serializers;
+package com.diyasylum.formserver.serializers;
 
 import com.diyasylum.encryption.models.EncryptedMessage;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -17,8 +17,6 @@ import org.springframework.boot.jackson.JsonComponent;
 @JsonComponent
 public class EncryptedMessageSerializer {
 
-  private static Base64 base64 = new Base64();
-
   public static class EncryptedMessageJsonSerializer extends JsonSerializer<EncryptedMessage> {
 
     @Override
@@ -30,9 +28,9 @@ public class EncryptedMessageSerializer {
 
       jsonGenerator.writeStartObject();
       jsonGenerator.writeStringField(
-          "encryptedMessage", base64.encodeBase64String(message.getEncryptedMessage()));
-      jsonGenerator.writeStringField("salt", base64.encodeBase64String(message.getSalt()));
-      jsonGenerator.writeStringField("nonce", base64.encodeBase64String(message.getNonce()));
+          "encryptedMessage", Base64.encodeBase64String(message.getEncryptedMessage()));
+      jsonGenerator.writeStringField("salt", Base64.encodeBase64String(message.getSalt()));
+      jsonGenerator.writeStringField("nonce", Base64.encodeBase64String(message.getNonce()));
       jsonGenerator.writeEndObject();
     }
   }
@@ -45,9 +43,9 @@ public class EncryptedMessageSerializer {
         throws IOException, JsonProcessingException {
       TreeNode treeNode = jsonParser.getCodec().readTree(jsonParser);
       byte[] encryptedMessage =
-          base64.decodeBase64(((TextNode) treeNode.get("encryptedMessage")).asText());
-      byte[] salt = base64.decodeBase64(((TextNode) treeNode.get("salt")).asText());
-      byte[] nonce = base64.decodeBase64(((TextNode) treeNode.get("nonce")).asText());
+          Base64.decodeBase64(((TextNode) treeNode.get("encryptedMessage")).asText());
+      byte[] salt = Base64.decodeBase64(((TextNode) treeNode.get("salt")).asText());
+      byte[] nonce = Base64.decodeBase64(((TextNode) treeNode.get("nonce")).asText());
       return new EncryptedMessage(encryptedMessage, salt, nonce);
     }
   }

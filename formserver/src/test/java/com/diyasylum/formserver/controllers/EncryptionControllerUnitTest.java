@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(EncryptionController.class)
 class EncryptionControllerUnitTest {
   private MockMvc mockMvc;
-  private static Base64 base64 = new Base64();
 
   @Autowired
   EncryptionControllerUnitTest(MockMvc mockMvc) {
@@ -44,9 +43,9 @@ class EncryptionControllerUnitTest {
   void testDecryptionPost() throws Exception {
     EncryptedMessage encryptedMessage =
         new EncryptedMessage(
-            base64.decodeBase64("itkNJqRclSElL/iaUugskBZCaCmXCf67coYuw3T5"),
-            base64.decodeBase64("C1wxtjxCPusWK1naAnnVyQ=="),
-            base64.decodeBase64("7yKw+IMNRouQFrIv5P/sY+Ag3D4XVwbq"));
+            Base64.decodeBase64("itkNJqRclSElL/iaUugskBZCaCmXCf67coYuw3T5"),
+            Base64.decodeBase64("C1wxtjxCPusWK1naAnnVyQ=="),
+            Base64.decodeBase64("7yKw+IMNRouQFrIv5P/sY+Ag3D4XVwbq"));
     String password = "4nChZTTPYlOvCma5";
     EncryptionPackage encryptionPackage = new EncryptionPackage(encryptedMessage, password);
     UnencryptedMessage message = new UnencryptedMessage("secret message");
