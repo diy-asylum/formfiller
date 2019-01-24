@@ -8,7 +8,7 @@ import com.diyasylum.encryption.models.UnencryptedMessage;
 import java.util.Optional;
 
 public class EncryptionHandler {
-  // Is there a better way to handle missing values here / propagate errors?
+
   public static EncryptionPackage handleEncryption(UnencryptedMessage message)
       throws EncryptionFailedException {
     String password = PasswordGenerator.getPassword();
