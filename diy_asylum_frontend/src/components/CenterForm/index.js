@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./style.scss";
 import { connect } from "react-redux";
-import { nextFormStep, previousFormStep, setProgressStepList } from "../../reducers/form";
+import {
+  nextFormStep,
+  previousFormStep
+} from "../../reducers/form";
 import { setInputHelpText } from "../../reducers/helpText";
 import DemographicsForm from "./formSections/DemographicsForm.js";
 import MailingForm from "./formSections/MailingForm.js";
@@ -10,10 +13,10 @@ import RegistrationForm from "./formSections/RegistrationForm.js";
 import ResidenceForm from "./formSections/ResidenceForm.js";
 
 class CenterForm extends Component {
-  componentDidMount = () => {
-    const sectionNames = this.props.formSections.map(section => section.name)
-    this.props.setStepList(sectionNames);
-  }
+  // componentDidMount = () => {
+  //   const sectionNames = this.props.formSections.map(section => section.name);
+  //   this.props.setStepList(sectionNames);
+  // };
 
   handleNextButton = () => {
     this.props.nextButton();
@@ -26,13 +29,14 @@ class CenterForm extends Component {
   };
 
   render() {
-    const currentFormSection = this.props.formSections[
-      this.props.step - 1
-    ]
+    const currentFormSection = this.props.sectionsDictionary[
+      this.props.activeStepName
+    ];
 
+    // console.log(this.activeStepName)
     return (
       <div className="center-form col-sm">
-        {currentFormSection.component}
+        {currentFormSection}
         <div className="button-container">
           <button onClick={this.handleNextButton}>Next</button>
           <button onClick={this.handlePreviousButton}>Previous</button>
@@ -42,29 +46,35 @@ class CenterForm extends Component {
   }
 }
 
-// Set default props to hold all of the form sections
-// NOTE this is the center of all truth!
-// or atleast it is when comes to the ordering of form sections
+// Set default props to hold all of a dictionary for pairing
+// section name to it's relevant component
 CenterForm.defaultProps = {
-  formSections: [
-    { name: "Demographics", component: <DemographicsForm /> },
-    { name: "Mailing", component: <MailingForm /> },
-    { name: "Name", component: <NameForm /> },
-    { name: "Registration", component: <RegistrationForm /> },
-    { name: "Residence", component: <ResidenceForm /> }
-  ]
+  sectionsDictionary: {
+    Demographics: <DemographicsForm />,
+    Mailing: <MailingForm />,
+    Name: <NameForm />,
+    Registration: <RegistrationForm />,
+    Residence: <ResidenceForm />
+  }
 };
 
+// [
+//   { name: "Demographics", component: <DemographicsForm /> },
+//   { name: "Mailing", component: <MailingForm /> },
+//   { name: "Name", component: <NameForm /> },
+//   { name: "Registration", component: <RegistrationForm /> },
+//   { name: "Residence", component: <ResidenceForm /> }
+// ]
+// };
 
 const mapStateToProps = state => ({
-  step: state.form.currentStep
+  activeStepName: state.form.activeStepName
 });
 
 const mapDispatchToProps = {
   nextButton: nextFormStep,
   prevButton: previousFormStep,
-  setHelpText: setInputHelpText,
-  setStepList : setProgressStepList
+  setHelpText: setInputHelpText
 };
 
 export default connect(

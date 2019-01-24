@@ -1,9 +1,10 @@
-import { numPages } from "../contentpages";
+// import { numPages } from "../contentpages";
 
 // initial state of form
 const initState = {
-  currentStep: 1,
-  stepList: []
+  currentStepCounter: 1,
+  sectionsList: ["Demographics", "Mailing", "Name", "Registration", "Residence"],
+  activeStepName: "Demographics"
 };
 
 // Action Constant Variables
@@ -23,31 +24,24 @@ const decrementStep = () => ({
   type: DECREMENT_STEP
 });
 
-const setStepList = val => ({
-  type: SET_STEP_LIST,
-  payload: val
-});
 
 // Action creators, functions will dispatch certain actions
 //
 export const nextFormStep = () => (dispatch, getState) => {
-  const currentStepState = getState().form.currentStep;
-  if (currentStepState < numPages) {
+  const currentFormState = getState().form;
+  const sectionListLength  = currentFormState.sectionsList.length;
+  if (currentFormState.currentStepCounter < sectionListLength) {
     dispatch(incrementStep());
   }
 };
 
 export const previousFormStep = () => (dispatch, getState) => {
-  const currentStepState = getState().form.currentStep;
+  const currentStepState = getState().form.currentStepCounter;
+
   if (currentStepState > 1) {
     dispatch(decrementStep());
   }
 };
-
-export const setProgressStepList = newList => dispatch => {
-  dispatch(setStepList(newList));
-};
-
 
 
 // User Reducer
@@ -55,21 +49,19 @@ export const setProgressStepList = newList => dispatch => {
 export default (state = initState, action) => {
   switch (action.type) {
     case INCREMENT_STEP:
+      const counterIncreased = state.currentStepCounter + 1;
       return {
         ...state,
-        currentStep: state.currentStep + 1
+        currentStepCounter: counterIncreased,
+        activeStepName : state.sectionsList[counterIncreased - 1]
       };
 
     case DECREMENT_STEP:
+      const counterDecreased = state.currentStepCounter - 1;
       return {
         ...state,
-        currentStep: state.currentStep - 1
-      };
-
-    case SET_STEP_LIST:
-      return {
-        ...state,
-        stepList: action.payload
+        currentStepCounter: counterDecreased,
+        activeStepName : state.sectionsList[counterDecreased - 1]
       };
 
     default:

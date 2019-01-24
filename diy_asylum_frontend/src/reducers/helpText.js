@@ -28,7 +28,7 @@ export const setSectionHelpText = helpText => dispatch => {
 export default (state = initState, action) => {
   switch (action.type) {
     case SET_INPUT_HELP_TEXT:
-    console.log("SET_INPUT_HELP_TEXT")
+    // console.log("SET_INPUT_HELP_TEXT")
 
       return {
         ...state,
@@ -36,7 +36,7 @@ export default (state = initState, action) => {
       };
 
     case SET_SECTION_HELP_TEXT:
-    console.log("got SET_SECTION_HELP_TEXT")
+    // console.log("got SET_SECTION_HELP_TEXT")
       return {
         ...state,
         sectionHelpText: action.payload

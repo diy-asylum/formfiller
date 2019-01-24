@@ -14,9 +14,14 @@ class MainView extends Component {
 
         <div className="container">
           <div className="row">
-            <ProgressPanel currentStep={this.props.formStep} />
+            <ProgressPanel
+              stepCounter={this.props.stepCounter}
+              sectionsList={this.props.sectionsList}
+            />
             <CenterForm />
-            <InstructionsPanel currentStep={this.props.formStep || 1} />
+            <InstructionsPanel
+              sectionsList={this.props.sectionsList}
+            />
           </div>
           <Footer />
         </div>
@@ -26,7 +31,8 @@ class MainView extends Component {
 }
 // any redux state you want to read as props
 const mapStateToProps = state => ({
-  formStep: state.form.currentStep
+  stepCounter: state.form.currentStepCounter,
+  sectionsList: state.form.sectionsList
 });
 // any dispatcher you want to update redux state
 const mapDispatchToProps = {};

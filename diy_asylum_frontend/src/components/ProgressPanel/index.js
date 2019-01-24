@@ -3,12 +3,12 @@ import "./style.scss";
 import { connect } from "react-redux";
 import { pageNames } from "../../contentpages";
 
-const ProgressPanel = ({ progressList, currentStep }) => {
-  const mappedListItemsEl = progressList.map((stepName, idx) => {
+const ProgressPanel = ({ sectionsList, stepCounter }) => {
+  const mappedListItemsEl = sectionsList.map((stepName, idx) => {
     return (
       <li
         key={`step${idx + 1}text`}
-        className={currentStep > idx ? "completed" : "unfinished"}
+        className={stepCounter > idx ? "completed" : "unfinished"}
       >
         {stepName}
       </li>
