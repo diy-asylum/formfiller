@@ -40,3 +40,39 @@ docker run -p 8080:8080 -t diyasylum/formserver
 ```
 
 You can test it by running the curl command from above
+
+## Encryption endpoints
+
+This module also contains endpoints for encryption and decryption of user state, so that they can safely save and resume their progress. The user state is sent as a string to the encryption endpoint, which generates a password for the user and encrypts their state using the password. A sample encryption request looks like:
+
+```bash
+curl -X POST localhost:8080/encryption/v1 -H "Content-Type: application/json" --data '{
+        "message": "user state"
+    }'
+```
+
+The user receives a payload which looks like:
+
+```bash
+{
+   "message":{
+      "encryptedMessage":"A4SqpsrYEf2a3XWdYQ5h3SukMZEQZWbd1VU=",
+      "salt":"63zV+FGiXDCewU4BqSQgkg==",
+      "nonce":"7KxHxQSmDlHdI2+tsZp5BpaZswKPayYx"
+   },
+   "password":"YdkNfIEro2aokq5l"
+}
+```
+
+When the user wants to resume their progress, they can send this payload back to the decryption endpoint to recover their state:
+
+```bash
+curl -X POST localhost:8080/decryption/v1 -H "Content-Type: application/json" --data '{
+   "message":{
+      "encryptedMessage":"A4SqpsrYEf2a3XWdYQ5h3SukMZEQZWbd1VU=",
+      "salt":"63zV+FGiXDCewU4BqSQgkg==",
+      "nonce":"7KxHxQSmDlHdI2+tsZp5BpaZswKPayYx"
+   },
+   "password":"YdkNfIEro2aokq5l"
+}'
+```

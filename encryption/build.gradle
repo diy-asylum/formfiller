@@ -8,10 +8,10 @@ dependencies {
     implementation 'com.muquit.libsodiumjna:libsodium-jna:1.0.4'
     implementation 'org.apache.commons:commons-text:1.6'
     implementation 'org.apache.syncope.common:syncope-common-lib:2.0.11'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testImplementation 'org.junit-pioneer:junit-pioneer:0.3.0'
-    testImplementation 'commons-codec:commons-codec:1.11'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
