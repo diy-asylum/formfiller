@@ -48,17 +48,7 @@ const LandingPage = () => (
         </div>
       </nav>
 
-      <header className="business-header mt-4">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 mt-5">
-              <h1 className="display-3 text-center extra-space mt-5">
-                D.I.Y. Asylum
-              </h1>
-            </div>
-          </div>
-        </div>
-      </header>
+      <header className="business-header mt-4" />
 
       <div className="container">
         <div className="row">

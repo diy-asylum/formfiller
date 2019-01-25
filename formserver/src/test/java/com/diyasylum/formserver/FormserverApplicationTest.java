@@ -2,7 +2,7 @@ package com.diyasylum.formserver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.diyasylum.formfiller.I589Filler;
+import com.diyasylum.formfiller.pdfiller.PDFiller;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 class FormserverApplicationTest {
 
-  private I589Filler i589Filler;
+  private PDFiller PDFiller;
 
   @Autowired
-  FormserverApplicationTest(I589Filler i589Filler) {
-    this.i589Filler = i589Filler;
+  FormserverApplicationTest(PDFiller PDFiller) {
+    this.PDFiller = PDFiller;
   }
 
   @Test
   void contextLoads() {
-    assertNotNull(this.i589Filler);
+    assertNotNull(this.PDFiller);
   }
 }
