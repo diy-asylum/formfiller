@@ -51,7 +51,7 @@ const LandingPage = () => (
       <div className="container">
         <div className="container">
           <header className="logo-header mt-4" />
-          <h2 className="mt-4"> Who are we </h2>
+          <h2 className="mt-4"> Who We Are</h2>
           <hr />
           <p>
             DIY Asylum LLC is a volunteer project. Our goal is to make the
@@ -75,7 +75,7 @@ const LandingPage = () => (
             Your information is private. We treat asylum applications and the
             information they contain with deep respect. The information you
             provide is strictly confidential and we will not share it with
-            anyone at all.
+            anyone at all. Your information is not stored by us in any way.
           </p>
 
           <h2 className="mt-4"> Contributors </h2>
