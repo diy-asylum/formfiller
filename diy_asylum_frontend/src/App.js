@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import MainView from "./components/MainView";
 import LandingPage from "./components/LandingPage";
+import AboutPage from "./components/AboutPage";
 import { IntlProvider, addLocaleData } from "react-intl";
 import enLocaleData from "react-intl/locale-data/en";
 import esLocaleData from "react-intl/locale-data/es";
@@ -27,6 +28,7 @@ class App extends Component {
             <Switch>
               {/* order matters here; if landing is after the MainView the wrong thing will be rendered */}
               <Route path="/landing" component={() => <LandingPage />} />
+              <Route path="/about" component={() => <AboutPage />} />
               <Route
                 path="/:filter?"
                 render={({ match }) => (
