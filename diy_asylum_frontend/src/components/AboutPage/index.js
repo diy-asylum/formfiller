@@ -83,6 +83,110 @@ const LandingPage = () => (
           <p>
             DIY Asylum LLC was cofounded by Michael Kreisel and James Montana.
             Here are brief biographies of our volunteer contributors.
+            <br />
+            <br />
+            <div className="row">
+              <div className="col-sm-4 my-4">
+                <div className="card">
+                  <img
+                    className="card-img-top"
+                    src={require("../../img/Jamie.jpeg")}
+                    alt=""
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">James Montana</h4>
+                    <p className="card-text">Card content.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="/landing" className="btn btn-outline-success">
+                      Find Out More!
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm-4 my-4">
+                <div className="card">
+                  <img
+                    className="card-img-top"
+                    src={require("../../img/Mike.jpeg")}
+                    alt=""
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">Michael Kreisel</h4>
+                    <p className="card-text">Card content.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="/landing" className="btn btn-outline-success">
+                      Find Out More!
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm-4 my-4">
+                <div className="card">
+                  <img
+                    className="card-img-top"
+                    src={require("../../img/Ran.jpeg")}
+                    alt=""
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">Ran Cui</h4>
+                    <p className="card-text">
+                      I'm from China. I moved to the U.S. in 2009 to study
+                      mathematics. I was helped by many people during my
+                      imigration process. Now I wish to give my help to anyone
+                      who needs it.
+                    </p>
+                  </div>
+                  <div className="card-footer">
+                    <a
+                      href="http://cuiran.github.io/"
+                      className="btn btn-outline-success"
+                    >
+                      Find Out More!
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-4 my-4">
+                <div className="card">
+                  <img
+                    className="card-img-top"
+                    src={require("../../img/Matt.png")}
+                    alt=""
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">Matt Bachmann</h4>
+                    <p className="card-text">Card content.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="/landing" className="btn btn-outline-success">
+                      Find Out More!
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm-4 my-4">
+                <div className="card">
+                  <img
+                    className="card-img-top"
+                    src={require("../../img/Richard.jpeg")}
+                    alt=""
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">Richard Rast</h4>
+                    <p className="card-text">Card content.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="/landing" className="btn btn-outline-success">
+                      Find Out More!
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </p>
 
           <h2 className="mt-4"> Contact </h2>

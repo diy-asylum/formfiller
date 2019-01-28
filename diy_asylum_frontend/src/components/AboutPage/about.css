@@ -28,3 +28,7 @@
 .empty-space {
   height: 50px;
 }
+
+.card {
+  width: 18rem;
+}
