@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { stepSetter } from "../reducers/form";
 import NavHeader from "./NavHeader";
 import ProgressPanel from "./ProgressPanel";
 import CenterForm from "./CenterForm";
@@ -26,7 +27,10 @@ class MainView extends Component {
 
         <div className="container">
           <div className="row">
-            <ProgressPanel currentStep={this.props.formStep} />
+            <ProgressPanel
+              currentStep={this.props.formStep}
+              setStep={this.props.setStep}
+            />
             <CenterForm />
             <InstructionsPanel currentStep={this.props.formStep || 1} />
           </div>
@@ -41,7 +45,9 @@ const mapStateToProps = state => ({
   formStep: state.form.currentStep
 });
 // any dispatcher you want to update redux state
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  setStep: stepSetter
+};
 
 export default connect(
   mapStateToProps,
