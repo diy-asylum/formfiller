@@ -1,18 +1,16 @@
-package com.diyasylum.formfiller;
+package com.diyasylum.formfiller.pdfiller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.diyasylum.formfiller.models.FieldType;
-import com.diyasylum.formfiller.models.I589Field;
+import com.diyasylum.formfiller.TestUtils;
+import com.diyasylum.formfiller.mappings.i589.I589ApplicationMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -22,13 +20,15 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.interactive.form.*;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Test;
 
-class i589FillerTest {
+class PdFillerTest {
 
   private byte[] getCurrentFormFromWebsite() throws IOException, InterruptedException {
     HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(I589Filler.FORM_URL)).build();
+    HttpRequest request =
+        HttpRequest.newBuilder().uri(URI.create(I589ApplicationMapper.FORM_URL)).build();
     HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
     assertEquals(200, response.statusCode());
     return response.body();
@@ -71,41 +71,49 @@ class i589FillerTest {
     }
   }
 
+  private Optional<String> extractRevisionDate(PDDocument pdDocument) throws IOException {
+    PDFTextStripper tStripper = new PDFTextStripper();
+    String pdfFileInText = tStripper.getText(pdDocument);
+    return Arrays.stream(pdfFileInText.split("\n"))
+        .filter(s -> s.startsWith("Form I-589 (Rev. "))
+        .findFirst();
+  }
+
   @Test
   void assertVersionIsCurrent() throws IOException, InterruptedException {
     // This code is functionally useless if it is out of sync with the current form
-    String savedPdfSha = DigestUtils.sha256Hex(TestUtils.getCurrentFormFromResources());
+    String savedPdfSha = DigestUtils.sha256Hex(TestUtils.getCurrenti589FormFromResources());
     byte[] downloadedPdf = getCurrentFormFromWebsite();
     String downloadedPdfSha = DigestUtils.sha256Hex(downloadedPdf);
     assertEquals(savedPdfSha, downloadedPdfSha, "The website checksum does not match!");
-    Optional<String> extractedRevisionDate =
-        I589Filler.fromi589PdfBytes(downloadedPdf).extractRevisionDate();
+    Optional<String> extractedRevisionDate = extractRevisionDate(PDDocument.load(downloadedPdf));
     assertTrue(extractedRevisionDate.isPresent(), "Could not find the revision date");
-    assertEquals(I589Filler.SUPPORTED_FORM_REVISION, extractedRevisionDate.get());
+    assertEquals(I589ApplicationMapper.SUPPORTED_FORM_REVISION, extractedRevisionDate.get());
   }
 
   @Test
   void testFieldExtraction() throws IOException {
-    List<I589Field> expectedFields =
+    List<SimplePdField> expectedFields =
         Arrays.asList(
-            new I589Field("Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, ""),
-            new I589Field("Im a button", "Group.button1", "button1", FieldType.BUTTON, "Off"));
-    I589Filler filler = I589Filler.fromPDDocument(createForm());
+            new SimplePdField(
+                "Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, ""),
+            new SimplePdField("Im a button", "Group.button1", "button1", FieldType.BUTTON, "Off"));
+    PDFiller filler = PDFiller.fromPDDocument(createForm());
     assertEquals(expectedFields, filler.extractFields());
   }
 
   @Test
   void testFillingInDocument() throws IOException {
-    I589Filler filler = I589Filler.fromi589PdfBytes(TestUtils.getCurrentFormFromResources());
-    List<I589Field> filledIn =
+    PDFiller filler = PDFiller.fromPdfBytes(TestUtils.getCurrenti589FormFromResources());
+    List<SimplePdField> filledIn =
         Arrays.asList(
-            new I589Field(
+            new SimplePdField(
                 "",
                 "form1[0].#subform[4].TextField13[53]",
                 "TextField13[53]",
                 FieldType.TEXT,
                 "BATMAN"),
-            new I589Field(
+            new SimplePdField(
                 "",
                 "form1[0].#subform[4].TextField13[54]",
                 "TextField13[54]",
@@ -143,5 +151,33 @@ class i589FillerTest {
             .getAcroForm()
             .getField("form1[0].#subform[4].TextField13[54]")
             .getValueAsString());
+  }
+
+  @Test
+  void fillInFromModel() throws IOException {
+    PDFiller filler = PDFiller.fromPdfBytes(TestUtils.getCurrenti589FormFromResources());
+    PDDocument filledPdfDocument =
+        PDDocument.load(
+            filler.fillInForm(TestUtils.exampleApplication(), new I589ApplicationMapper()));
+    Map<String, String> expected = TestUtils.loadMapFromTSVInResources("expectedFormResult.csv");
+    Map<String, String> result =
+        new I589ApplicationMapper()
+            .getFormMapper()
+            .keySet()
+            .stream()
+            .collect(
+                Collectors.toMap(
+                    key -> key,
+                    key ->
+                        filledPdfDocument
+                            .getDocumentCatalog()
+                            .getAcroForm()
+                            .getField(key)
+                            .getValueAsString()));
+    assertEquals(expected.keySet().size(), result.keySet().size());
+    for (String key : expected.keySet()) {
+      assertEquals(
+          expected.get(key), result.get(key), "Field " + key + " Returned the wrong value");
+    }
   }
 }

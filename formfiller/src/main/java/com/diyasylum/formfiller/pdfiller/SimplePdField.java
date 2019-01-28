@@ -1,19 +1,19 @@
-package com.diyasylum.formfiller.models;
+package com.diyasylum.formfiller.pdfiller;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 
-public class I589Field {
+public class SimplePdField {
   private final String description;
   private final String absolutePath;
   private final String relativePath;
   private final String value;
   private final FieldType fieldType;
 
-  public static I589Field fromPdField(PDField field) {
-    return new I589Field(
+  public static SimplePdField fromPdField(PDField field) {
+    return new SimplePdField(
         field.getAlternateFieldName(),
         field.getFullyQualifiedName(),
         field.getPartialName(),
@@ -22,7 +22,7 @@ public class I589Field {
   }
 
   @JsonCreator
-  public I589Field(
+  public SimplePdField(
       @JsonProperty("description") String description,
       @JsonProperty("absolutePath") String absolutePath,
       @JsonProperty("relativePath") String relativePath,
@@ -59,12 +59,12 @@ public class I589Field {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    I589Field i589Field = (I589Field) o;
-    return Objects.equals(description, i589Field.description)
-        && Objects.equals(absolutePath, i589Field.absolutePath)
-        && Objects.equals(relativePath, i589Field.relativePath)
-        && Objects.equals(value, i589Field.value)
-        && fieldType == i589Field.fieldType;
+    SimplePdField simplePdField = (SimplePdField) o;
+    return Objects.equals(description, simplePdField.description)
+        && Objects.equals(absolutePath, simplePdField.absolutePath)
+        && Objects.equals(relativePath, simplePdField.relativePath)
+        && Objects.equals(value, simplePdField.value)
+        && fieldType == simplePdField.fieldType;
   }
 
   @Override
@@ -74,7 +74,7 @@ public class I589Field {
 
   @Override
   public String toString() {
-    return "I589Field{"
+    return "SimplePdField{"
         + "description='"
         + description
         + '\''

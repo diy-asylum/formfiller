@@ -1,4 +1,4 @@
-package com.diyasylum.formfiller.models;
+package com.diyasylum.formfiller.pdfiller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,16 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
-class I589FieldTest {
+class SimplePdFieldTest {
   @Test
   void testFieldSerializationAndDeserialization() throws IOException {
-    I589Field field =
-        new I589Field("Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, "Yes!");
+    SimplePdField field =
+        new SimplePdField(
+            "Im such a field omg", "Group.field 1", "field 1", FieldType.TEXT, "Yes!");
 
     ObjectMapper objectMapper = new ObjectMapper();
     String serializedJson = objectMapper.writeValueAsString(field);
 
-    I589Field deserializedField = objectMapper.readValue(serializedJson, I589Field.class);
+    SimplePdField deserializedField = objectMapper.readValue(serializedJson, SimplePdField.class);
 
     assertEquals(field, deserializedField);
   }

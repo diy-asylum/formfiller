@@ -3,7 +3,7 @@ package com.diyasylum.encryption;
 import org.apache.commons.text.RandomStringGenerator;
 import org.apache.syncope.common.lib.SecureTextRandomProvider;
 
-class PasswordGenerator {
+public class PasswordGenerator {
 
   private static char[][] range = {{'a', 'z'}, {'0', '9'}, {'A', 'Z'}};
   private static RandomStringGenerator generator =

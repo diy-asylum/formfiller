@@ -1,12 +1,13 @@
 package com.diyasylum.formfiller;
 
-import com.diyasylum.formfiller.models.I589Field;
+import com.diyasylum.formfiller.application.models.I589Application;
+import com.diyasylum.formfiller.mappings.i589.I589ApplicationMapper;
+import com.diyasylum.formfiller.pdfiller.PDFiller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import picocli.CommandLine;
 import picocli.CommandLine.Parameters;
 
@@ -14,21 +15,26 @@ import picocli.CommandLine.Parameters;
 public class FillerCli implements Runnable {
   @Parameters(
     index = "0",
-    paramLabel = "fieldsJson",
-    description = "Json telling me what fields to fill in with what"
+    paramLabel = "applicationJson",
+    description = "the I589Application serialized as JSON"
   )
-  private File fieldsJson;
+  private File applicationJson;
 
   @Parameters(index = "1", paramLabel = "outputPath", description = "Where to save the result")
   private String outputPath;
 
+  private PDFiller formFiller;
+
+  public FillerCli(PDFiller formFiller) {
+    this.formFiller = formFiller;
+  }
+
   public void run() {
     try {
-      I589Filler i589Filler = I589Filler.fromIncludedForm();
       ObjectMapper objectMapper = new ObjectMapper();
-      String json = Files.readString(fieldsJson.toPath());
-      I589Field[] inputFields = objectMapper.readValue(json, I589Field[].class);
-      byte[] result = i589Filler.fillInForm(Arrays.asList(inputFields));
+      String json = Files.readString(applicationJson.toPath());
+      I589Application i589Application = objectMapper.readValue(json, I589Application.class);
+      byte[] result = formFiller.fillInForm(i589Application, new I589ApplicationMapper());
       Files.write(Paths.get(outputPath), result);
     } catch (IOException e) {
       System.out.println("Failed to fill in form");
@@ -36,7 +42,7 @@ public class FillerCli implements Runnable {
     }
   }
 
-  public static void main(String[] args) {
-    CommandLine.run(new FillerCli(), args);
+  public static void main(String[] args) throws IOException {
+    CommandLine.run(new FillerCli(PDFiller.fromIncludedForm()), args);
   }
 }
