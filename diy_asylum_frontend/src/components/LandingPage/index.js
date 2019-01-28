@@ -29,7 +29,7 @@ const LandingPage = () => (
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/landing">
+                <a className="nav-link" href="/about">
                   About
                 </a>
               </li>
@@ -54,8 +54,10 @@ const LandingPage = () => (
         <div className="row">
           <div className="col-sm-8">
             <h2 className="mt-4">What We Do</h2>
-            <p>We help asylum seekers fill forms.</p>
-            <p>We have a team of dedicated volunteers.</p>
+            <p>
+              Our goal is to make the process of applying for asylum easier for
+              asylum seekers who cannot afford lawyers.
+            </p>
             <p>
               <a className="btn btn-outline-success btn-lg" href="/landing">
                 Call to Action &raquo;
@@ -65,20 +67,13 @@ const LandingPage = () => (
           <div className="col-sm-4">
             <h2 className="mt-4">Contact Us</h2>
             <address>
-              <strong>DIYASYLUM</strong>
-              <br />
-              1234
-              <br />
-              USA
+              <strong>James Montana</strong>
               <br />
             </address>
             <address>
-              <abbr title="Phone">Phone: </abbr>
-              (123) 456-7890
-              <br />
               <abbr title="Email">Email: </abbr>
               <a href="mailto:#" className="text-success">
-                name@example.com
+                james@jmontanalaw.com
               </a>
             </address>
           </div>

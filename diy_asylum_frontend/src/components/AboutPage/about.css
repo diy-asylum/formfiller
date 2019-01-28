@@ -4,34 +4,27 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-business-frontpage/blob/master/LICENSE)
  */
 
-body {
-  padding-top: 54px;
-}
-
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
   }
 }
 
-.business-header {
-  height: 45vh;
-  min-height: 300px;
-  background: url("../../img/diyasylum_landing5.png") center no-repeat scroll;
-  -webkit-background-size: auto;
-  -moz-background-size: auto;
+.logo-header {
+  height: 100px;
+  min-height: 100px;
+  background: url("../../img/diyasylum_logo4.png") no-repeat center scroll;
   background-size: auto;
-  -o-background-size: auto;
 }
 
 .extra-space {
   word-spacing: 15px;
 }
 
-.card {
-  height: 100%;
-}
-
 .white-background {
   background-color: white;
+}
+
+.empty-space {
+  height: 50px;
 }
