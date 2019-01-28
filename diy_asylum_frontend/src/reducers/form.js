@@ -11,6 +11,7 @@ const initState = {
 export const INCREMENT_STEP = "INCREMENT_STEP";
 export const DECREMENT_STEP = "DECREMENT_STEP";
 export const SET_FORM_ELEMENT_STATE = "SET_FORM_ELEMENT_STATE";
+export const SET_STEP = "SET_STEP";
 
 // Dispatch Actions
 //
@@ -20,6 +21,11 @@ const incrementStep = () => ({
 
 const decrementStep = () => ({
   type: DECREMENT_STEP
+});
+
+const setStep = step => ({
+  type: SET_STEP,
+  step
 });
 
 const setFormElementStateAction = ({ sectionId, elementId, newValue }) => ({
@@ -46,6 +52,10 @@ export const previousFormStep = () => (dispatch, getState) => {
   }
 };
 
+export const stepSetter = step => dispatch => {
+  dispatch(setStep(step));
+};
+
 export const setFormElementState = ({
   sectionId,
   elementId,
@@ -67,6 +77,12 @@ export default (state = initState, action) => {
       return {
         ...state,
         currentStep: state.currentStep - 1
+      };
+
+    case SET_STEP:
+      return {
+        ...state,
+        currentStep: action.step
       };
 
     case SET_FORM_ELEMENT_STATE:

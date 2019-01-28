@@ -3,6 +3,9 @@ import namePage from "./namePage";
 import residencePage from "./residencePage";
 import mailingAddressPage from "./usMailingAddressPage";
 import demographicsPage from "./demographicsPage";
+import immigrationStatusPage from "./immigrationStatusPage";
+import travelDocumentsPage from "./travelDocumentsPage.js";
+import languagePage from "./languagePage";
 
 // TODO: Let's leave this as javascript code for now. But these are basically
 // just data objects, so once the format is pretty settled, we can make them
@@ -14,7 +17,10 @@ const pages = [
   namePage,
   residencePage,
   mailingAddressPage,
-  demographicsPage
+  demographicsPage,
+  immigrationStatusPage,
+  travelDocumentsPage,
+  languagePage
 ];
 
 const seenNames = new Set();
