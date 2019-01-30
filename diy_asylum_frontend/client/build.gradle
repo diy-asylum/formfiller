@@ -21,5 +21,5 @@ task('npm_test', type:Exec) {
     commandLine 'npm', 'test'
 }
 
-test.dependsOn(':diy_asylum_frontend:npm_test')
-clean.dependsOn(':diy_asylum_frontend:npm_clean')
+test.dependsOn(':diy_asylum_frontend_client:npm_test')
+clean.dependsOn(':diy_asylum_frontend_client:npm_clean')

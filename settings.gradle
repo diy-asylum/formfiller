@@ -1,5 +1,6 @@
 rootProject.name = 'diy_asylum'
 include 'formfiller'
 include 'encryption'
-include 'diy_asylum_frontend'
+include 'diy_asylum_frontend_client'
+project(':diy_asylum_frontend_client').projectDir = new File('diy_asylum_frontend/client')
 include 'formserver'
