@@ -108,14 +108,18 @@ fabric.properties
 
 # dependencies
 */node_modules
+*/*/node_modules
 */.pnp
+*/*/.pnp
 .pnp.js
+*/.pnp.js
 
 # testing
 */coverage
 
 # production
 */build
+*/*/build
 
 # misc
 .DS_Store

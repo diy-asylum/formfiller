@@ -1,0 +1,53 @@
+{
+  "name": "diy_asylum_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "babel-plugin-react-intl": "^3.0.1",
+    "bootstrap": "^4.1.3",
+    "eslint-config-prettier": "^3.4.0",
+    "eslint-config-react-app": "^3.0.6",
+    "eslint-plugin-prettier": "^3.0.1",
+    "formik": "^1.4.1",
+    "lodash": "^4.17.11",
+    "node-sass": "^4.11.0",
+    "prettier": "^1.15.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-intl": "^2.7.2",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.3",
+    "react-virtualized-select": "^3.1.3",
+    "reactstrap": "^6.5.0",
+    "reduce-reducers": "^0.4.3",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
+    "redux-utilities": "0.0.4",
+    "test": "^0.6.0",
+    "yup": "^0.26.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "manage:translations": "node ./translationRunner.js",
+    "extract:messages": "react-intl-cra 'src/**/*.{js,jsx}' -o 'src/i18n/messages/messages.json'",
+    "update:translations": "npm run extract:messages && npm run manage:translations",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "react-intl-cra": "^0.3.3",
+    "react-intl-translations-manager": "^5.0.3"
+  }
+}
