@@ -4,14 +4,13 @@ FROM node:11.5
 WORKDIR /usr/src/app
 
 # Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
 COPY package*.json ./
 
 RUN npm install --only=production
 
 # Bundle app source
 COPY . .
+RUN cd /usr/src/app/client && npm install --only=production && npm rebuild node-sass && npm run build
 
 ENV BE_HOST "http://localhost:8080"
 
