@@ -1,7 +1,9 @@
 version: '3'
 services:
   backend:
-    image: "diyasylum/formserver"
+    build:
+      context: ../..
+      dockerfile: formserver/Dockerfile
     ports:
      - "8080:8080"
   frontend:
