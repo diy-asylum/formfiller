@@ -34,8 +34,10 @@ This will fill in one field of the pdf with the text batman and pipe the result 
 
 This module includes a dockerfile for its deployment. You can build and run the server with the following commands
 
+*Make sure you run this from the root of the monorepo as the dockerfile builds the jar*
+
 ```bash
-./gradlew :formserver:build :formserver:docker
+docker build -t diyasylum/formserver -f formserver/Dockerfile .
 docker run -p 8080:8080 -t diyasylum/formserver
 ```
 
