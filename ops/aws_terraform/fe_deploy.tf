@@ -91,14 +91,16 @@ resource "aws_security_group" "fe_lb_security" {
   }
 }
 
+variable "frontend_port" {}
+
 resource "aws_security_group" "fe_ecs_security" {
   name        = "fe_ecs_security"
   description = "Allow inbound traffic from FE load balancer"
   vpc_id      = "${aws_vpc.main.id}"
 
   ingress {
-    from_port       = 3000
-    to_port         = 3000
+    from_port       = "${var.frontend_port}"
+    to_port         = "${var.frontend_port}"
     protocol        = "tcp"
     security_groups = ["${aws_security_group.fe_lb_security.id}"]
   }
@@ -106,8 +108,8 @@ resource "aws_security_group" "fe_ecs_security" {
 
 resource "aws_security_group_rule" "traffic_from_fe_lb_to_ecs" {
   type                     = "egress"
-  from_port                = 3000
-  to_port                  = 3000
+  from_port                = "${var.frontend_port}"
+  to_port                  = "${var.frontend_port}"
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.fe_ecs_security.id}"
   security_group_id        = "${aws_security_group.fe_lb_security.id}"
@@ -126,14 +128,16 @@ resource "aws_security_group" "be_lb_security" {
   }
 }
 
+variable "backend_port" {}
+
 resource "aws_security_group" "be_ecs_security" {
   name        = "be_ecs_security"
   description = "Allow inbound traffic from BE load balancer"
   vpc_id      = "${aws_vpc.main.id}"
 
   ingress {
-    from_port       = 12345
-    to_port         = 12345
+    from_port       = "${var.backend_port}"
+    to_port         = "${var.backend_port}"
     protocol        = "tcp"
     security_groups = ["${aws_security_group.be_lb_security.id}"]
   }
@@ -141,8 +145,8 @@ resource "aws_security_group" "be_ecs_security" {
 
 resource "aws_security_group_rule" "traffic_from_be_lb_to_ecs" {
   type                     = "egress"
-  from_port                = 12345
-  to_port                  = 12345
+  from_port                = "${var.backend_port}"
+  to_port                  = "${var.backend_port}"
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.be_ecs_security.id}"
   security_group_id        = "${aws_security_group.be_lb_security.id}"
@@ -245,7 +249,7 @@ resource "aws_route_table_association" "subnet_2_association" {
 # One each for FE and BE services
 resource "aws_lb_target_group" "fe-target-group" {
   name        = "diyasylum-fe"
-  port        = 3000
+  port        = "${var.frontend_port}"
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = "${aws_vpc.main.id}"
@@ -253,7 +257,7 @@ resource "aws_lb_target_group" "fe-target-group" {
 
 resource "aws_lb_target_group" "be-target-group" {
   name        = "diyasylum-be"
-  port        = 12345
+  port        = "${var.backend_port}"
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = "${aws_vpc.main.id}"
@@ -298,9 +302,11 @@ resource "aws_route53_zone" "diyasylum_private" {
   }
 }
 
+variable "fe_dns" {}
+
 resource "aws_route53_record" "public_fe_dev_dns" {
   zone_id = "${data.aws_route53_zone.diyasylum_public.zone_id}"
-  name    = "squirtle.diyasylum.com"
+  name    = "${var.fe_dns}"
   type    = "A"
 
   alias {
@@ -412,12 +418,12 @@ resource "aws_ecs_task_definition" "diyasylum-fe" {
 [
   {
     "essential": true,
-    "image": "${data.aws_ecr_repository.diy-ecr-fe.repository_url}:demo",
+    "image": "${data.aws_ecr_repository.diy-ecr-fe.repository_url}:latest",
     "name": "diyasylum-fe",
     "portMappings": [
                 {
-                    "containerPort": 3000,
-                    "hostPort": 3000
+                    "containerPort": ${var.frontend_port},
+                    "hostPort": ${var.frontend_port}
                 }
             ],
     "environment" : [
@@ -446,8 +452,8 @@ resource "aws_ecs_task_definition" "diyasylum-be" {
     "name": "diyasylum-be",
     "portMappings": [
                 {
-                    "containerPort": 12345,
-                    "hostPort": 12345
+                    "containerPort": ${var.backend_port},
+                    "hostPort": ${var.backend_port}
                 }
             ]
   }
@@ -482,7 +488,7 @@ resource "aws_ecs_service" "diyasylum-fe" {
   load_balancer {
     target_group_arn = "${aws_lb_target_group.fe-target-group.arn}"
     container_name   = "diyasylum-fe"
-    container_port   = 3000
+    container_port   = "${var.frontend_port}"
   }
 
   depends_on = ["aws_lb_listener.fe-listener"]
@@ -507,7 +513,7 @@ resource "aws_ecs_service" "diyasylum-be" {
   load_balancer {
     target_group_arn = "${aws_lb_target_group.be-target-group.arn}"
     container_name   = "diyasylum-be"
-    container_port   = 12345
+    container_port   = "${var.backend_port}"
   }
 
   depends_on = ["aws_lb_listener.be-listener"]
