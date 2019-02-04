@@ -15,6 +15,7 @@ gradle wrapper. This will ensure you are running the right version of gradle.
 Just make sure you run `./gradlew spotlessApply` before committing.
 If you want to run the sever just run `./gradlew bootRun` which will run the server till you kill it with ctrl-c
 If you want to build the command line app run `./gradlew shadowJar` and grab it from `formfiller/formfiller/build/libs/formfiller-1.0-SNAPSHOT-all.jar`
+To deploy both front and back ends locally, run `./gradlew :formserver:docker` then `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml up`
 
 Any artifacts from builds are put in either the root `build` dir or the subprojects `build.dir`
 
