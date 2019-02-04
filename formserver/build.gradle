@@ -7,12 +7,10 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.21.0')
     }
 }
 
 plugins {
-    id "com.palantir.docker" version "0.21.0"
     id 'org.springframework.boot' version "2.1.2.RELEASE"
     id 'io.spring.dependency-management' version "1.0.6.RELEASE"
 }
@@ -33,19 +31,12 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
-task unpack(type: Copy) {
-    dependsOn bootJar
-    from(zipTree(tasks.bootJar.outputs.files.singleFile))
-    into("build/dependency")
-}
-docker {
-    name "diyasylum/${bootJar.baseName}"
-    copySpec.from(tasks.unpack.outputs).into("dependency")
-    buildArgs(['DEPENDENCY': "dependency"])
-}
-
 configurations {
     all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
+}
+
+bootJar {
+    archiveName = 'formServer.jar'
 }
