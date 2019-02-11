@@ -40,9 +40,7 @@ const setFormElementStateAction = ({ sectionId, elementId, newValue }) => ({
 export const nextFormStep = () => (dispatch, getState) => {
   const currentStepState = getState().form.currentStep;
   // TODO: this is some placeholder control flow, replace it when we get srs
-  if (currentStepState < numPages) {
-    dispatch(incrementStep());
-  }
+  dispatch(incrementStep());
 };
 
 export const previousFormStep = () => (dispatch, getState) => {

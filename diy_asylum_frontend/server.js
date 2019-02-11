@@ -35,10 +35,11 @@ app.post('/api/fill', (req, res) => {
   axios({
     method:'post',
     url:BE_HOST.concat('/i589/fill'),
-    responseType: 'arraybuffer', 
+    responseType: 'arraybuffer',
     data: req.body})
   .then(response => {
     res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="filled.pdf"');
     res.send(response.data);
   })
   .catch(error => {
