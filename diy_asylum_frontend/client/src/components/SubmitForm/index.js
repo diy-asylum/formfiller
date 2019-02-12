@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import fetch from 'isomorphic-fetch';
 import FileSaver from 'file-saver';
 
-const data = {
+const makeFillRequest = form => ({
   "applicantInfo": {
     "alsoApplyingConventionAgainstTorture": true,
-    "alienRegistrationNumber": "4234912",
+    "alienRegistrationNumber": form['Registration Numbers']['alien-registration-number'],
     "socialSecurityNumber": "234-22-1113",
     "uscisAccountNumber": "A012345678",
     "lastName": "Parker",
@@ -81,16 +81,17 @@ const data = {
     "i94Number": "123456789 01",
     "dateStatusExpires": "4/2/2022"
   }
-};
+});
 
-const SubmitForm = ({}) => (
+const SubmitForm = ({form}) => (
   <div className="submit-form col-sm">
     <div className="button-container">
       <button onClick={() => {
+        console.log(form);
         fetch('http://localhost:3000/api/fill', {
           method: 'POST',
           mode: 'cors',
-          body: JSON.stringify(data),
+          body: JSON.stringify(makeFillRequest(form.formValues)),
           headers: {
             'Content-Type': 'application/json'
         }
