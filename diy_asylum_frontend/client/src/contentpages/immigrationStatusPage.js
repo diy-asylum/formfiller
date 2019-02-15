@@ -15,16 +15,16 @@ const formElements = [
       choices: [
         makeChoice({
           label: "I have never been in Immigration Court proceedings",
-          id: "Never"
+          id: "NEVER"
         }),
         makeChoice({
           label: "I am now in Immigration Court proceedings",
-          id: "Now"
+          id: "NOW"
         }),
         makeChoice({
           label:
             "I am not now in Immigration Court proceedings, but I have been in the past",
-          id: "Past"
+          id: "PAST"
         })
       ]
     }),

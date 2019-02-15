@@ -25,7 +25,7 @@ class MainView extends Component {
   render() {
     let middle;
 
-    if (this.props.formStep < numPages) {
+    if (this.props.formStep <= numPages) {
       middle = <CenterForm />
     } else {
       middle = <SubmitForm/>

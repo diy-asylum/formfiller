@@ -2,96 +2,107 @@ import React from "react";
 import "./style.scss";
 import { connect } from "react-redux";
 import fetch from 'isomorphic-fetch';
+import {
+  previousFormStep
+} from "../../reducers/form";
+import { setInputHelpText } from "../../reducers/helpText";
 import FileSaver from 'file-saver';
 
-const makeFillRequest = form => ({
+const makeFillRequest = formValues => ({
   "applicantInfo": {
+    // TODO: Add convention on torture question to UI
     "alsoApplyingConventionAgainstTorture": true,
-    "alienRegistrationNumber": form['Registration Numbers']['alien-registration-number'],
-    "socialSecurityNumber": "234-22-1113",
-    "uscisAccountNumber": "A012345678",
-    "lastName": "Parker",
-    "firstName": "Peter",
-    "middleName": "Benjamin",
-    "aliases": [
-      "Spider-man"
-    ],
+    "alienRegistrationNumber": formValues['Registration Numbers']['alien-registration-number'],
+    "socialSecurityNumber": formValues['Registration Numbers']['us-ssn'],
+    "uscisAccountNumber": formValues['Registration Numbers']['uscis-acct-number'],
+    "lastName": formValues['Your name']['last-name'],
+    "firstName": formValues['Your name']['first-name'],
+    "middleName": formValues['Your name']['middle-name'],
+    "aliases": formValues['Your name']['other-names'].split(','),
     "usResidence": {
       "inCareOf": null,
-      "streetName": "50th Street",
-      "streetNumber": "135 W.",
-      "apartmentNumber": "6",
-      "city": "New York",
-      "state": "New York",
-      "zipCode": "10020",
-      "areaCode": "212",
-      "phoneNumber": "3230122"
+      "streetName": formValues['Residence in the U.S.']['us-street-address'],
+      // TODO: Note that street name and number are separate in the form assembly API
+      // but combined in the form input UI
+      // TODO: Backend throw error if this is left blank
+      "streetNumber": "1",
+      "apartmentNumber": formValues['Residence in the U.S.']['us-apt-number'],
+      "city": formValues['Residence in the U.S.']['us-city'],
+      "state": formValues['Residence in the U.S.']['us-state'],
+      "zipCode": formValues['Residence in the U.S.']['us-zip-code'],
+      // TODO: Note that area code and phone number are separate in the form assembly API
+      // but combined in the form input UI
+      // TODO: Backend throw error if this is left blank
+      "areaCode": "1",
+      "phoneNumber": formValues['Residence in the U.S.']['us-phone-number']
     },
     "usMailingAddress": {
-      "inCareOf": "May Parker",
-      "streetName": "34th street",
-      "streetNumber": "7",
-      "apartmentNumber": "6",
-      "city": "New York",
-      "state": "New York",
-      "zipCode": "10020",
-      "areaCode": "212",
-      "phoneNumber": "3230122"
+      "inCareOf": formValues["Mailing Address in the U.S."]['us-mailing-care-of'],
+      "streetName": formValues["Mailing Address in the U.S."]['us-street-address'],
+      // TODO: Note that street name and number are separate in the form assembly API
+      // but combined in the form input UI
+      // TODO: Backend throw error if this is left blank
+      "streetNumber": "1",
+      "apartmentNumber": formValues["Mailing Address in the U.S."]['us-apt-number'],
+      "city": formValues["Mailing Address in the U.S."]['us-city'],
+      "state": formValues["Mailing Address in the U.S."]['us-state'],
+      "zipCode": formValues["Mailing Address in the U.S."]['us-zip-code'],
+      // TODO: Note that area code and phone number are separate in the form assembly API
+      // but combined in the form input UI
+      // TODO: Backend throw error if this is left blank
+      "areaCode": "1",
+      "phoneNumber": formValues["Mailing Address in the U.S."]['us-phone-number']
     },
-    "gender": "MALE",
+    "gender": formValues["Demographic Information"]['gender'],
+    //TODO: Add marital status to UI
     "maritalStatus": "MARRIED",
-    "dateOfBirth": "8/10/1962",
-    "cityOfBirth": "Beijing",
+    "dateOfBirth": formValues["Demographic Information"]['date-of-birth'],
+    // TODO: Note that city and country are separate in form assembly API but combined in form input API
+    "cityOfBirth": formValues["Demographic Information"]['city-and-country-of-birth'],
     "countryOfBirth": "China",
-    "presentNationality": "Chinese",
-    "nationalityAtBirth": "Chinese",
-    "raceEthnicOrTribalGroup": "Asian",
-    "religion": "Christian",
-    "immigrationCourtHistory": "NEVER",
-    "countryWhoLastIssuedPassport": "China",
-    "passportNumber": "999999999",
-    "travelDocumentNumber": "29312",
-    "travelDocumentExpirationDate": "12-12-9999",
-    "nativeLanguage": "Chinese",
-    "fluentInEnglish": true,
-    "otherLanguages": [
-      "English",
-      "Spanish"
-    ]
+    "presentNationality": formValues["Demographic Information"]['nationality'],
+    "nationalityAtBirth": formValues["Demographic Information"]['birth-nationality'],
+    "raceEthnicOrTribalGroup": formValues["Demographic Information"]['race'],
+    "religion": formValues["Demographic Information"]['religion'],
+    "immigrationCourtHistory": formValues["Immigration Status"]['proceedings'],
+    "countryWhoLastIssuedPassport": formValues["Travel Documents"]['countryIssuedTravelDocuments'],
+    "passportNumber": (formValues["Travel Documents"]['documentType'] == 'Passport') ? formValues["Travel Documents"]['travelDocumentNumber']:"",
+    "travelDocumentNumber": (formValues["Travel Documents"]['documentType'] == 'TravelDocument') ? formValues["Travel Documents"]['travelDocumentNumber']:"",
+    "travelDocumentExpirationDate": formValues["Travel Documents"]['travelDocumentExpiration'],
+    "nativeLanguage": formValues["Language"]['nativeLanguage'],
+    "fluentInEnglish": formValues["Language"]['fluentInEnglish'],
+    "otherLanguages": formValues["Language"]['otherLanguages'].split(',')
   },
   "usTravelHistory": {
     "travelEvents": [
       {
-        "date": "12/12/2015",
-        "place": "New York",
-        "status": "visitor"
-      },
-      {
-        "date": "12/12/2016",
-        "place": "New York",
-        "status": "visitor"
-      },
-      {
-        "date": "12/12/2017",
-        "place": "New York",
-        "status": "visitor"
+        "date": formValues["Immigration Status"]['recentEntryDate'],
+        "place": formValues["Immigration Status"]['recentEntryPlace'],
+        "status": formValues["Immigration Status"]['recentEntryStatus']
       }
     ],
-    "lastLeftHomeCountry": "1/1/2018",
-    "i94Number": "123456789 01",
-    "dateStatusExpires": "4/2/2022"
+    "lastLeftHomeCountry": formValues["Immigration Status"]['lastLeaveHome'],
+    "i94Number": formValues["Immigration Status"]['i94number'],
+    "dateStatusExpires": formValues["Immigration Status"]['recentEntryStatusExpiry']
   }
 });
 
-const SubmitForm = ({form}) => (
+const SubmitForm = ({formValues,prevButton,helpTextSetter}) => (
   <div className="submit-form col-sm">
     <div className="button-container">
+      <button
+        onClick={() => {
+          prevButton();
+          helpTextSetter("");
+        }}
+      >
+        Previous
+      </button>
       <button onClick={() => {
-        console.log(form);
         fetch('http://localhost:3000/api/fill', {
           method: 'POST',
           mode: 'cors',
-          body: JSON.stringify(makeFillRequest(form.formValues)),
+          body: JSON.stringify(makeFillRequest(formValues)),
           headers: {
             'Content-Type': 'application/json'
         }
@@ -107,10 +118,13 @@ const SubmitForm = ({form}) => (
 );
 
 const mapStateToProps = state => ({
-  form: state.form
+  formValues: state.form.formValues
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  prevButton: previousFormStep,
+  helpTextSetter: setInputHelpText
+};
 
 export default connect(
   mapStateToProps,
