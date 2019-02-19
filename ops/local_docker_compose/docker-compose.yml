@@ -1,0 +1,17 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ../..
+      dockerfile: formserver/Dockerfile
+    ports:
+     - "8080:8080"
+  frontend:
+    build: ../../diy_asylum_frontend
+    environment:
+      - BE_HOST=http://backend:8080
+    links:
+      - "backend"
+    command: "nodemon server.js"
+    ports:
+     - "3000:3000"

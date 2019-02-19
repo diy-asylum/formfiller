@@ -8,6 +8,9 @@ COPY package*.json ./
 
 RUN npm install --only=production
 
+# Install nodemon globally
+RUN npm install nodemon -g
+
 # Bundle app source
 COPY . .
 RUN cd /usr/src/app/client && npm install --only=production && npm rebuild node-sass && npm run build
