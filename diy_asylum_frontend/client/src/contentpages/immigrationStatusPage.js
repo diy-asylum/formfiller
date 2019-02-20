@@ -19,12 +19,12 @@ const formElements = [
         }),
         makeChoice({
           label: "I am now in Immigration Court proceedings",
-          id: "NOW"
+          id: "CURRENTLY"
         }),
         makeChoice({
           label:
             "I am not now in Immigration Court proceedings, but I have been in the past",
-          id: "PAST"
+          id: "NOT_NOW_BUT_IN_THE_PAST"
         })
       ]
     }),
