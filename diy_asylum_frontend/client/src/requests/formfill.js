@@ -1,8 +1,8 @@
 import fetch from "isomorphic-fetch";
 import FileSaver from "file-saver";
 
-const endpoint = 'http://localhost:3000/api/fill'
-const fileName = "e2e-test.pdf"
+const endpoint = "http://localhost:3000/api/fill";
+const fileName = "e2e-test.pdf";
 
 const makeFillRequest = formValues => ({
   applicantInfo: {
@@ -111,7 +111,7 @@ const executeFillRequest = formValues => {
     })
     .then(function(blob) {
       FileSaver.saveAs(blob, fileName);
-    })
-  };
+    });
+};
 
-  export default executeFillRequest;
+export default executeFillRequest;

@@ -8,7 +8,10 @@ import { setInputHelpText } from "../../reducers/helpText";
 const SubmitForm = ({ formValues, prevButton, helpTextSetter }) => (
   <div className="submit-form col-sm">
     <h4>Submit</h4>
-    <p>Click below to download your i-589 form. Follow the instructions on the first page to complete your application for asylum.</p>
+    <p>
+      Click below to download your i-589 form. Follow the instructions on the
+      first page to complete your application for asylum.
+    </p>
     <div className="button-container">
       <button
         onClick={() => {
@@ -18,9 +21,7 @@ const SubmitForm = ({ formValues, prevButton, helpTextSetter }) => (
       >
         Previous
       </button>
-      <button onClick={() => formfill(formValues)}>
-        Submit
-      </button>
+      <button onClick={() => formfill(formValues)}>Submit</button>
     </div>
   </div>
 );
