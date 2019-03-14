@@ -17,21 +17,61 @@ class NavHeader extends Component {
   };
 
   render() {
-    const formatMessage = this.props.intl.formatMessage;
-
     return (
       <div className="nav-header container-fluid">
-        <h1 className="header-text">{formatMessage(messages.headerText)}</h1>
-
-        <select
-          className="locale-select"
-          onChange={this.handleChange}
-          value={this.props.locale}
-        >
-          <option value="en">English</option>
-          <option value="es">Español</option>
-        </select>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div className="container">
+          <a className="navbar-brand" href="/">
+            Start Form
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarResponsive">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="/landing">
+                  Home
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link active" href="/about">
+                  About
+                  <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/landing">
+                  Services
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/landing">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+          <select
+            className="locale-select navbar-btn"
+            onChange={this.handleChange}
+            value={this.props.locale}
+          >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+      </nav>
       </div>
+
     );
   }
 }
