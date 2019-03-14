@@ -37,7 +37,7 @@ class MainView extends Component {
         <NavHeader />
 
         <div className="container">
-          <div className="row">
+          <div className="row top-pad">
             <ProgressPanel
               currentStep={this.props.formStep}
               setStep={this.props.setStep}
@@ -45,8 +45,8 @@ class MainView extends Component {
             {middle}
             <InstructionsPanel currentStep={this.props.formStep || 1} />
           </div>
-          <Footer />
         </div>
+        <Footer />
       </div>
     );
   }

@@ -18,8 +18,8 @@ const ProgressPanel = ({ currentStep, setStep }) => {
   });
 
   return (
-    <div className="progress-panel col-sm">
-      <h6>Application Progress</h6>
+    <div className="progress-panel col-lg-3">
+      <h4>Application Progress</h4>
       <ol>{mappedListItemsEl}</ol>
     </div>
   );
