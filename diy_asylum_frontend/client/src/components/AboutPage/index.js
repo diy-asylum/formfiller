@@ -5,7 +5,7 @@ import NavHeader from "../NavHeader";
 const LandingPage = () => (
   <div>
     <div className="white-background">
-      <NavHeader/>
+      <NavHeader />
       <div className="empty-space" />
       <div className="container">
         <div className="container">
