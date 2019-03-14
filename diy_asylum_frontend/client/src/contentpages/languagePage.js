@@ -19,8 +19,8 @@ const formElements = [
     label: "Are you fluent in English?",
     inputType: makeChoicesType({
       choices: [
-        makeChoice({ label: "Yes", id: "Y" }),
-        makeChoice({ label: "No", id: "N" })
+        makeChoice({ label: "Yes", id: true }),
+        makeChoice({ label: "No", id: false })
       ]
     }),
     help:

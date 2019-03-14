@@ -13,8 +13,8 @@ const formElements = [
     label: "Gender",
     inputType: makeChoicesType({
       choices: [
-        makeChoice({ label: "Male", id: "M" }),
-        makeChoice({ label: "Female", id: "F" })
+        makeChoice({ label: "Male", id: "MALE" }),
+        makeChoice({ label: "Female", id: "FEMALE" })
       ]
     }),
     help:
