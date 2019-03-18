@@ -36,8 +36,8 @@ class MainView extends Component {
       <div className="main-view">
         <NavHeader />
 
-        <div className="container">
-          <div className="row top-pad">
+        <div className="container flex-container">
+          <div className="row top-pad data-entry">
             <ProgressPanel
               currentStep={this.props.formStep}
               setStep={this.props.setStep}
