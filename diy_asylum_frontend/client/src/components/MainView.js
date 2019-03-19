@@ -8,6 +8,7 @@ import SubmitForm from "./SubmitForm";
 import InstructionsPanel from "./InstructionsPanel";
 import Footer from "./Footer";
 import { numPages } from "../contentpages";
+import "./style.scss";
 
 class MainView extends Component {
   constructor() {
