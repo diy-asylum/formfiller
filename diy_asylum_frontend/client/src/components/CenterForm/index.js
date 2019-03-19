@@ -45,7 +45,7 @@ const CenterForm = ({
   setFormElementState,
   fullFormState
 }) => (
-  <div className="center-form col-sm">
+  <div className="center-form col-lg-6">
     <h4>{contentPages[step - 1].name}</h4>
     <FormContent
       step={step}

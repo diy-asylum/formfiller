@@ -4,13 +4,6 @@ import { injectIntl, defineMessages } from "react-intl";
 import { connect } from "react-redux";
 import { updateUserLocale } from "../../reducers/user";
 
-const messages = defineMessages({
-  headerText: {
-    id: "Header.headerText",
-    defaultMessage: "Asylum"
-  }
-});
-
 class NavHeader extends Component {
   handleChange = event => {
     this.props.updateUserLocale(event.target.value);

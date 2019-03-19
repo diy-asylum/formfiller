@@ -18,11 +18,11 @@ const getHelpText = ({ currentStep }) => {
 };
 
 const InstructionsPanel = ({ currentStep, inputHelpText }) => (
-  <div className="instructions-panel col-sm">
-    <h6>Instructions</h6>
+  <div className="instructions-panel col-lg-3">
+    <h4>Instructions</h4>
     <p>{getHelpText({ currentStep })}</p>
     <div>
-      <h6>Help</h6>
+      <h5>Help</h5>
       <p>
         {inputHelpText ||
           "Click on a question box to for specific instructions"}
