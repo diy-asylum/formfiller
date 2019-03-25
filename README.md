@@ -15,7 +15,7 @@ gradle wrapper. This will ensure you are running the right version of gradle.
 Just make sure you run `./gradlew spotlessApply` before committing.
 If you want to run the sever just run `./gradlew bootRun` which will run the server till you kill it with ctrl-c
 If you want to build the command line app run `./gradlew shadowJar` and grab it from `formfiller/formfiller/build/libs/formfiller-1.0-SNAPSHOT-all.jar`
-To deploy both front and back ends locally, run `./gradlew :formserver:docker` then `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml up`
+To deploy both front and back ends locally, run `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml build` then `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml up`
 
 Any artifacts from builds are put in either the root `build` dir or the subprojects `build.dir`
 
@@ -30,9 +30,9 @@ Travis PR
 Coveralls report
    Runs to verify coverage. Right now it should not fail until we decide on a threshold for failure for the project as a whole.
    Travis could fail since both java modules are expected to maintain at least 80% coverage
-   
 
-The travis build is defined in [The Travis config](.travis.yml) 
+
+The travis build is defined in [The Travis config](.travis.yml)
 
 It will automatically see the gradle file and run the `check` task. This will run the
 style enforcement checks, compile the java code, run npm install, run the java tests, run the js tests.
@@ -43,7 +43,7 @@ If something goes wrong with the build (that is not an obvious test failure) you
 
 [View PR builds](https://travis-ci.org/diy-asylum/formfiller)
 
-In the output of the build a link will be posted to a detailed report on the build. 
+In the output of the build a link will be posted to a detailed report on the build.
 This will go over in detail what the build did and how long each step took. Look for a url pointing to scans.gradle.com
 
 For more information see [The Travis Docs](https://docs.travis-ci.com/user/languages/java/) and [The Coveralls Docs](https://docs.coveralls.io/)
@@ -52,7 +52,7 @@ For more information see [The Travis Docs](https://docs.travis-ci.com/user/langu
 
 So this is a monorepo. Gradle is the glue that builds the project as one. We are using a gradle "multiproject" build To understand gradle better I suggest
 [This](https://guides.gradle.org/building-java-applications/) and [This](https://guides.gradle.org/creating-multi-project-builds/)
- 
+
 Gradle is a vast and powerful system and im sure there is stuff thats not quite right in the build but lets walk though what we are trying to do.
 
 The build has a root project and three subprojects. (formfiller, formserver, diy_asylum_frontend)
@@ -60,8 +60,8 @@ The build has a root project and three subprojects. (formfiller, formserver, diy
 The root projects all have a `build.gradle` file. In addition some projects have a `settings.gradle` file which define what projects a
 particular project depends on. For example: formserver declares formfiller as a dependency since formserver relies on formfiller to work with the pdf
 
-[The root build.gradle](build.gradle) defines what is common to all the projects (Style, and how to run java tests). It also 
-can drive all the subprojects if you desire. Run `./gradlew tasks` from the root project to see everything. 
+[The root build.gradle](build.gradle) defines what is common to all the projects (Style, and how to run java tests). It also
+can drive all the subprojects if you desire. Run `./gradlew tasks` from the root project to see everything.
 
 ```
 ------------------------------------------------------------
@@ -138,7 +138,7 @@ To see more detail about a task, run gradlew help --task <task>
 
 Each module has its own `build.gradle` defining information specific to that project.
 
-If you don't understand a particular task just ask gradle. 
+If you don't understand a particular task just ask gradle.
 
 ```
 ./gradlew help --task bootRun
@@ -168,7 +168,6 @@ Use '--warning-mode all' to show the individual deprecation warnings.
 See https://docs.gradle.org/5.0/userguide/command_line_interface.html#sec:command_line_warnings
 ```
 
-the `diy_asylum_frontend` is unique in that its JS. The build file simply 
+the `diy_asylum_frontend` is unique in that its JS. The build file simply
 defines a few tasks that run node commands and tells gradle when to run them. You are not required to use gradle
 to work with the JS its just here for CI
-
