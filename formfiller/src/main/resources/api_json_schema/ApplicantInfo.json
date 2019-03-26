@@ -23,11 +23,11 @@
     },
     "usResidence": {
       "type":"object",
-      "$ref":"address.json"
+      "$ref":"Address.json"
     },
     "usMailingAddress": {
       "type":object",
-      "$ref":"address.json"
+      "$ref":"Address.json"
     },
     "gender": {
       "type":"string",
