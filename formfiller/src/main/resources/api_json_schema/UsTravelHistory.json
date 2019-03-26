@@ -1,0 +1,27 @@
+{
+	"$id":"UsTravelHistory.json",
+	"$schema":"I589ApplicationV1",
+	"title":"US Travel History",
+	"type":"object",
+	"properties": 
+	  "travelEvents":{
+	    "type":"array",
+	    "items": {
+	      "type":"object"
+	      "$ref":"UsTravelEvent.json"
+	    }
+	  },
+	  "lastLeftHomeCountry":{
+	    "type":"string",
+	    "format":"mm/dd/yyyy"
+	  },
+	  "i94Number":{
+	    "type":"string"
+	  },
+	  "dateStatusExpires":{
+	    "type":"string"
+	  }
+	},
+	"required": ["travelEvents", "lastLeftHomeCountry", "i94Number", "dateStatusExpires"]
+}
+

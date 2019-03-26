@@ -1,0 +1,17 @@
+{
+	"$id":"I589Application.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Fill_i-589_Request",
+	"type":"object",
+	"properties": 
+		"applicantInfo":{
+			"type":"object",
+			"$ref":"ApplicantInfo.json"
+		},
+		"usTravelHistory":{
+			"type":"object"
+			"$ref":"UsTravelHistory.json"
+		}
+	},
+	"required": ["applicantInfo", "usTravelHistory"]
+}

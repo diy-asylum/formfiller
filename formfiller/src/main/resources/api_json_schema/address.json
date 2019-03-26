@@ -1,0 +1,38 @@
+{
+	"$id":"address.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Address",
+	"type":"object",
+	"properties": 
+		"inCareOf":{
+		  "type":"string",
+		},
+		"streetName":{
+		  "type":"string"
+		},
+		"streetNumber": {
+		  "type":"string"
+		},
+		"apartmentNumber": {
+		  "type":"string"
+		},
+		"city": {
+		  "type":"string"
+		},
+		"state": {
+		  "type":"string"
+		},
+		"zipCode": {
+		  "type":"string"
+		},
+		"areaCode": {
+		  "type":"string",
+		  "format":"Just three numbers, e.g. 123"
+		},
+		"phoneNumber": {
+		  "type":"string",
+		  "format":"456-7890"
+		}
+	},
+	"required": ["streetName","streetNumber","city","state","zipCode","areaCode","phoneNumber"]
+}
