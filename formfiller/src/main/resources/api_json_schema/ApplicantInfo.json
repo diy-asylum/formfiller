@@ -3,7 +3,6 @@
   "$schema":"I589ApplicationV1",
   "title": "Applicant Info",
   "description": "Personal information about the applicant.",
-  "required": [],
   "type": "object",
   "properties": {
     "lastName": {

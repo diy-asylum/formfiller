@@ -1,8 +1,8 @@
 {
-  "$id": "SpouseInfo.json",
+  "$id": "ChildInfo.json",
   "$schema":"I589ApplicationV1",
-  "title": "Spouse Info",
-  "description": "Personal information about the applicant's spouse.",
+  "title": "Child Info",
+  "description": "Personal information about a child of the applicant.",
   "type": "object",
   "properties": {
     "lastName": {
@@ -13,12 +13,6 @@
     },
     "middleName": {
       "type":"string"
-    },
-    "aliases": {
-      "type":"array",
-      "items": {
-        "type":"string"
-      }
     },
     "dateOfBirth":{
       "type":"string",
@@ -33,12 +27,9 @@
     "passportNumber":{
       "type":"string"
     },
-    "dateOfMarriage":{
+    "maritalStatus":{
       "type":"string",
-      "format":"mm/dd/yyyy"
-    },
-    "placeOfMarriage":{
-      "type":"string"
+      "enum":["SINGLE","MARRIED","DIVORCED","WIDOWED"] 
     },
     "cityOfBirth": {
       "type":"string"
@@ -85,14 +76,11 @@
     "isInImmigrationCourt":{
       "type":"boolean"
     },
-    "previousArrivalDate":{
-      "type":"string",
-      "format":"mm/dd/yyyy"
-    },
     "includeInApplication":{
       "type":"boolean"
     }
   },
-  "required":["all"]
+  "required":["lastName", "firstName","middleName","dateOfBirth","maritalStatus","cityOfBirth","countryOfBirth","nationality","raceEthnicOrTribalGroup","gender","inUS"]
 }
+
 
