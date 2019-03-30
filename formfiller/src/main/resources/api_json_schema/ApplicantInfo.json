@@ -26,7 +26,7 @@
       "$ref":"Address.json"
     },
     "usMailingAddress": {
-      "type":object",
+      "type":"object",
       "$ref":"Address.json"
     },
     "gender": {

@@ -11,7 +11,10 @@
 		"usTravelHistory":{
 			"type":"object"
 			"$ref":"UsTravelHistory.json"
+		},
+		spouseInfo:{
+			"type:"object",
+			"$ref":"SpouseInfo.json"
 		}
 	},
-	"required": ["applicantInfo", "usTravelHistory"]
-}
+	"required": ["applicantInfo", "usTravelHistory", "isMarried"]
