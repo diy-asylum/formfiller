@@ -3,7 +3,7 @@
 	"$schema":"I589ApplicationV1",
 	"title":"Address With Date Range",
 	"type":"object",
-	"properties": 
+	"properties": { 
 		"streetName": {
 		  "type":"string"
 		},

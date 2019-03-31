@@ -3,7 +3,7 @@
 	"$schema":"I589ApplicationV1",
 	"title":"US Travel History",
 	"type":"object",
-	"properties": 
+	"properties": { 
 	  "travelEvents": {
 	    "type":"array",
 	    "items": {

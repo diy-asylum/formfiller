@@ -3,7 +3,7 @@
 	"$schema":"I589ApplicationV1",
 	"title":"Mailing Address",
 	"type":"object",
-	"properties": 
+	"properties":{ 
 		"inCareOf": {
 		  "type":"string"
 		},

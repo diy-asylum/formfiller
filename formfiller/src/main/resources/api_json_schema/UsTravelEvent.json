@@ -3,7 +3,7 @@
 	"$schema":"I589ApplicationV1",
 	"title":"US Travel Event",
 	"type":"object",
-	"properties": 
+	"properties": { 
 	  "date": {
 	    "type":"string",
 	    "format":"mm/dd/yyyy"
