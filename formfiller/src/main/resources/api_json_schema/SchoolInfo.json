@@ -18,7 +18,7 @@
 			"format":"mm/yyyy"
 		},
 		"toDate":{
-			"type:string",
+			"type":"string",
 			"format":"mm/yyyy"
 		}
 	},

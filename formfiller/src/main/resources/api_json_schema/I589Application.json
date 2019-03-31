@@ -4,7 +4,7 @@
 	"title":"I-589 Applicant Information",
 	"type":"object",
 	"properties": 
-		"applicantInfo":{
+		"applicantInfo": {
 			"type":"object",
 			"$ref":"ApplicantInfo.json"
 		},

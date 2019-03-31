@@ -4,14 +4,14 @@
 	"title":"US Travel Event",
 	"type":"object",
 	"properties": 
-	  "date":{
+	  "date": {
 	    "type":"string",
 	    "format":"mm/dd/yyyy"
 	  },
-	  "place":{
+	  "place": {
 	    "type":"string"
 	  },
-	  "status":{
+	  "status": {
 	    "type":"string"
 	  }
 	},

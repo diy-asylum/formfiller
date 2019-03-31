@@ -4,21 +4,21 @@
 	"title":"US Travel History",
 	"type":"object",
 	"properties": 
-	  "travelEvents":{
+	  "travelEvents": {
 	    "type":"array",
 	    "items": {
-	      "type":"object"
+	      "type":"object",
 	      "$ref":"UsTravelEvent.json"
 	    }
 	  },
-	  "lastLeftHomeCountry":{
+	  "lastLeftHomeCountry": {
 	    "type":"string",
 	    "format":"mm/dd/yyyy"
 	  },
-	  "i94Number":{
+	  "i94Number": {
 	    "type":"string"
 	  },
-	  "dateStatusExpires":{
+	  "dateStatusExpires": {
 	    "type":"string"
 	  }
 	},
