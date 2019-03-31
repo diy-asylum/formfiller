@@ -1,11 +1,11 @@
 {
-	"$id":"address.json",
+	"$id":"MailingAddress.json",
 	"$schema":"I589ApplicationV1",
-	"title":"Address",
+	"title":"Mailing Address",
 	"type":"object",
 	"properties": 
 		"inCareOf":{
-		  "type":"string",
+		  "type":"string"
 		},
 		"streetName":{
 		  "type":"string"

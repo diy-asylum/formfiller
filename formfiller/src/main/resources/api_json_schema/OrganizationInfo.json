@@ -1,0 +1,20 @@
+{
+	"$id":"OrganizationInfo.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Information About Organizations Associated With Applicant",
+	"type":"object",
+	"properties":{
+		"associatedWithOrganizations":{
+			"type":"object",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"continueToParticipate":{
+			"type":"object",
+			"$ref":"QuestionWithExplanation.json"
+		}
+	},
+	"required": ["associatedWithOrganizations"]
+}
+
+
+

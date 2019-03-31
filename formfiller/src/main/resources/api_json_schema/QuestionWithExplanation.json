@@ -1,0 +1,18 @@
+{
+	"$id":"QuestionWithExplanation.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Answer Question and Explain",
+	"type":"object",
+	"properties":{
+		"yesNoAnswer":{
+			"type":"string",
+			"enum":["YES", "NO"]
+		},
+		"explanation":{
+			"type":"string"
+		}
+	},
+	"required": ["yesNoAnswer"]
+}
+
+

@@ -1,0 +1,22 @@
+{
+	"$id":"OtherCountryApplications.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Whether the Applicant has Traveled to or Applied for Asylum in Other Countries",
+	"type":"object",
+	"properties":{
+		"travelThroughOtherCountry":{
+			"type":"string",
+			"enum":["YES", "NO"]
+		},
+		"applyOtherCountry":{
+			"type":"string",
+			"enum":["YES", "NO"]
+		},
+		"explanation":{
+			"type":"string"
+		}
+	},
+	"required": ["travelThroughOtherCountry", "applyOtherCountry"]
+}
+
+

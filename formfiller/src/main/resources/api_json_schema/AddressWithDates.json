@@ -1,0 +1,33 @@
+{
+	"$id":"AddressWithDates.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Address With Date Range",
+	"type":"object",
+	"properties": 
+		"streetName":{
+		  "type":"string"
+		},
+		"streetNumber": {
+		  "type":"string"
+		},
+		"cityOrTown": {
+		  "type":"string"
+		},
+		"departmentProvinceOrState": {
+		  "type":"string"
+		},
+		"country":{
+		  "type":"string"
+		},
+		"fromDate":{
+		  "type":"string",
+		  "format":"mm/yyyy"
+		},
+		"toDate":{
+		  "type":"string",
+		  "format":"mm/yyyy"
+		}
+	},
+	"required": ["all"]
+}
+
