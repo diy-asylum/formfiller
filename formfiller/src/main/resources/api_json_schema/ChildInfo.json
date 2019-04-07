@@ -50,7 +50,8 @@
     "inUS":{
       "type":"boolean"
     },
-    "locationInUS":{
+    "location":{
+      "description":"Only required if child is not in US.",
       "type":"string"
     },
     "placeOfLastEntry":{
