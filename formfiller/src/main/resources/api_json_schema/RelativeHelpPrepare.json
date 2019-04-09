@@ -5,7 +5,8 @@
 	"type":"object",
 	"properties":{
 		"didRelativeHelp":{
-			"type":"boolean"
+			"type":"string",
+			"enum": ["YES", "NO"]
 		},
 		"firstRelative":{
 			"type":"object",

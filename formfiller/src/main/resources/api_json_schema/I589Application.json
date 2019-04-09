@@ -97,7 +97,7 @@
 		"organizationInfo":{
 			"type":"object",
 			"description":"Answer to Questions 3A and 3B on Page 6",
-			"$ref":"OrganizationInformation.json"
+			"$ref":"OrganizationInfo.json"
 		},
 		"afraidOfTorture":{
 			"type":"object",
