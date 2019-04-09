@@ -28,7 +28,7 @@ public class RelativeHelpPrepare {
     return firstRelative;
   }
 
-  public Optional<Relative> getSecondRelative(){
+  public Optional<Relative> getSecondRelative() {
     return secondRelative;
   }
 
@@ -39,7 +39,7 @@ public class RelativeHelpPrepare {
     RelativeHelpPrepare that = (RelativeHelpPrepare) o;
     return Objects.equals(didRelativeHelp, that.didRelativeHelp)
         && Objects.equals(firstRelative, that.firstRelative)
-	&& Objects.equals(secondRelative, that.secondRelative);
+        && Objects.equals(secondRelative, that.secondRelative);
   }
 
   @Override
@@ -51,16 +51,14 @@ public class RelativeHelpPrepare {
   public String toString() {
     return "RelativeHelpPrepare{"
         + "didRelativeHelp='"
-        + didRelativeHelp 
+        + didRelativeHelp
         + '\''
         + "firstRelative='"
-        + firstRelative 
+        + firstRelative
         + '\''
         + "secondRelative='"
-        + secondRelative 
+        + secondRelative
         + '\''
         + '}';
   }
 }
-
-

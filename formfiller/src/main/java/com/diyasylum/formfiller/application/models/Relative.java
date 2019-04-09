@@ -10,8 +10,7 @@ public class Relative {
 
   @JsonCreator
   public Relative(
-      @JsonProperty("name") String name,
-      @JsonProperty("relationship") String relationship) {
+      @JsonProperty("name") String name, @JsonProperty("relationship") String relationship) {
     this.name = name;
     this.relationship = relationship;
   }
@@ -29,8 +28,7 @@ public class Relative {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Relative that = (Relative) o;
-    return Objects.equals(name, that.name)
-        && Objects.equals(relationship, that.relationship);
+    return Objects.equals(name, that.name) && Objects.equals(relationship, that.relationship);
   }
 
   @Override
@@ -40,15 +38,6 @@ public class Relative {
 
   @Override
   public String toString() {
-    return "Relative{"
-        + "name='"
-        + name 
-        + '\''
-        + "relationship='"
-        + relationship
-        + '\''
-        + '}';
+    return "Relative{" + "name='" + name + '\'' + "relationship='" + relationship + '\'' + '}';
   }
 }
-
-

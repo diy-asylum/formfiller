@@ -43,12 +43,11 @@ public class QuestionWithExplanation {
   public String toString() {
     return "QuestionWithExplanation{"
         + "yesNoAnswer='"
-        + yesNoAnswer 
+        + yesNoAnswer
         + '\''
         + "explanation='"
-        + explanation 
+        + explanation
         + '\''
         + '}';
   }
 }
-

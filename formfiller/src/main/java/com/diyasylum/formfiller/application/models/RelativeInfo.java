@@ -66,7 +66,7 @@ public class RelativeInfo {
   public String toString() {
     return "RelativeInfo{"
         + "fullName='"
-        + fullName 
+        + fullName
         + '\''
         + ", cityOrTownOfBirth='"
         + cityOrTownOfBirth
@@ -75,12 +75,11 @@ public class RelativeInfo {
         + countryOfBirth
         + '\''
         + ", currentLocation='"
-        + currentLocation 
+        + currentLocation
         + '\''
         + ", isDeceased='"
-        + isDeceased 
+        + isDeceased
         + '\''
         + '}';
   }
 }
-

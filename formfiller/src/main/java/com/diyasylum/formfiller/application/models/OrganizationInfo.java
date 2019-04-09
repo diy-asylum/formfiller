@@ -11,7 +11,8 @@ public class OrganizationInfo {
 
   @JsonCreator
   public OrganizationInfo(
-      @JsonProperty("associatedWithOrganizations") QuestionWithExplanation associatedWithOrganizations,
+      @JsonProperty("associatedWithOrganizations")
+          QuestionWithExplanation associatedWithOrganizations,
       @JsonProperty("explanation") Optional<QuestionWithExplanation> continueToParticipate) {
     this.associatedWithOrganizations = associatedWithOrganizations;
     this.continueToParticipate = continueToParticipate;
@@ -43,13 +44,11 @@ public class OrganizationInfo {
   public String toString() {
     return "OrganizationInfo{"
         + "associatedWithOrganizations='"
-        + associatedWithOrganizations 
+        + associatedWithOrganizations
         + '\''
         + "continueToParticipate='"
-        + continueToParticipate 
+        + continueToParticipate
         + '\''
         + '}';
   }
 }
-
-

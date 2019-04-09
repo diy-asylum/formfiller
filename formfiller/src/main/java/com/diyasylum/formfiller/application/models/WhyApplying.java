@@ -8,4 +8,3 @@ public enum WhyApplying {
   MEMBERSHIP_IN_SOCIAL_GROUP,
   TORTURE_CONVENTION
 }
-

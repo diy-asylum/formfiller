@@ -18,5 +18,3 @@ public class RelativeBuilder {
     return new Relative(name, relationship);
   }
 }
-
-

@@ -5,7 +5,7 @@ public class RelativeInfoBuilder {
   private String cityOrTownOfBirth;
   private String countryOfBirth;
   private String currentLocation;
-  private boolean isDeceased; 
+  private boolean isDeceased;
 
   public RelativeInfoBuilder setFullName(String fullName) {
     this.fullName = fullName;
@@ -33,7 +33,7 @@ public class RelativeInfoBuilder {
   }
 
   public RelativeInfo createRelativeInfo() {
-    return new RelativeInfo(fullName, cityOrTownOfBirth, countryOfBirth, currentLocation, isDeceased);
+    return new RelativeInfo(
+        fullName, cityOrTownOfBirth, countryOfBirth, currentLocation, isDeceased);
   }
 }
-

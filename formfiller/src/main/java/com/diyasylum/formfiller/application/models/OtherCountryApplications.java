@@ -39,7 +39,7 @@ public class OtherCountryApplications {
     OtherCountryApplications that = (OtherCountryApplications) o;
     return Objects.equals(travelThroughOtherCountry, that.travelThroughOtherCountry)
         && Objects.equals(applyOtherCountry, that.applyOtherCountry)
-	    && Objects.equals(explanation, that.explanation);
+        && Objects.equals(explanation, that.explanation);
   }
 
   @Override
@@ -51,16 +51,14 @@ public class OtherCountryApplications {
   public String toString() {
     return "OtherCountryApplications{"
         + "travelThroughOtherCountry='"
-        + travelThroughOtherCountry 
+        + travelThroughOtherCountry
         + '\''
         + "applyOtherCountry='"
-        + applyOtherCountry 
+        + applyOtherCountry
         + '\''
         + "explanation='"
-        + explanation 
+        + explanation
         + '\''
         + '}';
   }
 }
-
-

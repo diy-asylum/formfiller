@@ -1,4 +1,5 @@
 package com.diyasylum.formfiller.application.models;
+
 import java.util.Optional;
 
 public class OtherCountryApplicationsBuilder {
@@ -6,7 +7,8 @@ public class OtherCountryApplicationsBuilder {
   private YesNoAnswer applyOtherCountry;
   private Optional<String> explanation;
 
-  public OtherCountryApplicationsBuilder setTravelThroughOtherCountry(YesNoAnswer travelThroughOtherCountry) {
+  public OtherCountryApplicationsBuilder setTravelThroughOtherCountry(
+      YesNoAnswer travelThroughOtherCountry) {
     this.travelThroughOtherCountry = travelThroughOtherCountry;
     return this;
   }
@@ -25,5 +27,3 @@ public class OtherCountryApplicationsBuilder {
     return new OtherCountryApplications(travelThroughOtherCountry, applyOtherCountry, explanation);
   }
 }
-
-

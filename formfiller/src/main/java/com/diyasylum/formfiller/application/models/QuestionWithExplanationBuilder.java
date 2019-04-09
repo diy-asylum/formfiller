@@ -1,4 +1,5 @@
 package com.diyasylum.formfiller.application.models;
+
 import java.util.Optional;
 
 public class QuestionWithExplanationBuilder {
@@ -19,4 +20,3 @@ public class QuestionWithExplanationBuilder {
     return new QuestionWithExplanation(yesNoAnswer, explanation);
   }
 }
-

@@ -1,4 +1,5 @@
 package com.diyasylum.formfiller.application.models;
+
 import java.util.Optional;
 
 public class RelativeHelpPrepareBuilder {
@@ -25,5 +26,3 @@ public class RelativeHelpPrepareBuilder {
     return new RelativeHelpPrepare(didRelativeHelp, firstRelative, secondRelative);
   }
 }
-
-
