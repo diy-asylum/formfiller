@@ -1,7 +1,6 @@
 package com.diyasylum.formfiller.application.models;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class SpouseInfoBuilder {
@@ -56,7 +55,7 @@ public class SpouseInfoBuilder {
     this.middleName = middleName;
     return this;
   }
-  
+
   public SpouseInfoBuilder setAliases(List<String> aliases) {
     this.aliases = aliases;
     return this;
@@ -71,7 +70,7 @@ public class SpouseInfoBuilder {
     this.dateOfMarriage = dateOfMarriage;
     return this;
   }
-  
+
   public SpouseInfoBuilder setPlaceOfMarriage(String placeOfMarriage) {
     this.placeOfMarriage = placeOfMarriage;
     return this;
@@ -132,7 +131,8 @@ public class SpouseInfoBuilder {
     return this;
   }
 
-  public SpouseInfoBuilder setImmigrationStatusWhenLastAdmitted(Optional<String> immigrationStatusWhenLastAdmitted) {
+  public SpouseInfoBuilder setImmigrationStatusWhenLastAdmitted(
+      Optional<String> immigrationStatusWhenLastAdmitted) {
     this.immigrationStatusWhenLastAdmitted = immigrationStatusWhenLastAdmitted;
     return this;
   }
@@ -151,7 +151,7 @@ public class SpouseInfoBuilder {
     this.isInImmigrationCourt = isInImmigrationCourt;
     return this;
   }
-  
+
   public SpouseInfoBuilder setPreviousArrivalDate(Optional<String> previousArrivalDate) {
     this.previousArrivalDate = previousArrivalDate;
     return this;
@@ -169,28 +169,26 @@ public class SpouseInfoBuilder {
         lastName,
         firstName,
         middleName,
-	aliases,
+        aliases,
         gender,
         dateOfMarriage,
-	placeOfMarriage,
-	dateOfBirth,
+        placeOfMarriage,
+        dateOfBirth,
         cityOfBirth,
         countryOfBirth,
         nationality,
         raceEthnicOrTribalGroup,
         passportNumber,
         inUS,
-	location,
-	placeOfLastEntry,
-	dateOfLastEntry,
-	i94Number,
-	immigrationStatusWhenLastAdmitted,
-	currentImmigrationStatus,
-	statusExpirationDate,
-	isInImmigrationCourt,
-	previousArrivalDate,
-	includeInApplication);
+        location,
+        placeOfLastEntry,
+        dateOfLastEntry,
+        i94Number,
+        immigrationStatusWhenLastAdmitted,
+        currentImmigrationStatus,
+        statusExpirationDate,
+        isInImmigrationCourt,
+        previousArrivalDate,
+        includeInApplication);
   }
 }
-
-

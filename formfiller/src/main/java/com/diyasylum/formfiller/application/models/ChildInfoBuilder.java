@@ -1,7 +1,5 @@
 package com.diyasylum.formfiller.application.models;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class ChildInfoBuilder {
@@ -119,7 +117,8 @@ public class ChildInfoBuilder {
     return this;
   }
 
-  public ChildInfoBuilder setImmigrationStatusWhenLastAdmitted(Optional<String> immigrationStatusWhenLastAdmitted) {
+  public ChildInfoBuilder setImmigrationStatusWhenLastAdmitted(
+      Optional<String> immigrationStatusWhenLastAdmitted) {
     this.immigrationStatusWhenLastAdmitted = immigrationStatusWhenLastAdmitted;
     return this;
   }
@@ -160,15 +159,14 @@ public class ChildInfoBuilder {
         raceEthnicOrTribalGroup,
         passportNumber,
         inUS,
-	location,
-	placeOfLastEntry,
-	dateOfLastEntry,
-	i94Number,
-	immigrationStatusWhenLastAdmitted,
-	currentImmigrationStatus,
-	statusExpirationDate,
-	isInImmigrationCourt,
-	includeInApplication);
+        location,
+        placeOfLastEntry,
+        dateOfLastEntry,
+        i94Number,
+        immigrationStatusWhenLastAdmitted,
+        currentImmigrationStatus,
+        statusExpirationDate,
+        isInImmigrationCourt,
+        includeInApplication);
   }
 }
-

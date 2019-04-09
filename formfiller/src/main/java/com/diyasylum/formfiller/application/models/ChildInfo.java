@@ -2,7 +2,6 @@ package com.diyasylum.formfiller.application.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,7 +30,6 @@ public class ChildInfo {
   private final Optional<Boolean> isInImmigrationCourt;
   private final Optional<Boolean> includeInApplication;
 
-
   @JsonCreator
   ChildInfo(
       @JsonProperty("alienRegistrationNumber") Optional<String> alienRegistrationNumber,
@@ -52,13 +50,14 @@ public class ChildInfo {
       @JsonProperty("placeOfLastEntry") Optional<String> placeOfLastEntry,
       @JsonProperty("dateOfLastEntry") Optional<String> dateOfLastEntry,
       @JsonProperty("i94Number") Optional<String> i94Number,
-      @JsonProperty("immigrationStatusWhenLastAdmitted") Optional<String> immigrationStatusWhenLastAdmitted,
+      @JsonProperty("immigrationStatusWhenLastAdmitted")
+          Optional<String> immigrationStatusWhenLastAdmitted,
       @JsonProperty("currentImmigrationStatus") Optional<String> currentImmigrationStatus,
       @JsonProperty("statusExpirationDate") Optional<String> statusExpirationDate,
       @JsonProperty("isInImmigrationCourt") Optional<Boolean> isInImmigrationCourt,
       @JsonProperty("includeInApplication") Optional<Boolean> includeInApplication) {
     this.alienRegistrationNumber = alienRegistrationNumber;
-    this.socialSecurityNumber = socialSecurityNumber;  
+    this.socialSecurityNumber = socialSecurityNumber;
     this.lastName = lastName;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -192,16 +191,16 @@ public class ChildInfo {
         && Objects.equals(alienRegistrationNumber, that.alienRegistrationNumber)
         && Objects.equals(socialSecurityNumber, that.socialSecurityNumber)
         && Objects.equals(passportNumber, that.passportNumber)
-	&& inUS == that.inUS 
-	&& Objects.equals(location, that.location)
-	&& Objects.equals(placeOfLastEntry, that.placeOfLastEntry)
-	&& Objects.equals(dateOfLastEntry, that.dateOfLastEntry)
-	&& Objects.equals(i94Number, that.i94Number)
-	&& Objects.equals(immigrationStatusWhenLastAdmitted, that.immigrationStatusWhenLastAdmitted)
-	&& Objects.equals(currentImmigrationStatus, that.currentImmigrationStatus)
-	&& Objects.equals(statusExpirationDate, that.statusExpirationDate)
-	&& Objects.equals(isInImmigrationCourt, that.isInImmigrationCourt)
-	&& Objects.equals(includeInApplication, that.includeInApplication);
+        && inUS == that.inUS
+        && Objects.equals(location, that.location)
+        && Objects.equals(placeOfLastEntry, that.placeOfLastEntry)
+        && Objects.equals(dateOfLastEntry, that.dateOfLastEntry)
+        && Objects.equals(i94Number, that.i94Number)
+        && Objects.equals(immigrationStatusWhenLastAdmitted, that.immigrationStatusWhenLastAdmitted)
+        && Objects.equals(currentImmigrationStatus, that.currentImmigrationStatus)
+        && Objects.equals(statusExpirationDate, that.statusExpirationDate)
+        && Objects.equals(isInImmigrationCourt, that.isInImmigrationCourt)
+        && Objects.equals(includeInApplication, that.includeInApplication);
   }
 
   @Override
@@ -221,15 +220,15 @@ public class ChildInfo {
         socialSecurityNumber,
         passportNumber,
         inUS,
-	location,
-	placeOfLastEntry,
-	dateOfLastEntry,
-	i94Number,
-	immigrationStatusWhenLastAdmitted,
-	currentImmigrationStatus,
-	statusExpirationDate,
-	isInImmigrationCourt,
-	includeInApplication);
+        location,
+        placeOfLastEntry,
+        dateOfLastEntry,
+        i94Number,
+        immigrationStatusWhenLastAdmitted,
+        currentImmigrationStatus,
+        statusExpirationDate,
+        isInImmigrationCourt,
+        includeInApplication);
   }
 
   @Override
@@ -246,10 +245,10 @@ public class ChildInfo {
         + '\''
         + ", gender="
         + gender
-	+ '\''
+        + '\''
         + ", maritalStatus="
         + maritalStatus
-	+ '\''
+        + '\''
         + ", dateOfBirth='"
         + dateOfBirth
         + '\''
@@ -307,4 +306,3 @@ public class ChildInfo {
         + '}';
   }
 }
-

@@ -34,7 +34,6 @@ public class SpouseInfo {
   private final Optional<String> previousArrivalDate; // mm/dd/yyyy
   private final Optional<Boolean> includeInApplication;
 
-
   @JsonCreator
   SpouseInfo(
       @JsonProperty("alienRegistrationNumber") Optional<String> alienRegistrationNumber,
@@ -57,14 +56,15 @@ public class SpouseInfo {
       @JsonProperty("placeOfLastEntry") Optional<String> placeOfLastEntry,
       @JsonProperty("dateOfLastEntry") Optional<String> dateOfLastEntry,
       @JsonProperty("i94Number") Optional<String> i94Number,
-      @JsonProperty("immigrationStatusWhenLastAdmitted") Optional<String> immigrationStatusWhenLastAdmitted,
+      @JsonProperty("immigrationStatusWhenLastAdmitted")
+          Optional<String> immigrationStatusWhenLastAdmitted,
       @JsonProperty("currentImmigrationStatus") Optional<String> currentImmigrationStatus,
       @JsonProperty("statusExpirationDate") Optional<String> statusExpirationDate,
       @JsonProperty("isInImmigrationCourt") Optional<Boolean> isInImmigrationCourt,
       @JsonProperty("previousArrivalDate") Optional<String> previousArrivalDate,
       @JsonProperty("includeInApplication") Optional<Boolean> includeInApplication) {
     this.alienRegistrationNumber = alienRegistrationNumber;
-    this.socialSecurityNumber = socialSecurityNumber;  
+    this.socialSecurityNumber = socialSecurityNumber;
     this.lastName = lastName;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -110,7 +110,7 @@ public class SpouseInfo {
   public String getMiddleName() {
     return middleName;
   }
-  
+
   public List<String> getAliases() {
     return aliases;
   }
@@ -204,9 +204,9 @@ public class SpouseInfo {
         && Objects.equals(firstName, that.firstName)
         && Objects.equals(middleName, that.middleName)
         && Objects.equals(aliases, that.aliases)
-	&& gender == that.gender
-	&& Objects.equals(dateOfMarriage, that.dateOfMarriage)
-	&& Objects.equals(placeOfMarriage, that.placeOfMarriage)
+        && gender == that.gender
+        && Objects.equals(dateOfMarriage, that.dateOfMarriage)
+        && Objects.equals(placeOfMarriage, that.placeOfMarriage)
         && Objects.equals(dateOfBirth, that.dateOfBirth)
         && Objects.equals(cityOfBirth, that.cityOfBirth)
         && Objects.equals(countryOfBirth, that.countryOfBirth)
@@ -215,17 +215,17 @@ public class SpouseInfo {
         && Objects.equals(alienRegistrationNumber, that.alienRegistrationNumber)
         && Objects.equals(socialSecurityNumber, that.socialSecurityNumber)
         && Objects.equals(passportNumber, that.passportNumber)
-	&& inUS == that.inUS 
-	&& Objects.equals(location, that.location)
-	&& Objects.equals(placeOfLastEntry, that.placeOfLastEntry)
-	&& Objects.equals(dateOfLastEntry, that.dateOfLastEntry)
-	&& Objects.equals(i94Number, that.i94Number)
-	&& Objects.equals(immigrationStatusWhenLastAdmitted, that.immigrationStatusWhenLastAdmitted)
-	&& Objects.equals(currentImmigrationStatus, that.currentImmigrationStatus)
-	&& Objects.equals(statusExpirationDate, that.statusExpirationDate)
-	&& Objects.equals(isInImmigrationCourt, that.isInImmigrationCourt)
-	&& Objects.equals(previousArrivalDate, that.previousArrivalDate)
-	&& Objects.equals(includeInApplication, that.includeInApplication);
+        && inUS == that.inUS
+        && Objects.equals(location, that.location)
+        && Objects.equals(placeOfLastEntry, that.placeOfLastEntry)
+        && Objects.equals(dateOfLastEntry, that.dateOfLastEntry)
+        && Objects.equals(i94Number, that.i94Number)
+        && Objects.equals(immigrationStatusWhenLastAdmitted, that.immigrationStatusWhenLastAdmitted)
+        && Objects.equals(currentImmigrationStatus, that.currentImmigrationStatus)
+        && Objects.equals(statusExpirationDate, that.statusExpirationDate)
+        && Objects.equals(isInImmigrationCourt, that.isInImmigrationCourt)
+        && Objects.equals(previousArrivalDate, that.previousArrivalDate)
+        && Objects.equals(includeInApplication, that.includeInApplication);
   }
 
   @Override
@@ -234,10 +234,10 @@ public class SpouseInfo {
         lastName,
         firstName,
         middleName,
-	aliases,
+        aliases,
         gender,
-	dateOfMarriage,
-	placeOfMarriage,
+        dateOfMarriage,
+        placeOfMarriage,
         dateOfBirth,
         cityOfBirth,
         countryOfBirth,
@@ -247,16 +247,16 @@ public class SpouseInfo {
         socialSecurityNumber,
         passportNumber,
         inUS,
-	location,
-	placeOfLastEntry,
-	dateOfLastEntry,
-	i94Number,
-	immigrationStatusWhenLastAdmitted,
-	currentImmigrationStatus,
-	statusExpirationDate,
-	isInImmigrationCourt,
-	previousArrivalDate,
-	includeInApplication);
+        location,
+        placeOfLastEntry,
+        dateOfLastEntry,
+        i94Number,
+        immigrationStatusWhenLastAdmitted,
+        currentImmigrationStatus,
+        statusExpirationDate,
+        isInImmigrationCourt,
+        previousArrivalDate,
+        includeInApplication);
   }
 
   @Override
@@ -273,16 +273,16 @@ public class SpouseInfo {
         + '\''
         + ", aliases="
         + aliases
-	+ '\''	
+        + '\''
         + ", gender="
         + gender
-	+ '\''
+        + '\''
         + ", dateOfMarriage="
         + dateOfMarriage
-	+ '\''
+        + '\''
         + ", placeOfMarriage="
         + placeOfMarriage
-	+ '\''
+        + '\''
         + ", dateOfBirth='"
         + dateOfBirth
         + '\''
@@ -336,12 +336,10 @@ public class SpouseInfo {
         + '\''
         + ", previousArrivalDate="
         + previousArrivalDate
-	+ '\''	
+        + '\''
         + ", includeInApplication='"
         + includeInApplication.orElseGet(() -> null)
         + '\''
         + '}';
   }
 }
-
-
