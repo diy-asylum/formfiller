@@ -1,0 +1,37 @@
+{
+	"$id":"RelativeHelpPrepare.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Relatives who helped the applicant preparei this application.",
+	"type":"object",
+	"properties":{
+		"didRelativeHelp":{
+			"type":"boolean"
+		},
+		"firstRelative":{
+			"type":"object",
+			"$ref":"definitions/relative"
+		},
+		"secondRelative":{
+			"type":"object",
+			"$ref":"definitions/relative"
+		}
+	},
+	"definitions":{
+		"relative": {
+			"type":"object",
+			"properties":{
+				"name":{
+					"type":"string"
+				},
+				"relationship":{
+					"type":"string"
+				}
+			},
+			"required":["all"]
+		}
+	},
+	"required": ["didRelativeHelp"]
+}
+
+
+

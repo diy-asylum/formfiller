@@ -1,0 +1,27 @@
+{
+	"$id":"SchoolInfo.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Information About a School the Applicant Attended",
+	"type":"object",
+	"properties":{ 
+  		"schoolName":{
+			"type":"string"
+		},
+		"typeOfSchool":{
+			"type":"string"
+		},
+		"address":{
+			"type":"string"
+		},
+		"fromDate":{
+			"type":"string",
+			"format":"mm/yyyy"
+		},
+		"toDate":{
+			"type":"string",
+			"format":"mm/yyyy"
+		}
+	},
+	"required": ["all"]
+}
+

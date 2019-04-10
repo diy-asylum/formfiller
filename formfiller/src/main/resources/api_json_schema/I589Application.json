@@ -1,0 +1,144 @@
+{
+	"$id":"I589Application.json",
+	"$schema":"I589ApplicationV1",
+	"title":"I-589 Applicant Information",
+	"type":"object",
+	"properties":{ 
+		"applicantInfo": {
+			"type":"object",
+			"$ref":"ApplicantInfo.json"
+		},
+		"usTravelHistory":{
+			"type":"object",
+                        "$ref":"UsTravelHistory.json"
+		},
+		"spouseInfo":{
+			"type":"object",
+			"$ref":"SpouseInfo.json"
+		},
+		"childInfo":{
+			"type":"array",
+                        "items":{
+			   "type":"object",
+			   "$ref":"ChildInfo.json"
+			}
+		},
+		"lastAddressBeforeUS":{
+			"type":"object",
+			"description":"Applicant's last address before coming to the US.",
+			"$ref":"AddressWithDates.json"
+		},
+		"lastAddressPersecuted":{
+			"type":"object",
+			"description":"Applicant's last address in the country where they fear persecution, if different from their last address before coming to the US.",
+			"$ref":"AddressWithDates.json"
+		},
+		"residencesInLastFiveYears":{
+			"type":"array",
+			"description":"The applicant's places of residence for the past 5 years.",
+			"items":{
+				"type":"object",
+				"$ref":"AddressWithDates.json"
+			}
+		},
+		"educationInfo":{
+			"type":"array",
+			"description":"List of schools attended by applicant.",
+			"items":{
+				"type":"object",
+				"$ref":"SchoolInfo.json"
+			}
+		},
+		"employmentInfo":{
+			"type":"array",
+			"items":{
+				"type":"object",
+				"$ref":"EmploymentInfo.json"
+			}
+		},
+		"motherInfo":{
+			"type":"object",
+			"$ref":"RelativeInfo.json"
+		},
+		"fatherInfo":{
+			"type":"object",
+			"$ref":"RelativeInfo.json"
+		},
+		"siblingInfo":{
+			"type":"array",
+			"items":{
+				"type":"object",
+				"$ref":"RelativeInfo.json"
+			}
+		},
+		"whyApplying":{
+			"type":"array",
+			"description":"Answer to Question 1 on Page 5",
+			"items":{
+				"type":"string",
+				"enum":["RACE", "RELIGION", "NATIONALITY", "POLITICAL_OPINION", "MEMBERSHIP_IN_SOCIAL_GROUP", "TORTURE_CONVENTION"]
+			}
+		},
+		"experiencedHarm":{
+			"type":"object",
+			"description":"Answer to Question A on Page 5",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"fearsHarm":{
+			"type":"object",
+			"description":"Answer to Question B on Page 5",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"arrestedInOtherCountry":{
+			"type":"object",
+			"description":"Answer to Question 2 on Page 6",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"organizationInfo":{
+			"type":"object",
+			"description":"Answer to Questions 3A and 3B on Page 6",
+			"$ref":"OrganizationInformation.json"
+		},
+		"afraidOfTorture":{
+			"type":"object",
+			"description":"Answer to Question 4 on Page 6",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"relativeAppliedForAsylum":{
+			"type":"object",
+			"description":"Answer to Question 1 on Page 7",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"otherCountryApplications":{
+			"type":"object",
+			"description":"Answers to Questions 2A and 2B on Page 7",
+			"$ref":"OtherCountryApplications.json"
+		},
+		"causedHarm":{
+			"type":"object",
+			"description":"Answer to Question 3 on Page 7",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"returnCountry":{
+			"type":"object",
+			"description":"Answer to Question 4 on Page 8",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"applyAfterOneYear":{
+			"type":"object",
+			"description":"Answer to Question 5 on Page 8",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"crimeInUS":{
+			"type":"object",
+			"description":"Answer to Question 6 on Page 8",
+			"$ref":"QuestionWithExplanation.json"
+		},
+		"relativeHelpPrepare":{
+			"type":"object",
+			"description":"Did a relative help the applicant prepare this form (Page 9).",
+			"$ref":"RelativeHelpPrepare.json"
+		}
+	},
+	"required": ["applicantInfo", "usTravelHistory", "spouseInfo", "childInfo", "lastAddressBeforeUS", "residencesInLastFiveYears","educationInfo", "employmentInfo", "motherInfo", "fatherInfo","siblingInfo", "whyApplying", "experiencedHarm", "fearsHarm", "arrestedInOtherCountry", "organizationInfo", "afraidOfTorture", "relativeAppliedForAsylum", "otherCountryApplications", "causedHarm", "returnCountry", "applyAfterOneYear", "crimeInUS", "relativeHelpPrepare"]
+}

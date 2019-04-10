@@ -1,0 +1,26 @@
+{
+	"$id":"RelativeInfo.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Information About a Relative of the Applicant",
+	"type":"object",
+	"properties":{
+		"fullName":{
+			"type":"string"
+		},
+		"cityOrTownOfBirth":{
+			"type":"string"
+		},
+		"countryOfBirth":{
+			"type":"string"
+		},
+		"currentLocation":{
+			"type":"string"
+		},
+		"isDeceased":{
+			"type":"boolean"
+		}
+	},
+	"required": ["all"]
+}
+
+

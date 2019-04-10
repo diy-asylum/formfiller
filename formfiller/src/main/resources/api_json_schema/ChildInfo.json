@@ -1,0 +1,86 @@
+{
+  "$id": "ChildInfo.json",
+  "$schema":"I589ApplicationV1",
+  "title": "Child Info",
+  "description": "Personal information about a child of the applicant.",
+  "type": "object",
+  "properties": {
+    "lastName": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "middleName": {
+      "type":"string"
+    },
+    "dateOfBirth":{
+      "type":"string",
+      "format":"mm/dd/yyyy"
+    },
+    "alienRegistrationNumber":{
+      "type":"string"
+    },
+    "socialSecurityNumber":{
+      "type":"string"
+    },
+    "passportNumber":{
+      "type":"string"
+    },
+    "maritalStatus":{
+      "type":"string",
+      "enum":["SINGLE","MARRIED","DIVORCED","WIDOWED"] 
+    },
+    "cityOfBirth": {
+      "type":"string"
+    },
+    "countryOfBirth":{
+      "type":"string"
+    },
+    "nationality":{
+      "type":"string"
+    },
+    "raceEthnicOrTribalGroup": {
+      "type":"string"
+    },
+    "gender": {
+      "type":"string",
+      "enum":["MALE","FEMALE"]
+    },
+    "inUS":{
+      "type":"boolean"
+    },
+    "locationInUS":{
+      "type":"string"
+    },
+    "placeOfLastEntry":{
+      "type":"string"
+    },
+    "dateOfLastEntry":{
+      "type":"string",
+      "format":"mm/dd/yyyy"
+    },
+    "i94Number":{
+      "type":"string"
+    },
+    "immigrationStatusWhenLastAdmitted":{
+      "type":"string"
+    },
+    "currentImmigrationStatus":{
+      "type":"string"
+    },
+    "statusExpirationDate":{
+      "type":"string",
+      "format":"mm/dd/yyyy"
+    },
+    "isInImmigrationCourt":{
+      "type":"boolean"
+    },
+    "includeInApplication":{
+      "type":"boolean"
+    }
+  },
+  "required":["lastName", "firstName","middleName","dateOfBirth","maritalStatus","cityOfBirth","countryOfBirth","nationality","raceEthnicOrTribalGroup","gender","inUS"]
+}
+
+

@@ -1,0 +1,104 @@
+{
+  "$id": "ApplicantInfo.json",
+  "$schema":"I589ApplicationV1",
+  "title": "Applicant Info",
+  "description": "Personal information about the applicant.",
+  "type": "object",
+  "properties": {
+    "lastName": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "middleName": {
+      "type":"string"
+    },
+    "aliases": {
+      "type":"array",
+      "items": {
+        "type":"string"
+      }
+    },
+    "usResidence": {
+      "type":"object",
+      "$ref":"Address.json"
+    },
+    "usMailingAddress": {
+      "type":"object",
+      "$ref":"Address.json"
+    },
+    "gender": {
+      "type":"string",
+      "enum":["MALE","FEMALE"]
+    },
+    "maritalStatus": {
+      "type":"string",
+      "enum":["SINGLE","MARRIED","DIVORCED","WIDOWED"]
+    },
+    "dateOfBirth":{
+      "type":"string",
+      "format":"mm/dd/yyyy"
+    },
+    "cityOfBirth": {
+      "type":"string"
+    },
+    "countryOfBirth":{
+      "type":"string"
+    },
+    "presentNationality":{
+      "type":"string"
+    },
+    "nationalityAtBirth": {
+      "type":"string"
+    },
+    "raceEthnicOrTribalGroup": {
+      "type":"string"
+    },
+    "religion": {
+      "type":"string"
+    },
+    "nativeLanguage": {
+      "type":"string"
+    },
+    "fluentInEnglish": {
+      "type":"boolean"
+    },
+    "otherLanguages":{
+      "type":"array",
+      "items": {
+        "type":"string"
+      }
+    },
+    "alsoApplyingConventionAgainstTorture":{
+      "type":"boolean"
+    },
+    "alienRegistrationNumber":{
+      "type":"string"
+    },
+    "socialSecurityNumber":{
+      "type":"string"
+    },
+    "uscisAccountNumber":{
+      "type":"string"
+    },
+    "immigrationCourtHistory":{
+      "type":"string",
+      "enum":["NEVER","CURRENTLY","NOT_NOW_BUT_IN_THE_PAST"]
+    },
+    "countryWhoLastIssuedPassport":{
+      "type":"string"
+    },
+    "passportNumber":{
+      "type":"string"
+    },
+    "travelDocumentNumber":{
+      "type":"string"
+    },
+    "travelDocumentExpirationDate":{
+      "type":"string",
+      "format":"mm/dd/yyyy"
+    }
+  },
+  "required":["all"]
+}

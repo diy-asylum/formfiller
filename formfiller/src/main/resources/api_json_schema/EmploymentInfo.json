@@ -1,0 +1,27 @@
+{
+	"$id":"EmploymentInfo.json",
+	"$schema":"I589ApplicationV1",
+	"title":"Job Information",
+	"type":"object",
+	"properties":{
+		"employerName":{
+			"type":"string"
+		},
+		"employerAddress":{
+			"type":"string"
+		},
+		"applicantOccupation":{
+			"type":"string"
+		},
+		"fromDate":{
+			"type":"string",
+			"format":"mm/yyyy"
+		},
+		"toDate":{
+			"type":"string",
+			"format":"mm/yyyy"
+		}
+	},
+	"required": ["all"]
+}
+

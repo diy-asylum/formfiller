@@ -1,0 +1,20 @@
+{
+	"$id":"UsTravelEvent.json",
+	"$schema":"I589ApplicationV1",
+	"title":"US Travel Event",
+	"type":"object",
+	"properties": { 
+	  "date": {
+	    "type":"string",
+	    "format":"mm/dd/yyyy"
+	  },
+	  "place": {
+	    "type":"string"
+	  },
+	  "status": {
+	    "type":"string"
+	  }
+	},
+	"required": ["date", "place", "status"]
+}
+
