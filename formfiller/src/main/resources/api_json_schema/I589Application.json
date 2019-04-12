@@ -140,5 +140,5 @@
 			"$ref":"RelativeHelpPrepare.json"
 		}
 	},
-	"required": ["applicantInfo", "usTravelHistory", "spouseInfo", "childInfo", "lastAddressBeforeUS", "residencesInLastFiveYears","educationInfo", "employmentInfo", "motherInfo", "fatherInfo","siblingInfo", "whyApplying", "experiencedHarm", "fearsHarm", "arrestedInOtherCountry", "organizationInfo", "afraidOfTorture", "relativeAppliedForAsylum", "otherCountryApplications", "causedHarm", "returnCountry", "applyAfterOneYear", "crimeInUS", "relativeHelpPrepare"]
+	"required": ["applicantInfo", "usTravelHistory", "childInfo", "lastAddressBeforeUS", "residencesInLastFiveYears","educationInfo", "employmentInfo", "motherInfo", "fatherInfo","siblingInfo", "whyApplying", "experiencedHarm", "fearsHarm", "arrestedInOtherCountry", "organizationInfo", "afraidOfTorture", "relativeAppliedForAsylum", "otherCountryApplications", "causedHarm", "returnCountry", "applyAfterOneYear", "crimeInUS", "relativeHelpPrepare"]
 }
