@@ -9,7 +9,7 @@ import java.util.function.Function;
 public class I589ApplicationMapper extends AbstractMapper<I589Application> {
   public static final String FORM_URL =
       "https://www.uscis.gov/system/files_force/files/form/i-589.pdf?download=1";
-  public static final String SUPPORTED_FORM_REVISION = "Form I-589 (Rev. 05/16/17) N";
+  public static final String SUPPORTED_FORM_REVISION = "Form I-589 (Rev. 04/09/19)";
 
   private static Map<String, Function<I589Application, String>> fieldMapping;
 

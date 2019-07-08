@@ -88,7 +88,8 @@ class PdFillerTest {
     assertEquals(savedPdfSha, downloadedPdfSha, "The website checksum does not match!");
     Optional<String> extractedRevisionDate = extractRevisionDate(PDDocument.load(downloadedPdf));
     assertTrue(extractedRevisionDate.isPresent(), "Could not find the revision date");
-    assertEquals(I589ApplicationMapper.SUPPORTED_FORM_REVISION, extractedRevisionDate.get());
+    assertEquals(
+        I589ApplicationMapper.SUPPORTED_FORM_REVISION, extractedRevisionDate.get().strip());
   }
 
   @Test
