@@ -24,15 +24,15 @@ public class SpouseInfo {
   private final Optional<String> passportNumber;
   private final boolean inUS;
   private final Optional<String> location;
-  private final Optional<String> placeOfLastEntry;
-  private final Optional<String> dateOfLastEntry;
+  private final String placeOfLastEntry;
+  private final String dateOfLastEntry;
   private final Optional<String> i94Number;
   private final Optional<String> immigrationStatusWhenLastAdmitted;
-  private final Optional<String> currentImmigrationStatus;
+  private final String currentImmigrationStatus;
   private final Optional<String> statusExpirationDate; // mm/dd/yyyy
-  private final Optional<Boolean> isInImmigrationCourt;
+  private final Boolean isInImmigrationCourt;
   private final Optional<String> previousArrivalDate; // mm/dd/yyyy
-  private final Optional<Boolean> includeInApplication;
+  private final Boolean includeInApplication;
 
   @JsonCreator
   SpouseInfo(
@@ -53,16 +53,16 @@ public class SpouseInfo {
       @JsonProperty("passportNumber") Optional<String> passportNumber,
       @JsonProperty("inUS") boolean inUS,
       @JsonProperty("location") Optional<String> location,
-      @JsonProperty("placeOfLastEntry") Optional<String> placeOfLastEntry,
-      @JsonProperty("dateOfLastEntry") Optional<String> dateOfLastEntry,
+      @JsonProperty("placeOfLastEntry") String placeOfLastEntry,
+      @JsonProperty("dateOfLastEntry") String dateOfLastEntry,
       @JsonProperty("i94Number") Optional<String> i94Number,
       @JsonProperty("immigrationStatusWhenLastAdmitted")
           Optional<String> immigrationStatusWhenLastAdmitted,
-      @JsonProperty("currentImmigrationStatus") Optional<String> currentImmigrationStatus,
+      @JsonProperty("currentImmigrationStatus") String currentImmigrationStatus,
       @JsonProperty("statusExpirationDate") Optional<String> statusExpirationDate,
-      @JsonProperty("isInImmigrationCourt") Optional<Boolean> isInImmigrationCourt,
+      @JsonProperty("isInImmigrationCourt") Boolean isInImmigrationCourt,
       @JsonProperty("previousArrivalDate") Optional<String> previousArrivalDate,
-      @JsonProperty("includeInApplication") Optional<Boolean> includeInApplication) {
+      @JsonProperty("includeInApplication") Boolean includeInApplication) {
     this.alienRegistrationNumber = alienRegistrationNumber;
     this.socialSecurityNumber = socialSecurityNumber;
     this.lastName = lastName;
@@ -159,11 +159,11 @@ public class SpouseInfo {
     return location;
   }
 
-  public Optional<String> getPlaceOfLastEntry() {
+  public String getPlaceOfLastEntry() {
     return placeOfLastEntry;
   }
 
-  public Optional<String> getDateOfLastEntry() {
+  public String getDateOfLastEntry() {
     return dateOfLastEntry;
   }
 
@@ -175,7 +175,7 @@ public class SpouseInfo {
     return immigrationStatusWhenLastAdmitted;
   }
 
-  public Optional<String> getCurrentImmigrationStatus() {
+  public String getCurrentImmigrationStatus() {
     return currentImmigrationStatus;
   }
 
@@ -183,7 +183,7 @@ public class SpouseInfo {
     return statusExpirationDate;
   }
 
-  public Optional<Boolean> getIsInImmigrationCourt() {
+  public Boolean getIsInImmigrationCourt() {
     return isInImmigrationCourt;
   }
 
@@ -191,7 +191,7 @@ public class SpouseInfo {
     return previousArrivalDate;
   }
 
-  public Optional<Boolean> getIncludeInApplication() {
+  public Boolean getIncludeInApplication() {
     return includeInApplication;
   }
 
@@ -314,10 +314,10 @@ public class SpouseInfo {
         + location.orElseGet(() -> "None")
         + '\''
         + ", placeOfLastEntry='"
-        + placeOfLastEntry.orElseGet(() -> "None")
+        + placeOfLastEntry
         + '\''
         + ", dateOfLastEntry='"
-        + dateOfLastEntry.orElseGet(() -> "None")
+        + dateOfLastEntry
         + '\''
         + ", i94Number='"
         + i94Number.orElseGet(() -> "None")
@@ -326,19 +326,19 @@ public class SpouseInfo {
         + immigrationStatusWhenLastAdmitted.orElseGet(() -> "None")
         + '\''
         + ", currentImmigrationStatus='"
-        + currentImmigrationStatus.orElseGet(() -> "None")
+        + currentImmigrationStatus
         + '\''
         + ", statusExpirationDate='"
         + statusExpirationDate.orElseGet(() -> "None")
         + '\''
         + ", isInImmigrationCourt='"
-        + isInImmigrationCourt.orElseGet(() -> null)
+        + isInImmigrationCourt
         + '\''
         + ", previousArrivalDate="
         + previousArrivalDate
         + '\''
         + ", includeInApplication='"
-        + includeInApplication.orElseGet(() -> null)
+        + includeInApplication
         + '\''
         + '}';
   }
