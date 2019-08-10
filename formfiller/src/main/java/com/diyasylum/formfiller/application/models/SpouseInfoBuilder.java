@@ -8,7 +8,7 @@ public class SpouseInfoBuilder {
   private String firstName;
   private String middleName;
   private List<String> aliases;
-  private Gender gender;
+  private Optional<Gender> gender;
   private String dateOfMarriage;
   private String placeOfMarriage;
   private String dateOfBirth; // mm/dd/yyyy
@@ -27,9 +27,9 @@ public class SpouseInfoBuilder {
   private Optional<String> immigrationStatusWhenLastAdmitted;
   private String currentImmigrationStatus;
   private Optional<String> statusExpirationDate; // mm/dd/yyyy
-  private Boolean isInImmigrationCourt;
+  private boolean isInImmigrationCourt;
   private Optional<String> previousArrivalDate;
-  private Boolean includeInApplication;
+  private boolean includeInApplication;
 
   public SpouseInfoBuilder setAlienRegistrationNumber(Optional<String> alienRegistrationNumber) {
     this.alienRegistrationNumber = alienRegistrationNumber;
@@ -61,7 +61,7 @@ public class SpouseInfoBuilder {
     return this;
   }
 
-  public SpouseInfoBuilder setGender(Gender gender) {
+  public SpouseInfoBuilder setGender(Optional<Gender> gender) {
     this.gender = gender;
     return this;
   }
@@ -147,7 +147,7 @@ public class SpouseInfoBuilder {
     return this;
   }
 
-  public SpouseInfoBuilder setIsInImmigrationCourt(Boolean isInImmigrationCourt) {
+  public SpouseInfoBuilder setIsInImmigrationCourt(boolean isInImmigrationCourt) {
     this.isInImmigrationCourt = isInImmigrationCourt;
     return this;
   }
@@ -157,7 +157,7 @@ public class SpouseInfoBuilder {
     return this;
   }
 
-  public SpouseInfoBuilder setIncludeInApplication(Boolean includeInApplication) {
+  public SpouseInfoBuilder setIncludeInApplication(boolean includeInApplication) {
     this.includeInApplication = includeInApplication;
     return this;
   }

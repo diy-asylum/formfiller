@@ -94,6 +94,35 @@ const makeFillRequest = formValues => ({
     i94Number: formValues["Immigration Status"]["i94number"],
     dateStatusExpires:
       formValues["Immigration Status"]["recentEntryStatusExpiry"]
+  },
+  isMarried: false,
+  spouseInfo: {
+    alienRegistrationNumber: "",
+    socialSecurityNumber: "",
+    lastName: "",
+    firstName: "",
+    middleName: "",
+    aliases: [],
+    dateOfMarriage: "",
+    placeOfMarriage: "",
+    dateOfBirth: "",
+    dateOfBirth: "",
+    cityOfBirth: "",
+    countryOfBirth: "",
+    nationality: "",
+    raceEthnicOrTribalGroup: "",
+    passportNumber: "",
+    inUS: false,
+    location: "",
+    placeOfLastEntry: "",
+    dateOfLastEntry: "",
+    i94Number: "",
+    immigrationStatusWhenLastAdmitted: "",
+    currentImmigrationStatus: "",
+    statusExpirationDate: "",
+    isInImmigrationCourt: false,
+    previousArrivalDate: "",
+    includeInApplication: false
   }
 });
 

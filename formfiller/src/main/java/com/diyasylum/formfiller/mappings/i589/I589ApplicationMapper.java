@@ -21,7 +21,17 @@ public class I589ApplicationMapper extends AbstractMapper<I589Application> {
           new UsTravelHistoryMapper().composeMapping(I589Application::getUsTravelHistory));
       fieldMapping.putAll(
           new ApplicantInfoMapper().composeMapping(I589Application::getApplicantInfo));
+      fieldMapping.put("form1[0].#subform[1].CheckBox5[0]", this::formatIsMarried);
+      fieldMapping.putAll(new SpouseInfoMapper().composeMapping(I589Application::getSpouseInfo));
     }
     return fieldMapping;
+  }
+
+  private String formatIsMarried(I589Application application) {
+    String flag = "1";
+    if (application.getIsMarried()) {
+      flag = "Off";
+    }
+    return flag;
   }
 }

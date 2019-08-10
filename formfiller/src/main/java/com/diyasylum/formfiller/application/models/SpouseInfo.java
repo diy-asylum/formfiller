@@ -11,7 +11,7 @@ public class SpouseInfo {
   private final String firstName;
   private final String middleName;
   private final List<String> aliases;
-  private final Gender gender;
+  private final Optional<Gender> gender;
   private final String dateOfMarriage; // mm/dd/yyyy
   private final String placeOfMarriage;
   private final String dateOfBirth; // mm/dd/yyyy
@@ -30,9 +30,9 @@ public class SpouseInfo {
   private final Optional<String> immigrationStatusWhenLastAdmitted;
   private final String currentImmigrationStatus;
   private final Optional<String> statusExpirationDate; // mm/dd/yyyy
-  private final Boolean isInImmigrationCourt;
+  private final boolean isInImmigrationCourt;
   private final Optional<String> previousArrivalDate; // mm/dd/yyyy
-  private final Boolean includeInApplication;
+  private final boolean includeInApplication;
 
   @JsonCreator
   SpouseInfo(
@@ -42,7 +42,7 @@ public class SpouseInfo {
       @JsonProperty("firstName") String firstName,
       @JsonProperty("middleName") String middleName,
       @JsonProperty("aliases") List<String> aliases,
-      @JsonProperty("gender") Gender gender,
+      @JsonProperty("gender") Optional<Gender> gender,
       @JsonProperty("dateOfMarriage") String dateOfMarriage,
       @JsonProperty("placeOfMarriage") String placeOfMarriage,
       @JsonProperty("dateOfBirth") String dateOfBirth,
@@ -60,9 +60,9 @@ public class SpouseInfo {
           Optional<String> immigrationStatusWhenLastAdmitted,
       @JsonProperty("currentImmigrationStatus") String currentImmigrationStatus,
       @JsonProperty("statusExpirationDate") Optional<String> statusExpirationDate,
-      @JsonProperty("isInImmigrationCourt") Boolean isInImmigrationCourt,
+      @JsonProperty("isInImmigrationCourt") boolean isInImmigrationCourt,
       @JsonProperty("previousArrivalDate") Optional<String> previousArrivalDate,
-      @JsonProperty("includeInApplication") Boolean includeInApplication) {
+      @JsonProperty("includeInApplication") boolean includeInApplication) {
     this.alienRegistrationNumber = alienRegistrationNumber;
     this.socialSecurityNumber = socialSecurityNumber;
     this.lastName = lastName;
@@ -115,7 +115,7 @@ public class SpouseInfo {
     return aliases;
   }
 
-  public Gender getGender() {
+  public Optional<Gender> getGender() {
     return gender;
   }
 
@@ -183,7 +183,7 @@ public class SpouseInfo {
     return statusExpirationDate;
   }
 
-  public Boolean getIsInImmigrationCourt() {
+  public boolean getIsInImmigrationCourt() {
     return isInImmigrationCourt;
   }
 
@@ -191,7 +191,7 @@ public class SpouseInfo {
     return previousArrivalDate;
   }
 
-  public Boolean getIncludeInApplication() {
+  public boolean getIncludeInApplication() {
     return includeInApplication;
   }
 
