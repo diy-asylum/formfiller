@@ -1,25 +1,23 @@
-# formfiller
+# DIY Asylum
 [![Build Status](https://travis-ci.org/diy-asylum/formfiller.svg?branch=master)](https://travis-ci.org/diy-asylum/formfiller)
 [![Coverage Status](https://coveralls.io/repos/github/diy-asylum/formfiller/badge.svg?branch=master)](https://coveralls.io/github/diy-asylum/formfiller?branch=master)
 
+The DIY Asylum project is a web application designed to help asylum applicants in the US. The process of completing and submitting the I-589 asylum application form can be a difficult process, and this difficulty is compounded by the often tragic circumstances that led asylum seekers to the US. Our application will help asylum seekers fill out the I-589 form, ensure this form is prepared in accordance with all applicable laws, provide instructions on where and how to submit the forms, and also provide links to legal resources. Our goal is to have these functionalities available in English, as well as the most common languages of US asylum seekers. 
 
-the DIY asylum monorepo
+This repo contains the open source code behind our application. Our service consists of two components. The frontend Javascript client, written in React, provides a UI for the applicant to enter their information. This is hosted by a Node server which handles hosting the website, as well as a light interface to the backend. The backend is a Java server which handles the processing of the form, including business logic related to text formatting and correct generation of supplemental forms. 
 
-Repo uses the gradle wrapper for its builds
+Because of the sensitivity of the data that asylum seekers may be entering, we do not maintain a database of applicant information. This, along with standard encryption through HTTPS, reduces the risk of applicant data leakage. In order to allow applicants to save and resume their progress, we will provide them with an encrypted file that represents their current state in the app along with a password to decrypt the file. They can then upload the file, along with their password, to resume progress.
 
-While gradle is a tool that can be installed it is *highly* recommended to use the included
+The ops folder contains Docker and Terraform scripts for running the app locally, or in AWS. To deploy both front and back ends locally, run `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml build` then `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml up`
+
+## Build
+The repo uses the gradle wrapper for its builds. While gradle is a tool that can be installed it is *highly* recommended to use the included
 gradle wrapper. This will ensure you are running the right version of gradle.
 
-## TLDR
+If you want to run the sever just run `./gradlew bootRun` which will run the server till you kill it with ctrl-c. If you want to build the command line app run `./gradlew shadowJar` and grab it from `formfiller/formfiller/build/libs/formfiller-1.0-SNAPSHOT-all.jar`. Any artifacts from builds are put in either the root `build` dir or the subprojects `build.dir`
 
-Just make sure you run `./gradlew spotlessApply` before committing.
-If you want to run the sever just run `./gradlew bootRun` which will run the server till you kill it with ctrl-c
-If you want to build the command line app run `./gradlew shadowJar` and grab it from `formfiller/formfiller/build/libs/formfiller-1.0-SNAPSHOT-all.jar`
-To deploy both front and back ends locally, run `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml build` then `sudo docker-compose -f ops/local_docker_compose/docker-compose.yml up`
-
-Any artifacts from builds are put in either the root `build` dir or the subprojects `build.dir`
-
-## PR build
+Make sure you run `./gradlew spotlessApply` before committing.
+## CI/CD
 
 When a PR is made 3 checks are made
 
@@ -50,17 +48,16 @@ For more information see [The Travis Docs](https://docs.travis-ci.com/user/langu
 
 ## That's fine but what is all this gradle stuff
 
-So this is a monorepo. Gradle is the glue that builds the project as one. We are using a gradle "multiproject" build To understand gradle better I suggest
+So this is a monorepo. Gradle is the glue that builds the project as one. We are using a gradle "multiproject" build. To understand gradle better I suggest reading 
 [This](https://guides.gradle.org/building-java-applications/) and [This](https://guides.gradle.org/creating-multi-project-builds/)
 
-Gradle is a vast and powerful system and im sure there is stuff thats not quite right in the build but lets walk though what we are trying to do.
+Gradle is a vast and powerful system and I'm sure there is stuff thats not quite right in the build but let's walk though what we are trying to do.
 
 The build has a root project and three subprojects. (formfiller, formserver, diy_asylum_frontend)
 
-The root projects all have a `build.gradle` file. In addition some projects have a `settings.gradle` file which define what projects a
-particular project depends on. For example: formserver declares formfiller as a dependency since formserver relies on formfiller to work with the pdf
+The root projects all have a `build.gradle` file. In addition some projects have a `settings.gradle` file which define what project dependencies. For example: formserver declares formfiller as a dependency since formserver relies on formfiller to work with the pdf.
 
-[The root build.gradle](build.gradle) defines what is common to all the projects (Style, and how to run java tests). It also
+[The root build.gradle](build.gradle) defines what is common to all the projects (style, and how to run java tests). It also
 can drive all the subprojects if you desire. Run `./gradlew tasks` from the root project to see everything.
 
 ```
@@ -168,6 +165,6 @@ Use '--warning-mode all' to show the individual deprecation warnings.
 See https://docs.gradle.org/5.0/userguide/command_line_interface.html#sec:command_line_warnings
 ```
 
-the `diy_asylum_frontend` is unique in that its JS. The build file simply
+For `diy_asylum_frontend` the build file simply
 defines a few tasks that run node commands and tells gradle when to run them. You are not required to use gradle
-to work with the JS its just here for CI
+to work with the JS it's just here for CI.
